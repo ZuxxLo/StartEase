@@ -33,7 +33,7 @@ class ViewProfileInformations extends StatelessWidget {
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                          ProfilePicture(),
+                          const ProfilePicture(),
                         Positioned(
                           right: 0,
                           bottom: 0,

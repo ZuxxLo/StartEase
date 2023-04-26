@@ -12,7 +12,7 @@ class PermissionsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     data['message'] = message;
     if (this.data != null) {
@@ -58,7 +58,7 @@ class Permissions {
   }
 
   Map<String, dynamic> toJson(Permissions permission) {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     // data['id'] = id;
     data['name'] = permission.name;
     return data;

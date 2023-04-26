@@ -11,8 +11,7 @@ class PermissionsManagement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    final PermissionsManagementController permissionsManagement = Get.find();
+     final PermissionsManagementController permissionsManagement = Get.find();
 
     return Scaffold(
       appBar: AppBar(
@@ -29,10 +28,10 @@ class PermissionsManagement extends StatelessWidget {
         },
       ),floatingActionButtonLocation:FloatingActionButtonLocation.endTop ,
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 20, right: 70),
+            padding: const EdgeInsets.only(left: 20, right: 70),
             child: Text("createRole6".tr),
           ),
           const Divider(),
@@ -41,13 +40,13 @@ class PermissionsManagement extends StatelessWidget {
               height: screenHeight - 150,
               child: permissionsManagement.allPermissionsList.isNotEmpty
                   ? ListView.separated(
-                       physics: BouncingScrollPhysics(),
+                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount:
                           permissionsManagement.allPermissionsList.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          padding: EdgeInsets.only(left: 30, right: 20),
+                          padding: const EdgeInsets.only(left: 30, right: 20),
                           height: 40,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,16 +63,16 @@ class PermissionsManagement extends StatelessWidget {
                                         permissionsManagement
                                             .allPermissionsList[index].id);
                                   },
-                                  icon: DeleteIcon())
+                                  icon: const DeleteIcon())
                             ],
                           ),
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return Divider();
+                        return const Divider();
                       },
                     )
-                  : Center(child: CircularProgressIndicator()),
+                  : const Center(child: CircularProgressIndicator()),
             );
           })
         ],

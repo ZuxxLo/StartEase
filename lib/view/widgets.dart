@@ -1,10 +1,8 @@
-import 'dart:ui';
-
+ 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-
+ 
 import '../Themes/colors.dart';
 import '../backend/link_api.dart';
 import '../main.dart';
@@ -19,7 +17,7 @@ class LogoStartEase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image(
         color: Theme.of(context).primaryColorLight,
-        image: Svg(
+        image: const Svg(
           "assets/images/start_ease_logo.svg",
         ));
   }
@@ -193,7 +191,7 @@ class ProfilePicture extends StatelessWidget {
                         linkServerName + userModel.photoUrl!.substring(21),
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         },
                       )
                     : Image.file(
@@ -234,7 +232,7 @@ class ProfilePictureForOtherUsers extends StatelessWidget {
                         linkServerName + userModel.photoUrl!.substring(21),
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         },
                       )
                   )
@@ -286,8 +284,7 @@ class SmallBodyText extends StatelessWidget {
         ),
       );
     } catch (e) {
-      print(e);
-      return Text("");
+       return const Text("");
     }
   }
 }

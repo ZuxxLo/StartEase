@@ -133,6 +133,7 @@ class AllRolesController extends GetxController {
             if (value!.isEmpty) {
               return "newPermission1".tr;
             }
+            return null;
           },
           onChanged: (value) {
             newPermissionName = value;

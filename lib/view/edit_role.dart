@@ -12,8 +12,7 @@ class EditRole extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    final AllRolesController allRolesController = Get.find();
+     final AllRolesController allRolesController = Get.find();
     return Scaffold(
       appBar: AppBar(
         //  title: Text("edit".tr),
@@ -23,7 +22,7 @@ class EditRole extends StatelessWidget {
               onPressed: () {
                 allRolesController.updateRolePermissions();
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.done_outline,
                 size: 30,
                 color: purpleColor,
@@ -31,10 +30,10 @@ class EditRole extends StatelessWidget {
         ],
       ),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 20, right: 70),
+            padding: const EdgeInsets.only(left: 20, right: 70),
             child: Text("createRole6".tr),
           ),
           const Divider(),
@@ -43,12 +42,12 @@ class EditRole extends StatelessWidget {
               height: screenHeight - 150,
               child: allRolesController.rolesList!.isNotEmpty
                   ? ListView.separated(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: allRolesController.allPermissionsList.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          padding: EdgeInsets.only(left: 30, right: 20),
+                          padding: const EdgeInsets.only(left: 30, right: 20),
                           height: 40,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,10 +81,10 @@ class EditRole extends StatelessWidget {
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return Divider();
+                        return const Divider();
                       },
                     )
-                  : Text("is empty "),
+                  : const Text("is empty "),
             );
           })
         ],

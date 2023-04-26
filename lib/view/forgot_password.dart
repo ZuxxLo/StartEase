@@ -14,8 +14,7 @@ class ForgotPassword extends StatelessWidget {
     final ForgotPasswordController forgotPasswordController = Get.find();
 
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
         leading: const BackIconButton(),
       ),
@@ -26,7 +25,7 @@ class ForgotPassword extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
           height: screenHeight / 1.35,
           child: PageView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: forgotPasswordController.pageController,
             children: [
               Column(
@@ -81,7 +80,7 @@ class ForgotPassword extends StatelessWidget {
                                   .inputfgbEmail(emailAddress);
                             },
                             decoration: InputDecoration(
-                                prefixIcon: EmailIcon(),
+                                prefixIcon: const EmailIcon(),
 
                                 // focusedBorder: OutlineInputBorder(
                                 //     borderSide: BorderSide(
@@ -184,7 +183,7 @@ class ForgotPassword extends StatelessWidget {
                         TextButton(
                             style: ButtonStyle(
                                 side: MaterialStateProperty.all(
-                                    BorderSide(color: bluePurpleColor)),
+                                    const BorderSide(color: bluePurpleColor)),
                                 overlayColor: MaterialStateColor.resolveWith(
                                     (states) =>
                                         bluePurpleColor.withOpacity(0.2)),
@@ -197,13 +196,13 @@ class ForgotPassword extends StatelessWidget {
                                 color: bluePurpleColor,
                               ),
                             )),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextButton(
                             style: ButtonStyle(
                                 side: MaterialStateProperty.all(
-                                    BorderSide(color: bluePurpleColor)),
+                                    const BorderSide(color: bluePurpleColor)),
                                 overlayColor: MaterialStateColor.resolveWith(
                                     (states) =>
                                         bluePurpleColor.withOpacity(0.2)),

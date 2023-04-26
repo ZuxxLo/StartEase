@@ -90,12 +90,7 @@ class CreateRoleController extends GetxController {
       MainFunctions.somethingWentWrongSnackBar("addPermissions".tr);
     }
   }
-
-  @override
-  void onInit() async {
-    // TODO: implement onInit
-    super.onReady();
-  }
+ 
 
   void roleNameInput(String value) {
     roleName = value;

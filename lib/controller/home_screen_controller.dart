@@ -43,14 +43,12 @@ class HomeScreenController extends GetxController {
 
     if (response != null) {
       MainFunctions.sharredPrefs?.clear();
-      print(response);
 
       Get.offAllNamed("/Login");
 
       Get.back();
     } else {
       if (!Get.isSnackbarOpen) {
-        print(response);
 
         MainFunctions.somethingWentWrongSnackBar(); //voxeee  //Password#0
       }
@@ -79,7 +77,7 @@ class HomeScreenController extends GetxController {
                   Get.back();
                 },
                 child: Text("francais".tr)),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextButton(
@@ -110,7 +108,7 @@ class HomeScreenController extends GetxController {
                   Get.back();
                 },
                 child: Text("lightTheme".tr)),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextButton(

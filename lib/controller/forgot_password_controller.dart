@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:startease/Themes/colors.dart';
 
 import '../backend/crud.dart';
 import '../backend/link_api.dart';
 import '../main.dart';
-import '../model/user_model.dart';
 
 class ForgotPasswordController extends GetxController {
   final emailFormKey = GlobalKey<FormState>();
@@ -125,7 +121,7 @@ class ForgotPasswordController extends GetxController {
       Get.defaultDialog(
         barrierDismissible: false,
         title: "successResetPassword".tr,
-        content: Text(""),
+        content: const Text(""),
       );
       Future.delayed(const Duration(seconds: 2), () {
         Get.back(closeOverlays: true);

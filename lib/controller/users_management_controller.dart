@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 import 'package:startease/backend/link_api.dart';
 import 'package:startease/model/roles_model.dart';
 import 'package:startease/model/user_model.dart';
-import 'package:startease/view/user_details.dart';
-
+ 
 import '../backend/crud.dart';
 import '../main.dart';
 
@@ -43,7 +41,6 @@ class UsersManagementController extends GetxController {
 
     userDetails?.roles?.forEach((element) {
       element.value = true;
-      print(element.name);
       for (var elementt in allRolesList!) {
         if (elementt.id == element.id) {
           elementt.value = true;
@@ -53,12 +50,10 @@ class UsersManagementController extends GetxController {
   }
 
   Future<void> enableDisable() async {
-    print(userDetails?.isEnabled);
     if (userDetails?.isEnabled == 0) {
       if (await MainFunctions.checkInternetConnection()) {
         var response =
             await Crud.putRequest("$usersLink/enable/${userDetails?.id}", {});
-        print(response);
         if (response != null && response["success"] == true) {
           userDetails?.isEnabled = 1;
           MainFunctions.successSnackBar("accountEnabled".tr);
@@ -70,7 +65,6 @@ class UsersManagementController extends GetxController {
       if (await MainFunctions.checkInternetConnection()) {
         var response =
             await Crud.putRequest("$usersLink/disable/${userDetails?.id}", {});
-        print(response);
         if (response != null && response["success"] == true) {
           MainFunctions.successSnackBar("accountDisabled".tr);
           userDetails?.isEnabled = 0;
@@ -106,7 +100,6 @@ class UsersManagementController extends GetxController {
       var response = await Crud.putRequest("$usersLink/update/roles",
           {"user": userDetails?.id, "roles": tempList});
 
-      print(response);
       if (response != null && response["success"] == true) {
         loadAllUsers();
          MainFunctions.successSnackBar("updatedSuccess".tr);

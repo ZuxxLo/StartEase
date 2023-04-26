@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:startease/Themes/colors.dart';
 import 'package:startease/view/widgets.dart';
 
 import '../backend/link_api.dart';
@@ -13,16 +14,15 @@ class AllUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     final UsersManagementController usersManagementController = Get.find();
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
-        leading: BackIconButton(),
+        leading: const BackIconButton(),
         title: Text(
           "allUsers".tr,
         ),
       ),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           const Divider(),
           GetBuilder<UsersManagementController>(builder: (context) {
@@ -30,7 +30,7 @@ class AllUsers extends StatelessWidget {
               height: screenHeight - 150,
               child: usersManagementController.allUsersList.isNotEmpty
                   ? ListView.separated(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: usersManagementController.allUsersList.length,
                       itemBuilder: (context, index) {
@@ -39,8 +39,13 @@ class AllUsers extends StatelessWidget {
                             usersManagementController.goToUserDetails(index);
                           },
                           child: Container(
-                            padding: EdgeInsets.only(left: 30, right: 20),
+                            padding: const EdgeInsets.only(left: 30, right: 20),
                             height: 40,
+                            color: usersManagementController
+                                        .allUsersList[index].isEnabled ==
+                                    1
+                                ? transparentColor
+                                : redColor.withOpacity(0.08),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -60,7 +65,7 @@ class AllUsers extends StatelessWidget {
                                             fit: BoxFit.cover,
                                             errorBuilder:
                                                 (context, error, stackTrace) {
-                                              return CircularProgressIndicator();
+                                              return const CircularProgressIndicator();
                                             },
                                           ))
                                         : ClipOval(
@@ -82,7 +87,7 @@ class AllUsers extends StatelessWidget {
                                               ),
                                             ),
                                           )),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Expanded(
@@ -90,17 +95,17 @@ class AllUsers extends StatelessWidget {
                                       text:
                                           "${usersManagementController.allUsersList[index].firstName} ${usersManagementController.allUsersList[index].lastName}"),
                                 ),
-                                SendIcon()
+                                const SendIcon()
                               ],
                             ),
                           ),
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return Divider();
+                        return const Divider();
                       },
                     )
-                  : Center(child: CircularProgressIndicator()),
+                  : const Center(child: CircularProgressIndicator()),
             );
           })
         ],

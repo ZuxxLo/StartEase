@@ -4,8 +4,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
 import 'package:startease/view/widgets.dart';
-import 'package:startease/view/widgets.dart';
-
+ 
 import '../backend/link_api.dart';
 import '../controller/users_management_controller.dart';
 import '../main.dart';
@@ -17,13 +16,12 @@ class UserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final UsersManagementController usersManagementController = Get.find();
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    return DefaultTabController(
+     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          leading: BackIconButton(),
+          leading: const BackIconButton(),
           title: TabBar(
               indicatorPadding: const EdgeInsets.only(bottom: 2),
               indicatorColor: purpleColor,
@@ -38,7 +36,7 @@ class UserDetails extends StatelessWidget {
               ]),
         ),
         body: TabBarView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
             SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
@@ -59,7 +57,7 @@ class UserDetails extends StatelessWidget {
                                       .substring(21),
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               },
                             ))
                           : ClipOval(
@@ -77,7 +75,7 @@ class UserDetails extends StatelessWidget {
                                 ),
                               ),
                             )),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   TitleMediumText(
@@ -99,7 +97,7 @@ class UserDetails extends StatelessWidget {
                       TextFormField(
                         enabled: false,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.perm_contact_cal_sharp),
+                          prefixIcon: const Icon(Icons.perm_contact_cal_sharp),
                           hintText:
                               usersManagementController.userDetails?.username,
                         ),
@@ -169,6 +167,12 @@ class UserDetails extends StatelessWidget {
                   ),
 
                   TextButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            usersManagementController.userDetails?.isEnabled ==
+                                    1
+                                ? redColor
+                                : bluePurpleColor)),
                     onPressed: () {
                       usersManagementController.enableDisable();
                     },
@@ -190,7 +194,7 @@ class UserDetails extends StatelessWidget {
                   SizedBox(
                     height: screenHeight - 200,
                     child: ListView.separated(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       itemCount: usersManagementController.allRolesList!.length,
                       itemBuilder: (context, index) {
                         return SizedBox(

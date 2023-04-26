@@ -78,12 +78,10 @@ class LoginController extends GetxController {
 
     var response = await Crud.postRequest(
         loginLink, {"email": userModel.email, "password": password});
-    print(response);
 
     if (response != null &&
         response["success"] == true &&
         response["message"] == "Login succesfull") {
-      print(response);
       MainFunctions.sharredPrefs
           ?.setString("authToken", response["data"]["token"]);
       userModel = UserModel.fromJson(response);
@@ -100,7 +98,6 @@ class LoginController extends GetxController {
 
       MainFunctions.somethingWentWrongSnackBar(response["message"]);
     } else if (response != null && response["success"] == false) {
-      print(response);
       Get.back();
       loginError = true;
       update();

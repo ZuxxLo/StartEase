@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+ 
 import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
 import 'package:startease/controller/all_roles_controller.dart';
@@ -13,23 +12,22 @@ class AllRoles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    final AllRolesController allRolesController = Get.find();
+     final AllRolesController allRolesController = Get.find();
     return Scaffold(
       appBar: AppBar(
         //  title: Text("roles".tr),
         leading: const BackIconButton(),
       ),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 20, right: 70),
+            padding: const EdgeInsets.only(left: 20, right: 70),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("roles".tr),
-                SizedBox(
+                const SizedBox(
                   width: 50,
                 ),
                 Text("users".tr)
@@ -42,12 +40,12 @@ class AllRoles extends StatelessWidget {
               height: screenHeight - 150,
               child: allRolesController.rolesList!.isNotEmpty
                   ? !allRolesController.rolesList!.contains(Roles(id: -77,name: "error77empty"))? ListView.separated(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: allRolesController.rolesList!.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          padding: EdgeInsets.only(left: 20, right: 0),
+                          padding: const EdgeInsets.only(left: 20, right: 0),
                           height: 40,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,11 +65,11 @@ class AllRoles extends StatelessWidget {
                                               .toString()),
                                     ]),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 50,
                               ),
                               PopupMenuButton<int>(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.more_vert,
                                   color: purpleColor,
                                 ),
@@ -101,10 +99,10 @@ class AllRoles extends StatelessWidget {
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return Divider();
+                        return const Divider();
                       },
-                    ) : Text("//")
-                  : Center(child: CircularProgressIndicator()),
+                    ) : const Text("//")
+                  : const Center(child: CircularProgressIndicator()),
             );
           })
         ],

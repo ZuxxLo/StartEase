@@ -54,11 +54,9 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   MainFunctions.sharredPrefs = await SharedPreferences.getInstance();
-  print(MainFunctions.sharredPrefs?.getString("authToken"));
-  MainFunctions.getBoolisInternetConnected();
+   MainFunctions.getBoolisInternetConnected();
   await MainFunctions.initialFetchLoggedin();
-  print(userModel.photoUrl);
-
+ 
   runApp(const MainApp());
 }
 
@@ -73,7 +71,7 @@ class MainApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: [const Locale('en'), const Locale('fr')],
+        supportedLocales: const [Locale('en'), Locale('fr')],
         debugShowCheckedModeBanner: false,
         defaultTransition: Transition.cupertino,
         locale: Languages.initLang(),
@@ -162,8 +160,6 @@ class MainFunctions {
       isInternetConnected = false;
     }
 
-    print(isInternetConnected);
-    print("object");
   }
 
   ///
@@ -209,7 +205,7 @@ class MainFunctions {
     if (!Get.isSnackbarOpen) {
       Get.rawSnackbar(
           duration: const Duration(seconds: 5),
-          message: errorText == null ? "somethingWentWrong".tr : errorText,
+          message: errorText ?? "somethingWentWrong".tr,
           showProgressIndicator: true,
           snackPosition: SnackPosition.TOP,
           icon: const Icon(

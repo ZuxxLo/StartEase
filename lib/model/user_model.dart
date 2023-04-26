@@ -43,7 +43,7 @@ class UserModel {
     if (json['roles'] != null) {
       roles = <Roles>[];
       json['roles'].forEach((v) {
-        roles!.add(new Roles.fromJson(v));
+        roles!.add(  Roles.fromJson(v));
       });
     }
     token = json["data"]["token"];
@@ -62,7 +62,7 @@ class UserModel {
     if (json['roles'] != null) {
       roles = <Roles>[];
       json['roles'].forEach((v) {
-        roles!.add(new Roles.fromJson(v));
+        roles!.add(  Roles.fromJson(v));
       });
     }
     // token = json["data"]["token"];

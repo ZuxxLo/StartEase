@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 import '../main.dart';

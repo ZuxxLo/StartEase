@@ -11,8 +11,7 @@ class ChangePassword extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProfilePageController profilePageController = Get.find();
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
         title: Text("changePassword".tr),
         leading: const BackIconButton(),

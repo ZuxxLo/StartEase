@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
 
 import '../controller/role_management_controller.dart';
-import '../main.dart';
-import 'widgets.dart';
+ import 'widgets.dart';
 
 class RoleManagemenet extends StatelessWidget {
   const RoleManagemenet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+ 
     final RoleManagemenetController roleManagemenetController = Get.find();
     return Scaffold(
         appBar: AppBar(
@@ -24,7 +21,7 @@ class RoleManagemenet extends StatelessWidget {
         ),
         body: Center(
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
             child: Column(
              
@@ -55,7 +52,7 @@ class RoleManagemenet extends StatelessWidget {
                         "roles".tr,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       )
                     ]),
@@ -84,7 +81,7 @@ class RoleManagemenet extends StatelessWidget {
                         "createRole".tr,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       )
                     ]),
@@ -115,7 +112,7 @@ class RoleManagemenet extends StatelessWidget {
                         "permissionsManagement".tr,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       )
                     ]),

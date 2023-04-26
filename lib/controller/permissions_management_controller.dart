@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 
 import '../backend/crud.dart';
 import '../backend/link_api.dart';
@@ -51,7 +50,7 @@ class PermissionsManagementController extends GetxController {
                     Get.back();
                   },
                   child: Text("confirm".tr)),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextButton(
@@ -85,8 +84,7 @@ class PermissionsManagementController extends GetxController {
         response["message"] == "The name has already been taken.") {
       MainFunctions.somethingWentWrongSnackBar("permissionNameTaken".tr);
     } else {
-      print(response);
-      MainFunctions.somethingWentWrongSnackBar();
+       MainFunctions.somethingWentWrongSnackBar();
     }
     update();
   }
@@ -124,6 +122,7 @@ class PermissionsManagementController extends GetxController {
             if (value!.isEmpty) {
               return "newPermission1".tr;
             }
+            return null;
           },
           onChanged: (value) {
             newPermissionName = value;

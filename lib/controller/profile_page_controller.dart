@@ -15,7 +15,7 @@ class ProfilePageController extends GetxController {
   bool someError = false;
 
   bool securedPassword = true;
-  String? newUsername;
+  String? newUsername = userModel.username;
   String? newPassword;
   String? oldPassword;
   String? newPhoneNumber = "+46731298920";
@@ -40,7 +40,6 @@ class ProfilePageController extends GetxController {
   }
 
 //project_holder@gmail.com password
- 
 
   void goToInformationsPage() {
     Get.toNamed("/ViewProfileInformations");
@@ -68,14 +67,11 @@ class ProfilePageController extends GetxController {
         Get.back();
         MainFunctions.successSnackBar("enterSMS".tr);
       } else if (response != null && response["success"] == false) {
-        print(response);
-
         someError = true;
         Get.back();
         MainFunctions.somethingWentWrongSnackBar();
       } else {
         Get.back();
-        print("here errrror");
 
         MainFunctions.somethingWentWrongSnackBar();
       }
@@ -93,7 +89,7 @@ class ProfilePageController extends GetxController {
         content: TextButton(
             style: ButtonStyle(
                 fixedSize:
-                    MaterialStateProperty.all(Size(double.maxFinite, 45))),
+                    MaterialStateProperty.all(const Size(double.maxFinite, 45))),
             onPressed: () {
               openAppSettings();
             },
@@ -105,30 +101,24 @@ class ProfilePageController extends GetxController {
             .pickImage(source: ImageSource.gallery, imageQuality: 85);
         if (image == null) return;
         MainFunctions.pickedImage = File(image.path);
-        print("*//*/*/*/");
-        print(MainFunctions.pickedImage?.absolute);
-        print("*//*/*/*/");
 
         var size = MainFunctions.pickedImage?.readAsBytesSync().lengthInBytes;
-        print(size);
         if (size! <= 2097152) {
           var response = await Crud.postRequestWithFile(
               "$usersLink/update/photo", {}, MainFunctions.pickedImage!);
 
-          print('/************');
           if (response != null && response["success"] == true) {
             imageCache.clear();
             PaintingBinding.instance.imageCache.clear();
 
             imageCache.clearLiveImages();
-           } else {
+          } else {
             MainFunctions.somethingWentWrongSnackBar("${response["message"]}");
           }
         } else {
           MainFunctions.somethingWentWrongSnackBar("image too big");
         }
       } catch (e) {
-        print('Failed to pick image: $e');
         MainFunctions.somethingWentWrongSnackBar("$e");
       }
     }
@@ -167,7 +157,6 @@ class ProfilePageController extends GetxController {
   }
 
   confirm() async {
-    print(MainFunctions.sharredPrefs!.getString("authToken"));
     if (newUsername == userModel.username) {
       MainFunctions.somethingWentWrongSnackBar("ownUsername".tr);
     } else {
@@ -180,7 +169,6 @@ class ProfilePageController extends GetxController {
           "username": newUsername,
         });
 
-        print(response);
         if (response != null && response["success"] == true) {
           userModel.username = newUsername!;
           Get.back();
@@ -216,7 +204,6 @@ class ProfilePageController extends GetxController {
       });
       if (response != null && response["success"] == true) {
         Get.back();
-        print(response);
         MainFunctions.successSnackBar("successResetPassword".tr);
       } else if (response != null &&
           response["success"] == false &&
@@ -237,13 +224,9 @@ class ProfilePageController extends GetxController {
     update();
   }
 
- 
-   
-
-
   @override
   void onInit() {
-     getBoolisInternetConnected();
+    getBoolisInternetConnected();
     super.onInit();
   }
 }

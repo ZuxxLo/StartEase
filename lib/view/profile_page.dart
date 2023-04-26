@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 
-import '../Themes/colors.dart';
-import '../controller/profile_page_controller.dart';
+ import '../controller/profile_page_controller.dart';
 import '../main.dart';
 import 'widgets.dart';
 
@@ -12,14 +10,12 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfilePageController profilePageController = Get.find();
-
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+ 
 
     return Scaffold(
         key: profilePageController.scaffoldKey,
         appBar: AppBar(
-          leading: BackIconButton(),
+          leading: const BackIconButton(),
           title: Text("Account".tr),
         ),
 
@@ -41,7 +37,7 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ProfilePicture(),
+                    const ProfilePicture(),
                     TitleMediumText(
                         text: "${userModel.firstName} ${userModel.lastName}"),
                     UserNameText(text: "@${userModel.username}"),

@@ -11,8 +11,7 @@ class CreateRole extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
-    final CreateRoleController createRoleController = Get.find();
+     final CreateRoleController createRoleController = Get.find();
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -21,7 +20,7 @@ class CreateRole extends StatelessWidget {
         leading: const BackIconButton(),
       ),
       body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -29,14 +28,14 @@ class CreateRole extends StatelessWidget {
           children: [
             Center(
               child: GetBuilder<CreateRoleController>(builder: (context) {
-                return Container(
+                return SizedBox(
                   width: double.maxFinite,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 10, right: 10),
-                        child: Divider(
+                        margin: const EdgeInsets.only(left: 10, right: 10),
+                        child: const Divider(
                           color: Colors.grey,
                           thickness: 2,
                         ),
@@ -64,10 +63,10 @@ class CreateRole extends StatelessWidget {
               }),
             ),
             Container(
-              padding: EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 20),
               height: screenHeight - 100,
               child: PageView(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 controller: createRoleController.pageController,
                 onPageChanged: (value) {
                   createRoleController.changeStepCurrentIndex(value);
@@ -78,11 +77,11 @@ class CreateRole extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TitleMediumText(text: "createRole".tr),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SmallBodyText(text: "createRole1".tr),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       TextButton(
@@ -98,11 +97,11 @@ class CreateRole extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       TitleMediumText(text: "createRole3".tr),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SmallBodyText(text: "createRole4".tr),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Form(
@@ -117,10 +116,11 @@ class CreateRole extends StatelessWidget {
                             if (value!.isEmpty) {
                               return "enterRoleName".tr;
                             }
+                            return null;
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       TextButton(
@@ -141,22 +141,22 @@ class CreateRole extends StatelessWidget {
                       Column(
                         children: [
                           TitleMediumText(text: "createRole6".tr),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           SmallBodyText(text: "createRole7".tr),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           GetBuilder<CreateRoleController>(builder: (context) {
-                            return Container(
+                            return SizedBox(
                               height: screenHeight - 350,
                               child: createRoleController
                                       .permissionsList.isNotEmpty
                                   ? ListView.separated(
-                                      physics: BouncingScrollPhysics(),
+                                      physics: const BouncingScrollPhysics(),
                                       separatorBuilder: (context, index) {
-                                        return SizedBox(
+                                        return const SizedBox(
                                           height: 5,
                                         );
                                       },
@@ -189,10 +189,10 @@ class CreateRole extends StatelessWidget {
                                           ],
                                         );
                                       })
-                                  : Center(child: Text("is empty ")),
+                                  : const Center(child: Text("is empty ")),
                             );
                           }),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                         ],

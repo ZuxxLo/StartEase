@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 import 'package:startease/view/role_management.dart';
 import 'package:startease/view/users_management.dart';
 
@@ -14,12 +13,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeScreenController homeScreenController = Get.find();
-
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+ 
 
     List<BottomNavigationBarItem> bottomNavigationBarItemList = [
-      BottomNavigationBarItem(
+      const BottomNavigationBarItem(
         label: "",
         icon: Icon(
           Icons.settings,
@@ -65,7 +62,7 @@ class HomeScreen extends StatelessWidget {
             tileColor: transparentColor,
             shape: const RoundedRectangleBorder(),
             leading:
-                Get.isDarkMode ? Icon(Icons.dark_mode) : Icon(Icons.light_mode),
+                Get.isDarkMode ? const Icon(Icons.dark_mode) : const Icon(Icons.light_mode),
             title: GetBuilder<HomeScreenController>(builder: (context) {
               return Text('theme'.tr);
             }),
@@ -89,13 +86,9 @@ class HomeScreen extends StatelessWidget {
             visualDensity: const VisualDensity(vertical: -4),
             tileColor: transparentColor,
             shape: const RoundedRectangleBorder(),
-            leading: const ImageIcon(
-                size: 30,
-                Svg(
-                  "assets/icons/edit_icon.svg",
-                )),
+            leading: const Icon(Icons.person_pin_outlined),
             title: GetBuilder<HomeScreenController>(builder: (context) {
-              return Text('yourInformations'.tr);
+              return Text('Account'.tr);
             }),
             onTap: () {
               homeScreenController.goToProfil();
@@ -105,7 +98,7 @@ class HomeScreen extends StatelessWidget {
             visualDensity: const VisualDensity(vertical: -4),
             tileColor: transparentColor,
             shape: const RoundedRectangleBorder(),
-            leading: Icon(Icons.info_outline),
+            leading: const Icon(Icons.info_outline),
             title: GetBuilder<HomeScreenController>(builder: (context) {
               return Text('aboutUs'.tr);
             }),
@@ -117,7 +110,7 @@ class HomeScreen extends StatelessWidget {
             visualDensity: const VisualDensity(vertical: -4),
             tileColor: transparentColor,
             shape: const RoundedRectangleBorder(),
-            leading: Icon(Icons.exit_to_app),
+            leading: const Icon(Icons.exit_to_app),
             title: GetBuilder<HomeScreenController>(builder: (context) {
               return Text('signOut'.tr);
             }),

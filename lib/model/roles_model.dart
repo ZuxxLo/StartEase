@@ -51,7 +51,7 @@ class Roles {
   }
 
   Map<String, dynamic> toJson(name, List<Permissions>? permissions) {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     List<String> tempList = [];
 
     data['name'] = name;
@@ -76,8 +76,7 @@ class Roles {
         tempList.add(element.id);
       }
     });
-    print(data["role"]);
-    data['permissions'] = tempList;
+     data['permissions'] = tempList;
 
     return data;
   }

@@ -17,15 +17,12 @@ class AuthService extends GetxService {
         "password": MainFunctions.sharredPrefs?.getString("password")
       });
 
-      print('/************');
       if (response != null &&
           response["success"] == true &&
           response["message"] == "Login succesfull") {
         userModel = UserModel.fromJson(response);
       }
     }
-    print('*/*//*/**/');
-    print(MainFunctions.isInternetConnected);
 
     return this;
   }
