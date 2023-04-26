@@ -19,6 +19,7 @@ class PermissionsManagement extends StatelessWidget {
         leading: const BackIconButton(),
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         child: const Icon(
           Icons.add,
           color: whiteColor,
