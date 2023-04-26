@@ -4,17 +4,20 @@ import 'package:get/get.dart';
 import '../backend/crud.dart';
 import '../backend/link_api.dart';
 import '../main.dart';
+import '../model/user_model.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
   bool securedPassword = true;
   bool loginError = false;
-  setUserPassword(password) {
-    userModel.setUserPassword = password;
+  setUserPassword(inputPassword) {
+    password = inputPassword;
+    loginError = false;
   }
 
-  setUserEmail(email) {
-    userModel.setUserEmail = email;
+  setUserEmail(inputEmail) {
+    userModel.email = inputEmail;
+    loginError = false;
   }
 
   createOne() {
@@ -68,16 +71,37 @@ class LoginController extends GetxController {
     // }
   }
 
+  String password = "password";
   signInAUser() async {
-    var response = await Crud.postRequest(loginLink, {
-      "username": userModel.getuserUserName,
-      "password": userModel.getUserPassword
-    });
+    Get.defaultDialog(
+        title: "pleaseWait".tr, content: const CircularProgressIndicator());
 
-    if (response != null && response["status"] == "success") {
-      userModel.setUserID = response["data"]['id'].toString();
+    var response = await Crud.postRequest(
+        loginLink, {"email": userModel.email, "password": password});
+    print(response);
+
+    if (response != null &&
+        response["success"] == true &&
+        response["message"] == "Login succesfull") {
+      print(response);
+      MainFunctions.sharredPrefs
+          ?.setString("authToken", response["data"]["token"]);
+      userModel = UserModel.fromJson(response);
+      MainFunctions.sharredPrefs?.setString("email", userModel.email);
+      MainFunctions.sharredPrefs?.setString("password", password);
+
+      Get.back();
       Get.offAndToNamed("/ProfilePage");
-    } else if (response != null && response["status"] == "fail") {
+    } else if (response != null &&
+        response["success"] == false &&
+        response["message"] ==
+            "Your account is disabled. Please contact the admin") {
+      Get.back();
+
+      MainFunctions.somethingWentWrongSnackBar(response["message"]);
+    } else if (response != null && response["success"] == false) {
+      print(response);
+      Get.back();
       loginError = true;
       update();
     } else {

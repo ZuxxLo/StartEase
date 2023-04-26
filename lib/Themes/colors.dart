@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 
 const Color purpleColor = Color.fromARGB(255, 161, 99, 247);
-const Color bluePurpleColor = Color.fromARGB(255, 111, 136, 252);
 const Color cyanColor = Color.fromARGB(255, 69, 227, 255);
-const Color greyWhiteColor = Color.fromARGB(255, 245, 245, 245);
 const Color whiteColor = Color.fromARGB(255, 255, 255, 255);
 const Color blackColor = Color.fromARGB(255, 0, 0, 0);
-const Color greyColor = Color.fromARGB(255, 171, 171, 171);
 const Color redColor = Colors.red;
 const Color transparentColor = Color.fromARGB(0, 0, 0, 0);
 const Color greenColor = Colors.greenAccent;
+const Color darkBlueColor = Color.fromARGB(255, 25, 26, 68);
+const Color bluePurpleColor = Color.fromARGB(255, 111, 136, 252);
+const Color greyWhiteColor = Color.fromARGB(255, 251, 251, 251);
+const Color lightBlueColor = Color.fromARGB(255, 245, 247, 255);
+
+final Color greyColor = Colors.grey.shade700;
+List<Color> profilColors = [
+  Colors.red,
+  Colors.cyan,
+  Colors.blueGrey,
+  Colors.amberAccent,
+  Colors.pink,
+  Colors.lightGreenAccent,
+  Colors.yellow,
+  Colors.grey,
+];
