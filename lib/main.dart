@@ -139,7 +139,7 @@ class MainApp extends StatelessWidget {
               page: () => const HomeScreen(),
               binding: HomeScreenBinding()),
         ],
-        initialRoute: "/HomeScreen");
+        initialRoute: "/Login");
   }
 }
 
@@ -181,7 +181,7 @@ class MainFunctions {
             duration: const Duration(seconds: 5),
             message: "noConnection".tr,
             showProgressIndicator: true,
-            snackPosition: SnackPosition.TOP,
+            snackPosition: SnackPosition.BOTTOM,
             icon: const Icon(
               Icons.report_problem,
               color: redColor,
@@ -207,7 +207,7 @@ class MainFunctions {
           duration: const Duration(seconds: 5),
           message: errorText ?? "somethingWentWrong".tr,
           showProgressIndicator: true,
-          snackPosition: SnackPosition.TOP,
+          snackPosition: SnackPosition.BOTTOM,
           icon: const Icon(
             Icons.report_problem,
             color: redColor,
@@ -223,7 +223,7 @@ class MainFunctions {
           message: text,
           backgroundColor: greenColor,
           showProgressIndicator: true,
-          snackPosition: SnackPosition.TOP,
+          snackPosition: SnackPosition.BOTTOM,
           icon: const Icon(
             Icons.done,
             color: whiteColor,

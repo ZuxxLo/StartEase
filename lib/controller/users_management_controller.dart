@@ -1,8 +1,8 @@
- import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:startease/backend/link_api.dart';
 import 'package:startease/model/roles_model.dart';
 import 'package:startease/model/user_model.dart';
- 
+
 import '../backend/crud.dart';
 import '../main.dart';
 
@@ -27,6 +27,8 @@ class UsersManagementController extends GetxController {
       for (var i = 0; i < response["data"]["users"].length; i++) {
         allUsersList.add(UserModel.fromJsonS(response["data"]["users"][i]));
       }
+
+      allUsersList.removeWhere((element) => element.id == userModel.id);// do not display the current account for security purpose
     }
 
     update();
@@ -102,8 +104,8 @@ class UsersManagementController extends GetxController {
 
       if (response != null && response["success"] == true) {
         loadAllUsers();
-         MainFunctions.successSnackBar("updatedSuccess".tr);
-       } else {
+        MainFunctions.successSnackBar("updatedSuccess".tr);
+      } else {
         MainFunctions.somethingWentWrongSnackBar();
       }
     }

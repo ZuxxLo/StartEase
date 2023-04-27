@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:get/get.dart';
- 
+
 import '../main.dart';
 
 class Languages implements Translations {
@@ -77,6 +77,7 @@ class Languages implements Translations {
           "DarkMode": "Dark Mode",
           "signOut": "Sign out",
           "aboutUs": "About us",
+          "onlyAdmin": "Only super admins",
 
           "areUSure": "Are you sure ?",
 
@@ -199,6 +200,7 @@ class Languages implements Translations {
           "DarkMode": "Mode sombre",
           "signOut": "Se déconnecter",
           "aboutUs": "À propos de nous",
+          "onlyAdmin": "Seuls les super-administrateurs",
 
           "areUSure": "Vous êtes sûr",
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:startease/model/roles_model.dart';
 
 import '../backend/crud.dart';
 import '../backend/link_api.dart';
@@ -78,18 +79,27 @@ class LoginController extends GetxController {
 
     var response = await Crud.postRequest(
         loginLink, {"email": userModel.email, "password": password});
-
+    var tempList = [];
     if (response != null &&
         response["success"] == true &&
         response["message"] == "Login succesfull") {
-      MainFunctions.sharredPrefs
-          ?.setString("authToken", response["data"]["token"]);
-      userModel = UserModel.fromJson(response);
-      MainFunctions.sharredPrefs?.setString("email", userModel.email);
-      MainFunctions.sharredPrefs?.setString("password", password);
+      for (var element in response["data"]["user"]["roles"]) {
+        tempList.add(element["id"]);
+      }
 
-      Get.back();
-      Get.offAndToNamed("/ProfilePage");
+      if (tempList.contains(1)) {
+        MainFunctions.sharredPrefs
+            ?.setString("authToken", response["data"]["token"]);
+        userModel = UserModel.fromJson(response);
+        MainFunctions.sharredPrefs?.setString("email", userModel.email);
+        MainFunctions.sharredPrefs?.setString("password", password);
+        Get.back();
+        Get.offAndToNamed("/HomeScreen");
+      } else {
+        Get.back();
+
+        MainFunctions.somethingWentWrongSnackBar("onlyAdmin".tr);
+      }
     } else if (response != null &&
         response["success"] == false &&
         response["message"] ==
