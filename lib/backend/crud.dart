@@ -27,8 +27,8 @@ class Crud {
         return null;
       }
     } catch (e) {
-      print("catch error $e");
-      MainFunctions.somethingWentWrongSnackBar("$e");
+      print("catch error f apii $e");
+      MainFunctions.somethingWentWrongSnackBar( );
 
       return null;
     }
@@ -43,7 +43,7 @@ class Crud {
         "Authorization": "Bearer ${userModel.token}"
       });
       var responseBody = jsonDecode(response.body);
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         return responseBody;
       } else {
@@ -53,7 +53,7 @@ class Crud {
       Get.back();
 
       MainFunctions.somethingWentWrongSnackBar("$e");
-      print(e.toString());
+      e.printError();
 
       print("api errrror");
 
@@ -75,18 +75,13 @@ class Crud {
       var multipartFile = http.MultipartFile("image", stream, length,
           filename: basename(image.path));
       request.files.add(multipartFile);
-      print(multipartFile.field);
-      print(multipartFile.filename);
 
       var myRequest = await request.send();
       http.Response response = await http.Response.fromStream(myRequest);
       var responseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        print(responseBody);
-   
         return responseBody;
       } else {
-        print(responseBody);
         return responseBody;
       }
     } catch (e) {
@@ -103,8 +98,13 @@ class Crud {
 
   static postRequestAuth(String url, Map data) async {
     try {
-      http.Response response = await http.post(Uri.parse(url),
-          body: data, headers: {"Authorization": "Bearer ${userModel.token}"});
+      http.Response response =
+          await http.post(Uri.parse(url), body: json.encode(data), headers: {
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+        "Authorization": "Bearer ${userModel.token}"
+      });
+
       var responseBody = jsonDecode(response.body);
 
       if (response.statusCode == 200) {

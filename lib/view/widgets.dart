@@ -1,8 +1,7 @@
- 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
- 
+
 import '../Themes/colors.dart';
 import '../backend/link_api.dart';
 import '../main.dart';
@@ -53,7 +52,7 @@ class BackIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        Get.back();
+         navigator!.pop();
       },
       icon: Container(
         height: 35,
@@ -184,7 +183,7 @@ class ProfilePicture extends StatelessWidget {
         height: 120,
         width: 120,
         child: !(userModel.photoUrl ==
-                "https://via.placeholder.com/640x480.png/002277?text=architecto")
+                "http://localhost:8000/images/users/default.png")
             ? ClipOval(
                 child: MainFunctions.pickedImage == null
                     ? Image.network(
@@ -202,9 +201,9 @@ class ProfilePicture extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   color: MainFunctions.generatePresizedColor(
-                      userModel.username.length),
+                      userModel.username!.length),
                   child: Text(
-                    userModel.username[0].toUpperCase(),
+                    userModel.username![0].toUpperCase(),
                     // style: const TextStyle(
                     //     fontSize: 27, color: purpleTextColor),
                   ),
@@ -226,23 +225,22 @@ class ProfilePictureForOtherUsers extends StatelessWidget {
         height: 120,
         width: 120,
         child: !(userModel.photoUrl ==
-                "https://via.placeholder.com/640x480.png/002277?text=architecto")
+                "http://localhost:8000/images/users/default.png")
             ? ClipOval(
-                child:  Image.network(
-                        linkServerName + userModel.photoUrl!.substring(21),
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const CircularProgressIndicator();
-                        },
-                      )
-                  )
+                child: Image.network(
+                linkServerName + userModel.photoUrl!.substring(21),
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const CircularProgressIndicator();
+                },
+              ))
             : ClipOval(
                 child: Container(
                   alignment: Alignment.center,
                   color: MainFunctions.generatePresizedColor(
-                      userModel.username.length),
+                      userModel.username!.length),
                   child: Text(
-                    userModel.username[0].toUpperCase(),
+                    userModel.username![0].toUpperCase(),
                     // style: const TextStyle(
                     //     fontSize: 27, color: purpleTextColor),
                   ),
@@ -280,11 +278,11 @@ class SmallBodyText extends StatelessWidget {
       return Text(
         text,
         style: TextStyle(
-          fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
+           fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
         ),
       );
     } catch (e) {
-       return const Text("");
+      return const Text("");
     }
   }
 }
@@ -380,6 +378,7 @@ class TitleLargeText extends StatelessWidget {
     );
   }
 }
+
 class ActiveBottomBarIcon extends StatelessWidget {
   const ActiveBottomBarIcon({
     super.key,
@@ -391,7 +390,7 @@ class ActiveBottomBarIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 45,
-      height: 35,
+      height: 25,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: bluePurpleColor),

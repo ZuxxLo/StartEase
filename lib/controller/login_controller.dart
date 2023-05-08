@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:startease/model/roles_model.dart';
-
+ 
 import '../backend/crud.dart';
 import '../backend/link_api.dart';
 import '../main.dart';
@@ -91,7 +90,7 @@ class LoginController extends GetxController {
         MainFunctions.sharredPrefs
             ?.setString("authToken", response["data"]["token"]);
         userModel = UserModel.fromJson(response);
-        MainFunctions.sharredPrefs?.setString("email", userModel.email);
+        MainFunctions.sharredPrefs?.setString("email", userModel.email!);
         MainFunctions.sharredPrefs?.setString("password", password);
         Get.back();
         Get.offAndToNamed("/HomeScreen");

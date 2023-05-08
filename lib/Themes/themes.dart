@@ -26,7 +26,7 @@ class Themes extends GetxController {
         bodyLarge: TextStyle(color: blackColor),
         bodyMedium: TextStyle(color: blackColor, fontSize: 22),
         titleSmall: TextStyle(color: blackColor, fontSize: 20),
-        titleLarge: TextStyle(color: blackColor, fontSize: 25),
+        titleLarge: TextStyle(color: blackColor, fontSize: 22),
         titleMedium: TextStyle(color: blackColor, fontSize: 19),
       ).apply(
         fontFamily: 'Raleway',
@@ -52,7 +52,8 @@ class Themes extends GetxController {
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(color: redColor)),
-        errorStyle: TextStyle(color: redColor),
+        errorStyle: TextStyle(color: redColor, fontSize: 15),
+        errorMaxLines: 3,
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(color: redColor)),
@@ -111,7 +112,8 @@ class Themes extends GetxController {
         focusedErrorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(color: redColor)),
-        errorStyle: const TextStyle(color: redColor),
+        errorStyle: const TextStyle(color: redColor, fontSize: 15),
+        errorMaxLines:3,
         errorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(color: redColor)),
@@ -133,7 +135,7 @@ class Themes extends GetxController {
         bodyLarge: TextStyle(color: whiteColor),
         bodyMedium: TextStyle(color: whiteColor, fontSize: 22),
         titleSmall: TextStyle(color: whiteColor, fontSize: 20),
-        titleLarge: TextStyle(color: whiteColor, fontSize: 25),
+        titleLarge: TextStyle(color: whiteColor, fontSize: 22),
         titleMedium: TextStyle(color: whiteColor, fontSize: 19),
       ).apply(
         fontFamily: 'Raleway',

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
- import 'package:get/get.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:get/get.dart';
 
- import '../controller/profile_page_controller.dart';
+import '../controller/profile_page_controller.dart';
 import '../main.dart';
 import 'widgets.dart';
 
@@ -10,7 +11,6 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfilePageController profilePageController = Get.find();
- 
 
     return Scaffold(
         key: profilePageController.scaffoldKey,
@@ -37,9 +37,12 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const ProfilePicture(),
+                    // ignore: prefer_const_constructors
+                    ProfilePicture(),
                     TitleMediumText(
-                        text: "${userModel.firstName} ${userModel.lastName}"),
+                        text: userModel.person?.firstName != null
+                            ? "${userModel.person?.firstName} ${userModel.person?.lastName}"
+                            : ""),
                     UserNameText(text: "@${userModel.username}"),
                     const SizedBox(
                       height: 40,
@@ -53,7 +56,6 @@ class ProfilePage extends StatelessWidget {
                               "yourInformations".tr,
                             ),
                             leading: const ProfileCircleIcon(),
-                            trailing: const SendIcon(),
                             onTap: () {
                               profilePageController.goToInformationsPage();
                             },
@@ -63,9 +65,19 @@ class ProfilePage extends StatelessWidget {
                               "changePassword".tr,
                             ),
                             leading: const PasswordKeyIcon(),
-                            trailing: const SendIcon(),
                             onTap: () {
                               profilePageController.goToChangePassword();
+                            },
+                          ),
+                          ListTile(
+                            title: Text(
+                              "updatePhoneNumber".tr,
+                            ),
+                            leading: const ImageIcon(
+                              Svg("assets/icons/phonenumber_icon.svg"),
+                            ),
+                            onTap: () {
+                              profilePageController.goToUpdatePhoneNumber();
                             },
                           )
                         ]),

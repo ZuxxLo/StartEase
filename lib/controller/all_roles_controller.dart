@@ -8,54 +8,68 @@ import '../backend/link_api.dart';
 import '../model/roles_model.dart';
 
 class AllRolesController extends GetxController {
-  List<Roles>? rolesList = [];
+  List<Roles>? rolesListNotAffich = [];
+  List<Roles>? rolesListToAffich = [];
+  List<Permissions> allPermissionsListNotAffich = [];
+  List<Permissions> allPermissionsListToAffich = [];
   Roles roleDetail = Roles();
-  List<Permissions> allPermissionsList = [];
 
   loadAllRoles() async {
-    rolesList?.clear();
+    rolesListNotAffich?.clear();
+    rolesListToAffich?.clear();
     var response = await Crud.getRequest(roleLink);
+    print(response);
     if (response != null && response["success"] == true) {
-      rolesList = RolesModel.fromJson(response).data?.roles;
-      if (rolesList == []) {
-        rolesList?.add(Roles(id: -77, name: "error77empty"));
+      rolesListNotAffich = RolesModel.fromJson(response).data?.roles;
+      if (rolesListNotAffich == []) {
+        rolesListNotAffich?.add(Roles(id: -77, name: "error77empty"));
       }
     }
+
+    rolesListToAffich = List.from(rolesListNotAffich!);
+    print(rolesListToAffich!.length);
+
     update();
   }
 
   loadAllPermissions() async {
-    allPermissionsList.clear();
+    allPermissionsListNotAffich.clear();
+    allPermissionsListToAffich.clear();
+
     var response = await Crud.getRequest(permissionsLink);
     if (response != null && response["success"] == true) {
-      allPermissionsList =
+      allPermissionsListNotAffich =
           (PermissionsModel.fromJson(response).data?.permissions)!;
     }
+    allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
 
     update();
   }
 
   Future<void> editRole(index) async {
     if (await MainFunctions.checkInternetConnection()) {
-      roleDetail = rolesList![index];
+      roleDetail = rolesListNotAffich![index];
 
-      allPermissionsList.clear();
+      allPermissionsListNotAffich.clear();
+      allPermissionsListToAffich.clear();
+
       var response = await Crud.getRequest(permissionsLink);
       if (response != null && response["success"] == true) {
-        allPermissionsList =
+        allPermissionsListNotAffich =
             (PermissionsModel.fromJson(response).data?.permissions)!;
       }
 
       roleDetail.permissions?.forEach((element) {
         element.value = true;
-        for (var elementt in allPermissionsList) {
+        for (var elementt in allPermissionsListNotAffich) {
           if (elementt.id == element.id) {
             elementt.value = true;
           }
         }
       });
+      allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
 
-       Get.toNamed(
+      Get.toNamed(
         "/EditRole",
       );
     }
@@ -64,16 +78,26 @@ class AllRolesController extends GetxController {
 
   void deleteRole(id) async {
     if (await MainFunctions.checkInternetConnection()) {
-      var response = await Crud.deleteRequest("$roleLink/$id");
-      if (response != null && response["success"] == true) {
-        MainFunctions.successSnackBar("roleDeleted".tr);
+      rolesListToAffich?.forEach((element) async {
+        if (element.id == id && element.usersCount == 0) {
+          var response = await Crud.deleteRequest("$roleLink/$id");
+          if (response != null && response["success"] == true) {
+            MainFunctions.successSnackBar("roleDeleted".tr);
 
-        rolesList?.removeWhere((element) {
-          return element.id == id;
-        });
-      } else {
-        MainFunctions.somethingWentWrongSnackBar();
-      }
+            rolesListNotAffich?.removeWhere((element) {
+              return element.id == id;
+            });
+            rolesListToAffich?.removeWhere((element) {
+              return element.id == id;
+            });
+            update();
+          } else {
+            MainFunctions.somethingWentWrongSnackBar();
+          }
+        } else if (element.id == id && element.usersCount! > 0) {
+          MainFunctions.somethingWentWrongSnackBar("roleUsed".tr);
+        }
+      });
     }
 
     update();
@@ -83,14 +107,15 @@ class AllRolesController extends GetxController {
     if (index < roleDetail.permissions!.length) {
       roleDetail.permissions![index].value = value;
     }
-    allPermissionsList[index].value = value;
+    allPermissionsListNotAffich[index].value = value;
+    allPermissionsListToAffich[index].value = value;
     update();
   }
 
   updateRolePermissions() async {
     if (await MainFunctions.checkInternetConnection()) {
       var response = await Crud.putRequest(roleLink,
-          roleDetail.toJsonUpdate(roleDetail.id!, allPermissionsList));
+          roleDetail.toJsonUpdate(roleDetail.id!, allPermissionsListNotAffich));
       if (response != null && response["success"] == true) {
         Get.back();
         MainFunctions.successSnackBar("roleUpdated".tr);
@@ -140,6 +165,72 @@ class AllRolesController extends GetxController {
           },
         )));
   }
+
+//Search ///////////////////////////////////
+  String searchText = "";
+  String searchTextPermission = "";
+
+  searchTextInput(inputSearch) {
+    searchText = inputSearch;
+  }
+
+  searchTextInputPermission(inputSearch) {
+    searchTextPermission = inputSearch;
+  }
+
+  searchRole(String inputSearch) {
+    rolesListToAffich = List.from(rolesListNotAffich!);
+
+    rolesListToAffich?.removeWhere((element) {
+      return (!(element.name)!.contains(inputSearch));
+    });
+
+    if (rolesListToAffich!.isEmpty) {
+      rolesListToAffich = List.from(rolesListNotAffich!);
+
+      rolesListToAffich?.removeWhere((element) {
+        return (!(element.name)!.startsWith(inputSearch));
+      });
+    }
+
+    if (rolesListToAffich!.isEmpty) {
+      rolesListToAffich = List.from(rolesListNotAffich!);
+
+      rolesListToAffich?.removeWhere((element) {
+        return (!(element.name)!.endsWith(inputSearch));
+      });
+    }
+
+    update();
+  }
+
+  searchPermission(String inputSearch) {
+    allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+
+    allPermissionsListToAffich.removeWhere((element) {
+      return (!(element.name)!.contains(inputSearch));
+    });
+
+    if (allPermissionsListToAffich.isEmpty) {
+      allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+
+      allPermissionsListToAffich.removeWhere((element) {
+        return (!(element.name)!.startsWith(inputSearch));
+      });
+    }
+
+    if (allPermissionsListToAffich.isEmpty) {
+      allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+
+      allPermissionsListToAffich.removeWhere((element) {
+        return (!(element.name)!.endsWith(inputSearch));
+      });
+    }
+
+    update();
+  }
+
+  //Search ///////////////////////////////////
 
   @override
   void onInit() {

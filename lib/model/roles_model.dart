@@ -29,12 +29,16 @@ class Data {
   }
 }
 
+enum RolesType { defaultType, customType }
+
 class Roles {
   int? id;
   String? name;
   int? usersCount;
+  RolesType? type;
+
   List<Permissions>? permissions;
-  bool? value ;
+  bool? value;
 
   Roles({this.id, this.name, this.usersCount, this.permissions});
 
@@ -42,6 +46,11 @@ class Roles {
     id = json['id'];
     name = json['name'];
     usersCount = json['users_count'];
+    if (json['type'] == "default") {
+      type = RolesType.defaultType;
+    } else if (json['type'] == "custom") {
+      type = RolesType.customType;
+    }
     if (json['permissions'] != null) {
       permissions = <Permissions>[];
       json['permissions'].forEach((v) {
@@ -76,7 +85,7 @@ class Roles {
         tempList.add(element.id);
       }
     });
-     data['permissions'] = tempList;
+    data['permissions'] = tempList;
 
     return data;
   }

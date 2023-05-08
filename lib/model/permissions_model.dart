@@ -45,16 +45,26 @@ class Data {
   // }
 }
 
+enum PermissionsType { defaultType, customType }
+
 class Permissions {
   int? id;
   String? name;
+  int? rolesCount;
+  PermissionsType? type;
   bool value = false;
 
-  Permissions({this.id, this.name});
+  Permissions({this.id, this.name, this.type, this.rolesCount});
 
   Permissions.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    if (json['type'] == "default") {
+      type = PermissionsType.defaultType;
+    } else if (json['type'] == "custom") {
+      type = PermissionsType.customType;
+    }
+    rolesCount = json["roles_count"];
   }
 
   Map<String, dynamic> toJson(Permissions permission) {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
@@ -12,83 +13,120 @@ class EditRole extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-     final AllRolesController allRolesController = Get.find();
+    final AllRolesController allRolesController = Get.find();
     return Scaffold(
       appBar: AppBar(
-        //  title: Text("edit".tr),
+        title: GetBuilder<AllRolesController>(builder: (context) {
+          return Text(
+            allRolesController.searchTextPermission == ""
+                ? "createRole6".tr
+                : "searching".tr + allRolesController.searchTextPermission,
+            style: TextStyle(
+                fontSize:
+                    allRolesController.searchTextPermission == "" ? 25 : 18),
+          );
+        }),
         leading: const BackIconButton(),
         actions: [
           IconButton(
               onPressed: () {
+                Get.defaultDialog(
+                    title: "searchByFirstLastName".tr,
+                    content: Column(
+                      children: [
+                        TextFormField(
+                          onChanged: (inputSearch) {
+                            allRolesController
+                                .searchTextInputPermission(inputSearch);
+                          },
+                          decoration: InputDecoration(
+                              hintText:
+                                  allRolesController.searchTextPermission == ""
+                                      ? "searchByFirstLastName".tr
+                                      : allRolesController
+                                          .searchTextPermission),
+                        ),
+                        const SizedBox(height: 10),
+                        TextButton(
+                            onPressed: () {
+                              allRolesController.searchPermission(
+                                  allRolesController.searchTextPermission);
+                              navigator!.pop();
+                            },
+                            child: Text("confirm".tr)),
+                        const SizedBox(height: 10),
+                        TextButton(
+                            onPressed: () {
+                              allRolesController.searchTextInputPermission("");
+                              allRolesController.searchPermission("");
+                              navigator!.pop();
+                            },
+                            child: Text("clear".tr))
+                      ],
+                    ));
+              },
+              icon: const ImageIcon(Svg("assets/icons/search_icon.svg"))),
+          IconButton(
+              onPressed: () {
                 allRolesController.updateRolePermissions();
               },
-              icon: const Icon(
-                Icons.done_outline,
-                size: 30,
-                color: purpleColor,
-              ))
+              icon: const ImageIcon(Svg("assets/icons/done_icon.svg"))),
+          const SizedBox(width: 10)
         ],
       ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 70),
-            child: Text("createRole6".tr),
-          ),
-          const Divider(),
-          GetBuilder<AllRolesController>(builder: (context) {
-            return SizedBox(
-              height: screenHeight - 150,
-              child: allRolesController.rolesList!.isNotEmpty
-                  ? ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: allRolesController.allPermissionsList.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: const EdgeInsets.only(left: 30, right: 20),
-                          height: 40,
+      body: GetBuilder<AllRolesController>(builder: (context) {
+        return allRolesController.allPermissionsListToAffich.isNotEmpty
+            ? ListView.separated(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                physics: const BouncingScrollPhysics(),
+                 shrinkWrap: true,
+                itemCount:
+                    allRolesController.allPermissionsListToAffich.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: 70,
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).listTileTheme.tileColor,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SmallBodyText(
-                                          text: allRolesController
-                                              .allPermissionsList[index].name
-                                              .toString()),
-                                    ]),
-                              ),
-                              CupertinoSwitch(
-                                value: allRolesController
-                                    .allPermissionsList[index].value,
-                                onChanged: ((value) {
-                                  allRolesController.changePermissionValue(
-                                      index, value);
-                                }),
-                                thumbColor: allRolesController
-                                        .allPermissionsList[index].value
-                                    ? purpleColor
-                                    : greyColor,
-                                activeColor: purpleColor.withOpacity(0.5),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider();
-                      },
-                    )
-                  : const Text("is empty "),
-            );
-          })
-        ],
-      ),
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                SmallBodyText(
+                                    text: allRolesController
+                                        .allPermissionsListToAffich[index]
+                                        .name
+                                        .toString()),
+                              ]),
+                        ),
+                        CupertinoSwitch(
+                          value: allRolesController
+                              .allPermissionsListToAffich[index].value,
+                          onChanged: ((value) {
+                            allRolesController.changePermissionValue(
+                                index, value);
+                          }),
+                          thumbColor: allRolesController
+                                  .allPermissionsListToAffich[index].value
+                              ? bluePurpleColor
+                              : greyColor,
+                          activeColor: bluePurpleColor.withOpacity(0.5),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider();
+                },
+              )
+            : Center(child: Text("noResults".tr));
+      }),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
 import 'package:startease/view/widgets.dart';
@@ -14,102 +15,147 @@ class AllUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     final UsersManagementController usersManagementController = Get.find();
     double screenHeight = MediaQuery.of(context).size.height;
-     return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         leading: const BackIconButton(),
-        title: Text(
-          "allUsers".tr,
-        ),
-      ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          const Divider(),
-          GetBuilder<UsersManagementController>(builder: (context) {
-            return SizedBox(
-              height: screenHeight - 150,
-              child: usersManagementController.allUsersList.isNotEmpty
-                  ? ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: usersManagementController.allUsersList.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            usersManagementController.goToUserDetails(index);
+        title: GetBuilder<UsersManagementController>(builder: (context) {
+          return Text(
+            usersManagementController.searchText == ""
+                ? "allUsers".tr
+                : "searching".tr + usersManagementController.searchText,
+            style: TextStyle(
+                fontSize: usersManagementController.searchText == "" ? 25 : 18),
+          );
+        }),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.defaultDialog(
+                    onWillPop: () {
+                      return Future.value(false);
+                    },
+                    title: "searchByFirstLastName".tr,
+                    content: Column(
+                      children: [
+                        TextFormField(
+                          onChanged: (inputSearch) {
+                            usersManagementController
+                                .searchTextInput(inputSearch);
                           },
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 30, right: 20),
-                            height: 40,
-                            color: usersManagementController
-                                        .allUsersList[index].isEnabled ==
-                                    1
-                                ? transparentColor
-                                : redColor.withOpacity(0.08),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                    height: 40,
-                                    width: 40,
-                                    child: !(usersManagementController
-                                                .allUsersList[index].photoUrl ==
-                                            "https://via.placeholder.com/640x480.png/002277?text=architecto")
-                                        ? ClipOval(
-                                            child: Image.network(
-                                            linkServerName +
-                                                usersManagementController
-                                                    .allUsersList[index]
-                                                    .photoUrl!
-                                                    .substring(21),
-                                            fit: BoxFit.cover,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return const CircularProgressIndicator();
-                                            },
-                                          ))
-                                        : ClipOval(
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              color: MainFunctions
-                                                  .generatePresizedColor(
-                                                      usersManagementController
-                                                          .allUsersList[index]
-                                                          .username
-                                                          .length),
-                                              child: Text(
-                                                usersManagementController
-                                                    .allUsersList[index]
-                                                    .firstName[0]
-                                                    .toUpperCase(),
-                                                // style: const TextStyle(
-                                                //     fontSize: 27, color: purpleTextColor),
-                                              ),
-                                            ),
-                                          )),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Expanded(
-                                  child: SmallBodyText(
-                                      text:
-                                          "${usersManagementController.allUsersList[index].firstName} ${usersManagementController.allUsersList[index].lastName}"),
-                                ),
-                                const SendIcon()
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider();
-                      },
-                    )
-                  : const Center(child: CircularProgressIndicator()),
-            );
-          })
+                          decoration: InputDecoration(
+                              hintText:
+                                  usersManagementController.searchText == ""
+                                      ? "searchByFirstLastName".tr
+                                      : usersManagementController.searchText),
+                        ),
+                        const SizedBox(height: 10),
+                        TextButton(
+                            onPressed: () {
+                              usersManagementController.searchUser(
+                                  usersManagementController.searchText);
+                              navigator!.pop();
+                            },
+                            child: Text("confirm".tr)),
+                        const SizedBox(height: 10),
+                        TextButton(
+                            onPressed: () {
+                              usersManagementController.searchTextInput("");
+                              usersManagementController.searchUser("");
+                              navigator!.pop();
+                            },
+                            child: Text("clear".tr))
+                      ],
+                    ));
+              },
+              icon: const ImageIcon(Svg("assets/icons/search_icon.svg")))
         ],
       ),
+      body: GetBuilder<UsersManagementController>(builder: (context) {
+        return usersManagementController.allUsersListToAffich.isNotEmpty
+            ? ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                shrinkWrap: true,
+                itemCount:
+                    usersManagementController.allUsersListToAffich.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      usersManagementController.goToUserDetails(index);
+                    },
+                    child: Container(
+                      height: 80,
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+                          color: usersManagementController
+                                      .allUsersListToAffich[index].isEnabled ==
+                                  1
+                              ? Theme.of(context).listTileTheme.tileColor
+                              : redColor.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: !(usersManagementController
+                                          .allUsersListToAffich[index]
+                                          .photoUrl ==
+                                      "http://localhost:8000/images/users/default.png")
+                                  ? ClipOval(
+                                      child: Image.network(
+                                      linkServerName +
+                                          usersManagementController
+                                              .allUsersListToAffich[index]
+                                              .photoUrl!
+                                              .substring(21),
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return const CircularProgressIndicator();
+                                      },
+                                    ))
+                                  : ClipOval(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        color:
+                                            MainFunctions.generatePresizedColor(
+                                                usersManagementController
+                                                    .allUsersListToAffich[index]
+                                                    .username!
+                                                    .length),
+                                        child: Text(
+                                          usersManagementController
+                                              .allUsersListToAffich[index]
+                                              .username![0]
+                                              .toUpperCase(),
+                                          // style: const TextStyle(
+                                          //     fontSize: 27, color: purpleTextColor),
+                                        ),
+                                      ),
+                                    )),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Expanded(
+                            child: SmallBodyText(
+                                text:
+                                    "${usersManagementController.allUsersListToAffich[index].username}"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider();
+                },
+              )
+            : usersManagementController.searchText == ""
+                ? const Center(child: CircularProgressIndicator())
+                : Center(child: Text("noResults".tr));
+      }),
     );
   }
 }

@@ -1,50 +1,47 @@
 import 'package:startease/model/roles_model.dart';
 
 class UserModel {
-  late int id;
-  late String username;
-  late String email;
-  late String firstName;
-  late String lastName;
-  late String? phoneNumber;
-  late String birthday;
-  late String birthPlace;
-  late String? photoUrl;
-  late int isEnabled;
-  late List<Roles>? roles;
+  late int? id;
+  String? username;
+  String? email;
+  String? phoneNumber;
+  String? photoUrl;
+  String? personType;
+  Person? person;
 
+  late int? isEnabled;
+  late List<Roles>? roles;
   late String? token;
 
   UserModel(
       {required this.id,
       required this.username,
       required this.email,
-      required this.firstName,
-      required this.lastName,
       required this.phoneNumber,
-      required this.birthday,
-      required this.birthPlace,
       required this.photoUrl,
+      required this.personType,
       required this.isEnabled,
       required this.roles,
+      required this.person,
       required this.token});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json["data"]["user"]['id'];
     username = json["data"]["user"]['username'];
     email = json["data"]["user"]['email'];
-    firstName = json["data"]["user"]['first_name'];
-    lastName = json["data"]["user"]['last_name'];
+    person = json['person'] != null ? Person.fromJson(json['person']) : null;
     phoneNumber = json["data"]["user"]['phone_number'];
-    birthday = json["data"]["user"]['birthday'];
-    birthPlace = json["data"]["user"]['birth_place'];
     photoUrl = (json["data"]["user"]['photo_url']); //substring(21)
+    personType = json["data"]["user"]['person_type'];
+    person = json["data"]["user"]['person_type'];
     isEnabled = json["data"]["user"]['is_enabled'];
-    if (json['roles'] != null) {
+    if (json["data"]["user"]['roles'] != null) {
       roles = <Roles>[];
-      json['roles'].forEach((v) {
-        roles!.add(  Roles.fromJson(v));
+      json["data"]["user"]['roles'].forEach((v) {
+        roles!.add(Roles.fromJson(v));
       });
+    } else {
+      roles = [];
     }
     token = json["data"]["token"];
   }
@@ -52,18 +49,18 @@ class UserModel {
     id = json['id'];
     username = json['username'];
     email = json['email'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
     phoneNumber = json['phone_number'];
-    birthday = json['birthday'];
-    birthPlace = json['birth_place'];
     photoUrl = (json['photo_url']); //substring(21)
+    personType = json['person_type'];
+    person = json['person'] != null ? Person.fromJson(json['person']) : null;
     isEnabled = json['is_enabled'];
     if (json['roles'] != null) {
       roles = <Roles>[];
       json['roles'].forEach((v) {
-        roles!.add(  Roles.fromJson(v));
+        roles!.add(Roles.fromJson(v));
       });
+    }else {
+      roles = [];
     }
     // token = json["data"]["token"];
   }
@@ -73,13 +70,121 @@ class UserModel {
     data['id'] = id;
     data['username'] = username;
     data['email'] = email;
-    data['first_name'] = firstName;
-    data['last_name'] = lastName;
     data['phone_number'] = phoneNumber;
-    data['birthday'] = birthday;
-    data['birth_place'] = birthPlace;
     data['photo_url'] = photoUrl;
     data['is_enabled'] = isEnabled;
+    return data;
+  }
+}
+
+class Grade {
+  int? id;
+  String? name;
+  String? type;
+
+  Grade({this.id, this.name, this.type});
+
+  Grade.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    type = json['type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['type'] = this.type;
+    return data;
+  }
+}
+
+class Person {
+  int? id;
+  String? firstName;
+  String? lastName;
+  Establishment? establishment;
+  Grade? grade;
+  Grade? speciality;
+  String? matricule;
+  String? birthday;
+  String? birthPlace;
+  String? numInscription;
+  Establishment? filiere;
+
+  Person(
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.establishment,
+      this.grade,
+      this.speciality,
+      this.matricule,
+      this.birthday,
+      this.birthPlace,
+      this.numInscription,
+      this.filiere});
+
+  Person.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    establishment = json['establishment'] != null
+        ? new Establishment.fromJson(json['establishment'])
+        : null;
+    grade = json['grade'] != null ? new Grade.fromJson(json['grade']) : null;
+    speciality = json['speciality'] != null
+        ? new Grade.fromJson(json['speciality'])
+        : null;
+    matricule = json['matricule'];
+    birthday = json['birthday'];
+    birthPlace = json['birth_place'];
+    numInscription = json['num_inscription'];
+    filiere = json['filiere'] != null
+        ? new Establishment.fromJson(json['filiere'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['first_name'] = this.firstName;
+    data['last_name'] = this.lastName;
+    if (this.establishment != null) {
+      data['establishment'] = this.establishment!.toJson();
+    }
+    if (this.grade != null) {
+      data['grade'] = this.grade!.toJson();
+    }
+    if (this.speciality != null) {
+      data['speciality'] = this.speciality!.toJson();
+    }
+    data['matricule'] = this.matricule;
+    data['birthday'] = this.birthday;
+    data['birth_place'] = this.birthPlace;
+    data['num_inscription'] = this.numInscription;
+    if (this.filiere != null) {
+      data['filiere'] = this.filiere!.toJson();
+    }
+    return data;
+  }
+}
+
+class Establishment {
+  int? id;
+  String? name;
+
+  Establishment({this.id, this.name});
+
+  Establishment.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
     return data;
   }
 }

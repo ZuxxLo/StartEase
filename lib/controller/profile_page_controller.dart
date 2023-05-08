@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:startease/view/update_phone_number.dart';
 import '../backend/crud.dart';
 import '../backend/link_api.dart';
 import '../main.dart';
@@ -12,14 +13,16 @@ class ProfilePageController extends GetxController {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final passwordFormKey = GlobalKey<FormState>();
   final formKey = GlobalKey<FormState>();
+  final formKeyUpdatePhone = GlobalKey<FormState>();
+
   bool someError = false;
 
   bool securedPassword = true;
   String? newUsername = userModel.username;
   String? newPassword;
   String? oldPassword;
-  String? newPhoneNumber = "+46731298920";
-
+  String? newPhoneNumber; //= "+46731298920"
+  String? codeSMS;
   bool smsEnabled = false;
 
   invertSecuredPassword() {
@@ -49,7 +52,12 @@ class ProfilePageController extends GetxController {
     Get.toNamed("/ChangePassword");
   }
 
+  void goToUpdatePhoneNumber() {
+    Get.toNamed("/UpdatePhoneNumber");
+  }
+
   sendSMSVerification() async {
+    newPhoneNumber = "+46731298920";
     if (newPhoneNumber == userModel.phoneNumber) {
       MainFunctions.somethingWentWrongSnackBar("ownUsername".tr);
     } else {
@@ -57,7 +65,7 @@ class ProfilePageController extends GetxController {
           barrierDismissible: false,
           title: "pleaseWait".tr,
           content: const CircularProgressIndicator());
-      var response = await Crud.postRequestAuth(updatePhoneNumberSendOTPLink, {
+      var response = await Crud.postRequestAuth(updatePhoneNumberlink, {
         "phone_number": newPhoneNumber,
       });
       if (response != null && response["success"] == true) {
@@ -79,6 +87,31 @@ class ProfilePageController extends GetxController {
     update();
   }
 
+  updatePhoneNumber() async {
+    Get.defaultDialog(
+        barrierDismissible: false,
+        title: "pleaseWait".tr,
+        content: const CircularProgressIndicator());
+    var response = await Crud.postRequestAuth(updatePhoneNumberlink, {
+      "phone_number": newPhoneNumber,
+      "verif_code": codeSMS,
+    });
+    if (response != null && response["success"] == true) {
+      userModel.phoneNumber = newPhoneNumber!;
+      Get.back();
+      MainFunctions.successSnackBar("phoneNumberUpdated".tr);
+    } else if (response != null && response["success"] == false) {
+      someError = true;
+      Get.back();
+      MainFunctions.somethingWentWrongSnackBar(response["message"]);
+    } else {
+      Get.back();
+
+      MainFunctions.somethingWentWrongSnackBar();
+    }
+    update();
+  }
+
   uploadPicture() async {
     var status = await Permission.storage.request();
     if (status.isDenied) {
@@ -88,8 +121,8 @@ class ProfilePageController extends GetxController {
         title: "pleaseAllowPermissions".tr,
         content: TextButton(
             style: ButtonStyle(
-                fixedSize:
-                    MaterialStateProperty.all(const Size(double.maxFinite, 45))),
+                fixedSize: MaterialStateProperty.all(
+                    const Size(double.maxFinite, 45))),
             onPressed: () {
               openAppSettings();
             },
@@ -108,15 +141,14 @@ class ProfilePageController extends GetxController {
               "$usersLink/update/photo", {}, MainFunctions.pickedImage!);
 
           if (response != null && response["success"] == true) {
-            imageCache.clear();
-            PaintingBinding.instance.imageCache.clear();
-
-            imageCache.clearLiveImages();
+            // imageCache.clear();
+            // PaintingBinding.instance.imageCache.clear();
+            // imageCache.clearLiveImages();
           } else {
             MainFunctions.somethingWentWrongSnackBar("${response["message"]}");
           }
         } else {
-          MainFunctions.somethingWentWrongSnackBar("image too big");
+          MainFunctions.somethingWentWrongSnackBar("imageTooBig".tr);
         }
       } catch (e) {
         MainFunctions.somethingWentWrongSnackBar("$e");
@@ -226,6 +258,8 @@ class ProfilePageController extends GetxController {
 
   @override
   void onInit() {
+    print(userModel.roles);
+
     getBoolisInternetConnected();
     super.onInit();
   }

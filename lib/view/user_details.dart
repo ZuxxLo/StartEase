@@ -4,10 +4,11 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
 import 'package:startease/view/widgets.dart';
- 
+
 import '../backend/link_api.dart';
 import '../controller/users_management_controller.dart';
 import '../main.dart';
+import '../model/roles_model.dart';
 
 class UserDetails extends StatelessWidget {
   const UserDetails({super.key});
@@ -16,7 +17,7 @@ class UserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final UsersManagementController usersManagementController = Get.find();
     double screenHeight = MediaQuery.of(context).size.height;
-     return DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -24,7 +25,7 @@ class UserDetails extends StatelessWidget {
           leading: const BackIconButton(),
           title: TabBar(
               indicatorPadding: const EdgeInsets.only(bottom: 2),
-              indicatorColor: purpleColor,
+              indicatorColor: bluePurpleColor,
               labelColor: Theme.of(context).primaryColorLight,
               tabs: [
                 Tab(
@@ -39,7 +40,8 @@ class UserDetails extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -48,7 +50,7 @@ class UserDetails extends StatelessWidget {
                       width: 120,
                       child: !(usersManagementController
                                   .userDetails!.photoUrl ==
-                              "https://via.placeholder.com/640x480.png/002277?text=architecto")
+                              "http://localhost:8000/images/users/default.png")
                           ? ClipOval(
                               child: Image.network(
                               linkServerName +
@@ -65,10 +67,10 @@ class UserDetails extends StatelessWidget {
                                 alignment: Alignment.center,
                                 color: MainFunctions.generatePresizedColor(
                                     usersManagementController
-                                        .userDetails!.username.length),
+                                        .userDetails!.username!.length),
                                 child: Text(
                                   usersManagementController
-                                      .userDetails!.firstName[0]
+                                      .userDetails!.username![0]
                                       .toUpperCase(),
                                   // style: const TextStyle(
                                   //     fontSize: 27, color: purpleTextColor),
@@ -78,9 +80,15 @@ class UserDetails extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  TitleMediumText(
-                      text:
-                          "${usersManagementController.userDetails?.firstName} ${usersManagementController.userDetails?.lastName}"),
+                  Text(
+                    "${usersManagementController.userDetails?.username}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize:
+                            Theme.of(context).textTheme.bodyMedium!.fontSize),
+                  ),
+
                   const SizedBox(
                     height: 10,
                   ),
@@ -102,34 +110,190 @@ class UserDetails extends StatelessWidget {
                               usersManagementController.userDetails?.username,
                         ),
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      //firstname
+                      usersManagementController
+                                  .userDetails?.person?.firstName ==
+                              null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    prefixIcon: const ImageIcon(
+                                      Svg("assets/icons/profile.svg"),
+                                    ),
+                                    hintText: usersManagementController
+                                        .userDetails?.person?.firstName,
+                                  ),
+                                ),
+                              ],
+                            ),
+                      //lastname
+                      usersManagementController.userDetails?.person?.lastName ==
+                              null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    prefixIcon: const ImageIcon(
+                                      Svg("assets/icons/profile.svg"),
+                                    ),
+                                    hintText: usersManagementController
+                                        .userDetails?.person?.lastName,
+                                  ),
+                                ),
+                              ],
+                            ),
+                      //personType
+                      usersManagementController.userDetails?.personType == null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    prefixIcon: const ImageIcon(
+                                      Svg("assets/icons/profile.svg"),
+                                    ),
+                                    hintText: usersManagementController
+                                        .userDetails?.personType,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                      //establishment
+                      usersManagementController
+                                  .userDetails?.person?.establishment?.name ==
+                              null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    prefixIcon: const ImageIcon(
+                                      Svg("assets/icons/profile.svg"),
+                                    ),
+                                    hintText: usersManagementController
+                                        .userDetails
+                                        ?.person
+                                        ?.establishment
+                                        ?.name,
+                                  ),
+                                ),
+                              ],
+                            ),
+                      //grade
+                      usersManagementController
+                                  .userDetails?.person?.grade?.name ==
+                              null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                      prefixIcon: const ImageIcon(
+                                        Svg("assets/icons/profile.svg"),
+                                      ),
+                                      hintText: usersManagementController
+                                          .userDetails?.person?.grade?.name),
+                                ),
+                              ],
+                            ),
+                      //speciality
+                      usersManagementController
+                                  .userDetails?.person?.speciality?.name ==
+                              null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                      prefixIcon: const ImageIcon(
+                                        Svg("assets/icons/profile.svg"),
+                                      ),
+                                      hintText: usersManagementController
+                                          .userDetails
+                                          ?.person
+                                          ?.speciality
+                                          ?.name),
+                                ),
+                              ],
+                            ),
+                      //filliere
+                      usersManagementController
+                                  .userDetails?.person?.filiere?.name ==
+                              null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                      prefixIcon: const ImageIcon(
+                                        Svg("assets/icons/profile.svg"),
+                                      ),
+                                      hintText: usersManagementController
+                                          .userDetails
+                                          ?.person
+                                          ?.filiere
+                                          ?.name),
+                                ),
+                              ],
+                            ),
                       //birthday
-                      TextFormField(
-                        enabled: false,
-                        decoration: InputDecoration(
-                          prefixIcon: const ImageIcon(
-                            Svg("assets/icons/calendar_icon.svg"),
-                          ),
-                          hintText:
-                              usersManagementController.userDetails?.birthday,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      usersManagementController.userDetails?.person?.birthday ==
+                              null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    prefixIcon: const ImageIcon(
+                                      Svg("assets/icons/calendar_icon.svg"),
+                                    ),
+                                    hintText: usersManagementController
+                                        .userDetails?.person?.birthday,
+                                  ),
+                                ),
+                              ],
+                            ),
+
                       //birthplace
-                      TextFormField(
-                        enabled: false,
-                        decoration: InputDecoration(
-                          prefixIcon: const ImageIcon(
-                            Svg("assets/icons/location_icon.svg"),
-                          ),
-                          hintText:
-                              usersManagementController.userDetails?.birthPlace,
-                        ),
-                      ),
+                      usersManagementController
+                                  .userDetails?.person?.birthPlace ==
+                              null
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                const SizedBox(height: 15),
+                                TextFormField(
+                                  enabled: false,
+                                  decoration: InputDecoration(
+                                    prefixIcon: const ImageIcon(
+                                      Svg("assets/icons/location_icon.svg"),
+                                    ),
+                                    hintText: usersManagementController
+                                        .userDetails?.person?.birthPlace,
+                                  ),
+                                ),
+                              ],
+                            ),
                       const SizedBox(
                         height: 15,
                       ),
@@ -166,84 +330,156 @@ class UserDetails extends StatelessWidget {
                     ],
                   ),
 
-                  TextButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            usersManagementController.userDetails?.isEnabled ==
-                                    1
-                                ? redColor
-                                : bluePurpleColor)),
-                    onPressed: () {
-                      usersManagementController.enableDisable();
-                    },
-                    child: GetBuilder<UsersManagementController>(
-                        builder: (context) {
-                      return Text(
+                  GetBuilder<UsersManagementController>(builder: (context) {
+                    return TextButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              usersManagementController
+                                          .userDetails?.isEnabled ==
+                                      1
+                                  ? redColor
+                                  : bluePurpleColor)),
+                      onPressed: () {
+                        usersManagementController.enableDisable();
+                      },
+                      child: Text(
                           usersManagementController.userDetails?.isEnabled == 0
                               ? "enable".tr
-                              : "disable".tr);
-                    }),
-                  ),
+                              : "disable".tr),
+                    );
+                  }),
                 ],
               ),
             ),
-            Padding(
+            ListView(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: screenHeight - 200,
-                    child: ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: usersManagementController.allRolesList!.length,
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          height: 30,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(usersManagementController
-                                    .allRolesList![index].name
-                                    .toString()),
-                              ),
-                              GetBuilder<UsersManagementController>(
-                                  builder: (context) {
-                                return CupertinoSwitch(
-                                  value: usersManagementController
-                                      .allRolesList![index].value!,
-                                  onChanged: ((value) {
-                                    usersManagementController.changeRoleValue(
-                                        index, value);
-                                  }),
-                                  thumbColor: usersManagementController
-                                          .allRolesList![index].value!
-                                      ? purpleColor
-                                      : greyColor,
-                                  activeColor: purpleColor.withOpacity(0.5),
-                                );
-                              })
-                            ],
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider(
-                          thickness: 1,
-                        );
-                      },
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      usersManagementController.confirm();
-                    },
-                    child: GetBuilder<UsersManagementController>(
-                        builder: (context) {
-                      return Text("confirm".tr);
+              physics: const BouncingScrollPhysics(),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GetBuilder<UsersManagementController>(builder: (context) {
+                      return Text(
+                        usersManagementController.searchTextRole == ""
+                            ? ""
+                            : "searching".tr +
+                                usersManagementController.searchTextRole,
+                        style: TextStyle(fontSize: 18),
+                      );
                     }),
-                  ),
-                ],
-              ),
+                    IconButton(
+                        onPressed: () {
+                          Get.defaultDialog(
+                              title: "searchByFirstLastName".tr,
+                              content: Column(
+                                children: [
+                                  TextFormField(
+                                    onChanged: (inputSearch) {
+                                      usersManagementController
+                                          .searchTextInputRole(inputSearch);
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: usersManagementController
+                                                    .searchTextRole ==
+                                                ""
+                                            ? "searchByFirstLastName".tr
+                                            : usersManagementController
+                                                .searchTextRole),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  TextButton(
+                                      onPressed: () {
+                                        usersManagementController.searchRole(
+                                            usersManagementController
+                                                .searchTextRole);
+                                        navigator!.pop();
+                                      },
+                                      child: Text("confirm".tr)),
+                                  const SizedBox(height: 10),
+                                  TextButton(
+                                      onPressed: () {
+                                        usersManagementController
+                                            .searchTextInputRole("");
+                                        usersManagementController
+                                            .searchRole("");
+                                        navigator!.pop();
+                                      },
+                                      child: Text("clear".tr))
+                                ],
+                              ));
+                        },
+                        icon: const ImageIcon(
+                            Svg("assets/icons/search_icon.svg"))),
+                  ],
+                ),
+                GetBuilder<UsersManagementController>(builder: (context) {
+                  return usersManagementController.rolesListToAffich!.isNotEmpty
+                      ? !usersManagementController.rolesListToAffich!
+                              .contains(Roles(id: -77, name: "error77empty"))
+                          ? ListView.separated(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: usersManagementController
+                                  .rolesListToAffich!.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  height: 70,
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .listTileTheme
+                                          .tileColor,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(usersManagementController
+                                            .rolesListToAffich![index].name
+                                            .toString()),
+                                      ),
+                                      CupertinoSwitch(
+                                        value: usersManagementController
+                                            .rolesListToAffich![index].value!,
+                                        onChanged: ((value) {
+                                          usersManagementController
+                                              .changeRoleValue(index, value);
+                                        }),
+                                        thumbColor: usersManagementController
+                                                .rolesListToAffich![index]
+                                                .value!
+                                            ? bluePurpleColor
+                                            : greyColor,
+                                        activeColor:
+                                            bluePurpleColor.withOpacity(0.5),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return const Divider(
+                                  thickness: 1,
+                                );
+                              },
+                            )
+                          : Center(child: Text("noResults".tr))
+                      : usersManagementController.searchTextRole == ""
+                          ? const CircularProgressIndicator()
+                          : Center(child: Text("noResults".tr));
+                }),
+                const SizedBox(height: 20),
+                TextButton(
+                  onPressed: () {
+                    usersManagementController.confirm();
+                  },
+                  child:
+                      GetBuilder<UsersManagementController>(builder: (context) {
+                    return Text("confirm".tr);
+                  }),
+                ),
+              ],
             ),
           ],
         ),

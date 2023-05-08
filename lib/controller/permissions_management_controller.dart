@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
- import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 import '../backend/crud.dart';
 import '../backend/link_api.dart';
@@ -7,15 +7,23 @@ import '../main.dart';
 import '../model/permissions_model.dart';
 
 class PermissionsManagementController extends GetxController {
-  List<Permissions> allPermissionsList = [];
+  List<Permissions> allPermissionsListNotAffich = [];
+  List<Permissions> allPermissionsListToAffich = [];
+
   Permissions newPermission = Permissions();
   Future loadAllPermissions() async {
-    allPermissionsList.clear();
+    allPermissionsListNotAffich.clear();
+    allPermissionsListToAffich.clear();
+
     var response = await Crud.getRequest(permissionsLink);
     if (response != null && response["success"] == true) {
-      allPermissionsList =
+      allPermissionsListNotAffich =
           (PermissionsModel.fromJson(response).data?.permissions)!;
     }
+    allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+    allPermissionsListNotAffich.forEach((element) {
+      print(element.type);
+    });
 
     update();
     return response;
@@ -23,44 +31,31 @@ class PermissionsManagementController extends GetxController {
 
   void deletePermissionRequest(id) async {
     if (await MainFunctions.checkInternetConnection()) {
-      var response = await Crud.deleteRequest("$permissionsLink/$id");
-      if (response != null && response["success"] == true) {
-        MainFunctions.successSnackBar("permissionDeleted".tr);
+      allPermissionsListToAffich.forEach((element) async {
+        if (element.id == id && element.rolesCount! == 0) {
+          var response = await Crud.deleteRequest("$permissionsLink/$id");
 
-        allPermissionsList.removeWhere((element) {
-          return element.id == id;
-        });
-      } else {
-        MainFunctions.somethingWentWrongSnackBar();
-      }
+          if (response != null && response["success"] == true) {
+            MainFunctions.successSnackBar("permissionDeleted".tr);
+
+            allPermissionsListNotAffich.removeWhere((element) {
+              return element.id == id;
+            });
+            allPermissionsListToAffich.removeWhere((element) {
+              return element.id == id;
+            });
+
+            update();
+          } else {
+            MainFunctions.somethingWentWrongSnackBar();
+          }
+        } else if (element.id == id && element.rolesCount! > 0) {
+          MainFunctions.somethingWentWrongSnackBar("permissionUsed".tr);
+        }
+      });
     }
 
     update();
-  }
-
-  void deletePermission(id) {
-    if (!Get.isDialogOpen!) {
-      Get.defaultDialog(
-          title: "areUSure".tr,
-          content: Column(
-            children: [
-              TextButton(
-                  onPressed: () {
-                    deletePermissionRequest(id);
-                    Get.back();
-                  },
-                  child: Text("confirm".tr)),
-              const SizedBox(
-                height: 10,
-              ),
-              TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: Text("cancel".tr)),
-            ],
-          ));
-    }
   }
 
   @override
@@ -78,19 +73,22 @@ class PermissionsManagementController extends GetxController {
         ));
     if (response != null && response["success"]) {
       MainFunctions.successSnackBar("permissionCreated".tr);
-      allPermissionsList.add(newPermission);
+      allPermissionsListNotAffich.add(newPermission);
+      allPermissionsListToAffich.add(newPermission);
+      loadAllPermissions();
     } else if (response != null &&
         !response["success"] &&
         response["message"] == "The name has already been taken.") {
       MainFunctions.somethingWentWrongSnackBar("permissionNameTaken".tr);
     } else {
-       MainFunctions.somethingWentWrongSnackBar();
+      MainFunctions.somethingWentWrongSnackBar();
     }
     update();
   }
 
   void addNewPermission() {
-    Permissions newPermission = Permissions();
+    Permissions newPermission =
+        Permissions(rolesCount: 0, type: PermissionsType.customType);
     String newPermissionName = "";
     Get.defaultDialog(
         title: "newPermission1".tr,
@@ -99,8 +97,9 @@ class PermissionsManagementController extends GetxController {
             TextButton(
               onPressed: () {
                 newPermission.name = newPermissionName;
+
                 addPermissionsReq(newPermission);
-                Get.back();
+                navigator!.pop();
               },
               child: Text("confirm".tr),
             ),
@@ -109,7 +108,7 @@ class PermissionsManagementController extends GetxController {
             ),
             TextButton(
               onPressed: () {
-                Get.back();
+                navigator!.pop();
               },
               child: Text("cancel".tr),
             ),
@@ -129,4 +128,39 @@ class PermissionsManagementController extends GetxController {
           },
         )));
   }
+
+//Search ///////////////////////////////////
+  String searchText = "";
+
+  searchTextInput(inputSearch) {
+    searchText = inputSearch;
+  }
+
+  searchPermission(String inputSearch) {
+    allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+
+    allPermissionsListToAffich.removeWhere((element) {
+      return (!(element.name)!.contains(inputSearch));
+    });
+
+    if (allPermissionsListToAffich.isEmpty) {
+      allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+
+      allPermissionsListToAffich.removeWhere((element) {
+        return (!(element.name)!.startsWith(inputSearch));
+      });
+    }
+
+    if (allPermissionsListToAffich.isEmpty) {
+      allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+
+      allPermissionsListToAffich.removeWhere((element) {
+        return (!(element.name)!.endsWith(inputSearch));
+      });
+    }
+
+    update();
+  }
+
+  //Search ///////////////////////////////////
 }

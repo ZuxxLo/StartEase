@@ -28,6 +28,7 @@ class Languages implements Translations {
           "password": "Password",
           "resetPassword": "Reset password",
           "weWillSendUReset": "No worries we will send you reset instructions.",
+          "send": "Send",
           "sendEmail": "Send email",
           "sendSMSVerification": "Send SMS Verification",
           "enterNewPassword": "Please enter your new password",
@@ -45,8 +46,12 @@ class Languages implements Translations {
           "successResetPassword": "Your password has been successfully reset",
           "email": "Email",
           "phoneNumber": "Phone number",
-          "enterValidPhoneNumber": "enter a valid phone number", //
+          "phoneNumberUpdated": "Phone number updated successfully",
 
+          "enterValidPhoneNumber": "enter a valid phone number", //
+          "userName": "Username",
+          "firstName": "First name",
+          "lastName": "Last name",
           "birthday": "Birthday",
           "birthplace": "Birthplace",
           "confirm": "Confirm", "cancel": "Cancel",
@@ -69,6 +74,7 @@ class Languages implements Translations {
           "yourInformations": "Your informations",
           "informations": "Informations",
           "changePassword": "Change password",
+          "updatePhoneNumber": "Update phone number",
           "oldPassword": "Old password",
           "newPassword": "New password",
           "pleaseWait": "Please wait",
@@ -78,9 +84,19 @@ class Languages implements Translations {
           "signOut": "Sign out",
           "aboutUs": "About us",
           "onlyAdmin": "Only super admins",
-
+          "openAppSettings": "Open App Settings",
+          "pleaseAllowPermissions": "Please allow permissions",
           "areUSure": "Are you sure ?",
 
+          //////////////////////////////////////
+          "registration": "Registration",
+          "goBack": "Go back",
+          "field3c": "This field must be at least 3 characters.",
+          "enterBirthplace": "Please enter birthplace",
+          "enterBirthday": "Please enter birthday",
+          "signUpSuccess": "Account created successfully",
+          "submit": "Submit",
+          "imageTooBig": "Image too big",
           //CREATE NEW ROLE///////////////
           "createRole": "Create a new role",
           "createRole1": "Complete the following steps to create a new role",
@@ -97,6 +113,8 @@ class Languages implements Translations {
           "roleCreated": "Role created successfully",
           "roleNameTaken": "This role name already exists",
           "addPermissions": "Please add a permission",
+          "permissionUsed": "Can't delete permission used in a role",
+          "roleUsed": "Can't delete a role given to a user",
           //CREATE NEW ROLE///////////////
 
           //ROLE MANAGEMENT/////////////////
@@ -124,8 +142,79 @@ class Languages implements Translations {
           "accountEnabled": "Account enabled successfully",
           "accountDisabled": "Account disabled successfully",
           "updatedSuccess": "Updated successfully",
+          "searchByFirstLastName": "Please enter a name",
+          "searching": "Searching: ",
+          "clear": "Clear",
+          "noResults": "No results",
+          "noRoles":"No roles",
 
           ///usersManagement ////////
+          ///
+          /////projectManagement////
+
+          "projectManagement": "Project management",
+          "status": "Status",
+          "projectAdvanc": "Project Advancement",
+          "update": "Update",
+
+          "viewMyProject": "View my project",
+
+          "editMyProject": "Edit my project",
+          "tasks": "Tasks",
+          "comments": "Comments",
+          "remarks": "Remarks",
+          "projectObserv": "Project observations",
+          "withdraw": "Withdraw",
+          "periodsManagement": "Periods Management",
+          "period": "Period",
+          "selectPeriod": "Select a period",
+          "startTime": "Start date",
+          "endTime": "End date",
+          "periodUpdated": "Period updated successfully",
+          "periodConflics": "The new period conflicts with an existing period ",
+          "enterADate": "Please enter a date",
+          "startDateBeforeEndDate": "Start date must be before end date",
+          "validated": "Validated",
+          "pending": "Pending",
+          "refused": "Refused",
+          "recourse": "Recourse",
+          "recourse_validated": "Validated after recourse",
+          "recourse_refused": "Refused after recourse",
+          "viewRemarks": "View remarks",
+          "daysAgo": "@daysAgo days ago",
+          "enterARemark": "Please enter a remark",
+          "editYourProject": "Do you want to edit your project?",
+          "seeBelowRemarks":
+              "You can see down below all the remarks given to your project",
+
+          "domicileEstab": "Domicile establishment",
+          "selectDomicileEstab": "please select a domicile establishment",
+
+          "projectType": "Project type",
+          "selectProjectType": "please select a Project type",
+
+          "infoInnovativeIdea": "Informations of innovative idea",
+          "trademarkName": "Trademark name",
+          "enterTrademarkName": "Please enter trademark name",
+
+          "sciNameInnovProd": "Scientific name of innovative product",
+          "enterSciNameInnovProd":
+              "Please enter a scientific name of innovative product",
+          "summary": "Summary",
+          "enterSummary": "Please enter a summary of your project",
+          "projectTeam": "Project's team",
+          "add": "Add",
+          "managementTeam": "Management team",
+
+          "attachments": "Attachments",
+          "UCAddFiles":
+              "You can add files to your project, allowed formats are: .pdf, .docx",
+          "editCanceled": "Edit is canceled",
+
+          "projectsManagement": "Projects management",
+          "projectsTable": "Projects table",
+
+          ///////////////
         },
         "fr": {
           ////Theme
@@ -147,6 +236,7 @@ class Languages implements Translations {
           "resetPassword": "Réinitialiser le mot de passe",
           "weWillSendUReset":
               "Pas de soucis, nous vous enverrons des instructions de réinitialisation.",
+          "send": "Envoyer",
           "sendEmail": "Envoyer un e-mail",
           "sendSMSVerification": "Envoyer la vérification par SMS",
           "enterNewPassword": "Veuillez entrer votre nouveau mot de passe",
@@ -166,8 +256,12 @@ class Languages implements Translations {
               "Votre mot de passe a été réinitialisé avec succès",
           "email": "Email",
           "phoneNumber": "Numéro de téléphone",
-          "enterValidPhoneNumber": "entrez un numero de téléphone valide", //
+          "phoneNumberUpdated": "Numéro de téléphone mis à jour avec succès",
 
+          "enterValidPhoneNumber": "entrez un numero de téléphone valide", //
+          "userName": "Username",
+          "firstName": "Prénom",
+          "lastName": "Nom de famille",
           "birthday": "Date de naissance",
           "birthplace": "Lieu de naissance",
           "confirm": "Confirmer", "cancel": "Annuler",
@@ -192,6 +286,7 @@ class Languages implements Translations {
           "informations": "Informations",
 
           "changePassword": "Changer le mot de passe",
+          "updatePhoneNumber": "Mettre à jour le numéro de téléphone",
           "PersonalInformation": "Informations personnelles",
           "oldPassword": "Ancien mot de passe",
           "newPassword": "Nouveau mot de passe",
@@ -201,8 +296,19 @@ class Languages implements Translations {
           "signOut": "Se déconnecter",
           "aboutUs": "À propos de nous",
           "onlyAdmin": "Seuls les super-administrateurs",
-
+          "openAppSettings": "Ouvrir les paramètres",
+          "pleaseAllowPermissions": "Veuillez autoriser les autorisations",
           "areUSure": "Vous êtes sûr",
+
+          //////////////////////////////////////
+          "registration": "Inscription",
+          "goBack": "Retourner",
+          "field3c": "ce champ doit contenir au moins 3 caractères.",
+          "enterBirthplace": "Veuillez entrer le lieu de naissance",
+          "enterBirthday": "Veuillez saisir la date de naissance",
+          "signUpSuccess": "Compte créé avec succès",
+          "submit": "Soumettre",
+          "imageTooBig": "Image trop grande",
 
           //CREATE NEW ROLE///////////////
           "createRole": "Créer un nouveau rôle",
@@ -221,6 +327,11 @@ class Languages implements Translations {
           "roleCreated": "Rôle créé avec succès",
           "roleNameTaken": "Ce nom de rôle existe déjà",
           "addPermissions": "Veuillez ajouter une autorisation",
+          "permissionUsed":
+              "Impossible de supprimer l'autorisation utilisée dans un rôle",
+          "roleUsed":
+              "Impossible de supprimer un rôle attribué à un utilisateur",
+
           //CREATE NEW ROLE///////////////
 
           //ROLE MANAGEMENT/////////////////
@@ -248,8 +359,87 @@ class Languages implements Translations {
           "accountEnabled": "Compte activé avec succès",
           "accountDisabled": "Compte désactivé avec succès",
           "updatedSuccess": "Mis à jour avec succés",
+          "searchByFirstLastName": "Veuillez entrer un nom",
+          "searching": "Recherche: ",
+          "clear": "Effacer",
+          "noResults": "Aucun résultat",
+          "noRoles":"Aucun rôle",
 
           ///usersManagement ////////
+          ///
+          ///
+          //projectManagement////
+
+          "projectManagement": "Gestion des projets",
+          "status": "Statut",
+          "projectAdvanc": "Avancement du projet",
+          "update": "Mise à jour",
+
+          "viewMyProject": "Voir mon projet",
+          "editMyProject": "Modifier mon projet",
+          "tasks": "Tâches",
+          "comments": "Commentaires",
+          "remarks": "Remarques",
+          "projectObserv": "Observations du projet",
+
+          "withdraw": "Retirer",
+
+          "periodsManagement": "Gestion des périodes",
+          "period": "Période",
+          "selectPeriod": "Sélectionnez une période",
+          "startTime": "Date de début",
+          "endTime": "Date de fin",
+          "periodUpdated": "Période mise à jour avec succès",
+          "periodConflics":
+              "La nouvelle période est en conflit avec une période existante ",
+
+          "enterADate": "Veuillez entrer une date",
+          "startDateBeforeEndDate":
+              "La date de début doit être avant à la date de fin",
+          "validated": "Validé",
+          "pending": "En attente",
+          "refused": "Refusé",
+          "recourse": "Recours",
+          "recourse_validated": "Validé après recours",
+          "recourse_refused": "Refusé après recours",
+          "viewRemarks": "Voir les remarques",
+          "daysAgo": "il y a @daysAgo jour(s)",
+
+          "enterARemark": "Veuillez entrer une remarque",
+
+          "editYourProject": "Vous souhaitez modifier votre projet ?",
+          "seeBelowRemarks":
+              "Vous pouvez voir ci-dessous toutes les remarques données à votre projet",
+
+          "domicileEstab": "Établissement de domicile",
+          "selectDomicileEstab":
+              "veuillez sélectionner un établissement de domicile",
+
+          "projectType": "Type de projet",
+          "selectProjectType": "veuillez sélectionner un type de projet",
+
+          "infoInnovativeIdea": "Informations sur l'idée innovante",
+          "trademarkName": "Nom de la marque",
+          "enterTrademarkName": "Veuillez saisir le nom de la marque",
+
+          "sciNameInnovProd": "Nom scientifique du produit innovant",
+          "enterSciNameInnovProd":
+              "Veuillez entrer un nom scientifique de produit innovant",
+          "summary": "Résumé",
+          "enterSummary": "Veuillez entrer un résumé de votre projet",
+          "projectTeam": "L'équipe du projet",
+          "add": "Ajouter",
+          "managementTeam": "Équipe de direction",
+
+          "attachments": "Pièces jointes",
+          "UCAddFiles":
+              "Vous pouvez ajouter des fichiers à votre projet, les formats autorisés sont : .pdf, .docx",
+          "editCanceled": "La modification est annulée",
+
+          "projectsManagement": "Gestion de projets",
+          "projectsTable": "Tableau des projets",
+
+          ///////////////
         }
       };
 

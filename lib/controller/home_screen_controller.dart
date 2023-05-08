@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:startease/controller/project_manag_admin_controller.dart';
 import 'package:startease/controller/role_management_controller.dart';
 import 'package:startease/controller/users_management_controller.dart';
 import '../backend/crud.dart';
@@ -21,6 +22,10 @@ class HomeScreenController extends GetxController {
     if (index == 1) {
       _currentBottomBarIndex = index;
       Get.put(UsersManagementController());
+    }
+    if (index == 2) {
+      _currentBottomBarIndex = index;
+      Get.put(ProjectManagementAdminController());
     }
 
     if (index != 1) {}
@@ -49,7 +54,6 @@ class HomeScreenController extends GetxController {
       Get.back();
     } else {
       if (!Get.isSnackbarOpen) {
-
         MainFunctions.somethingWentWrongSnackBar(); //voxeee  //Password#0
       }
     }
@@ -96,15 +100,17 @@ class HomeScreenController extends GetxController {
   }
 
   void setDarkTheme() {
- 
     Get.defaultDialog(
         title: "theme".tr,
         content: Column(
           children: [
             TextButton(
-                onPressed: () {
+                onPressed: () async {
+                  Get.changeThemeMode(ThemeMode.dark);
                   Get.changeTheme(Themes.customLightTheme);
                   MainFunctions.sharredPrefs!.setBool("isDarkTheme", false);
+                  await Get.forceAppUpdate();
+
                   Get.back();
                 },
                 child: Text("lightTheme".tr)),
@@ -112,14 +118,35 @@ class HomeScreenController extends GetxController {
               height: 10,
             ),
             TextButton(
-                onPressed: () {
+                onPressed: () async {
+                  Get.changeThemeMode(ThemeMode.light);
+
                   Get.changeTheme(Themes.customDarkTheme);
                   MainFunctions.sharredPrefs!.setBool("isDarkTheme", true);
+                  await Get.forceAppUpdate();
+
                   Get.back();
                 },
                 child: Text("darkTheme".tr)),
           ],
         ));
+
+    update();
+  }
+
+  set() async {
+    bool isDarkMode =
+        MainFunctions.sharredPrefs!.getBool("isDarkTheme") ?? false;
+    print(isDarkMode);
+    if (isDarkMode) {
+      Get.changeTheme(Themes.customLightTheme);
+      MainFunctions.sharredPrefs!.setBool("isDarkTheme", false);
+      await Get.forceAppUpdate();
+    } else {
+      Get.changeTheme(Themes.customDarkTheme);
+      MainFunctions.sharredPrefs!.setBool("isDarkTheme", true);
+      await Get.forceAppUpdate();
+    }
 
     update();
   }

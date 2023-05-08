@@ -11,6 +11,7 @@ class AuthMiddleware extends GetMiddleware {
 
     
     if (MainFunctions.sharredPrefs?.getString("authToken") != null) {
+      print("auth*/*/*/*/*/*/*");
       return const RouteSettings(name: "/HomeScreen");
     } else {
       return null;

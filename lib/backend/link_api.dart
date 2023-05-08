@@ -15,7 +15,7 @@ const String updateUsernameLink = "$linkServerName/api/users/update/username";
 
 const String updatePasswordLink = "$linkServerName/api/users/update/password";
 
-const String updatePhoneNumberSendOTPLink =
+const String updatePhoneNumberlink =
     "$linkServerName/api/users/update/phonenumber";
 
 const String updatePhoneNumberOTPLink =
@@ -24,3 +24,8 @@ const String updatePhoneNumberOTPLink =
 const String permissionsLink = "$linkServerName/api/permissions";
 const String roleLink = "$linkServerName/api/roles";
 const String usersLink = "$linkServerName/api/users";
+
+////////////periods
+const String periodsLink = "$linkServerName/api/periods";
+
+////////////periods

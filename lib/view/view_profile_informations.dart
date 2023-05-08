@@ -15,211 +15,343 @@ class ViewProfileInformations extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProfilePageController profilePageController = Get.find();
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: const BackIconButton(),
-        title: Text("PersonalInformation".tr),
-      ),
-      body: GetBuilder<ProfilePageController>(
-        builder: (ctx) {
-          if (profilePageController.isInternetConnected) {
-            return SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const BackIconButton(),
+          title: TabBar(
+              indicatorPadding: const EdgeInsets.only(bottom: 2),
+              indicatorColor: bluePurpleColor,
+              labelColor: Theme.of(context).primaryColorLight,
+              tabs: [
+                Tab(
+                  text: "informations".tr,
+                ),
+                Tab(
+                  text: "roles".tr,
+                )
+              ]),
+        ),
+        body: GetBuilder<ProfilePageController>(
+          builder: (ctx) {
+            if (profilePageController.isInternetConnected) {
+              return TabBarView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                          const ProfilePicture(),
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          child: IconButton(
-                            onPressed: () {profilePageController.uploadPicture();},
-                            icon: Container(
-                              alignment: Alignment.bottomCenter,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // ignore: prefer_const_constructors
+                            ProfilePicture(),
+                            Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: IconButton(
+                                onPressed: () {
+                                  profilePageController.uploadPicture();
+                                },
+                                icon: Container(
+                                  alignment: Alignment.bottomCenter,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: whiteColor,
+                                      ),
+                                      color: bluePurpleColor,
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: const ImageIcon(
                                     color: whiteColor,
+                                    size: 80,
+                                    Svg("assets/icons/edit_icon.svg"),
                                   ),
-                                  color: bluePurpleColor,
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: const ImageIcon(
-                                color: whiteColor,
-                                size: 80,
-                                Svg("assets/icons/edit_icon.svg"),
+                                ),
                               ),
                             ),
+                          ],
+                        ),
+                        // TitleMediumText(
+                        //     text: "${userModel.firstName} ${userModel.lastName}"),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: UserNameText(text: "PersonalInformation".tr),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Form(
+                          key: profilePageController.formKey,
+                          child: Column(
+                            children: [
+                              //Username
+                              TextFormField(
+                                initialValue: userModel.username,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return null;
+                                  }
+                                  if (value.isNotEmpty && value.length < 3) {
+                                    return "usernameValidator".tr;
+                                  }
+
+                                  return null;
+                                },
+                                onChanged: (inputUsername) {
+                                  profilePageController
+                                      .inputnewUsername(inputUsername);
+                                },
+                                decoration: const InputDecoration(
+                                  prefixIcon: ImageIcon(
+                                    Svg("assets/icons/tag_user_icon.svg"),
+                                  ),
+                                  hintText: "@user_name",
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+
+                              // //birthplace
+                              // TextFormField(
+                              //   enabled: false,
+                              //   decoration: InputDecoration(
+                              //     prefixIcon: const ImageIcon(
+                              //       Svg("assets/icons/location_icon.svg"),
+                              //     ),
+                              //     hintText: userModel.birthPlace,
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 15,
+                              // ),
+                              //email
+                              TextFormField(
+                                enabled: false,
+                                decoration: InputDecoration(
+                                  prefixIcon: const EmailIcon(),
+                                  hintText: userModel.email,
+                                ),
+                              ),
+                              //firstName
+                              userModel.person?.firstName == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        TextFormField(
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            prefixIcon: const ImageIcon(
+                                              Svg("assets/icons/profile.svg"),
+                                            ),
+                                            hintText:
+                                                userModel.person?.firstName,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              //lastname
+                              userModel.person?.lastName == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        TextFormField(
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            prefixIcon: const ImageIcon(
+                                              Svg("assets/icons/profile.svg"),
+                                            ),
+                                            hintText:
+                                                userModel.person?.lastName,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              //personType
+                              userModel.personType == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        TextFormField(
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            prefixIcon: const ImageIcon(
+                                              Svg("assets/icons/profile.svg"),
+                                            ),
+                                            hintText: userModel.personType,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              //establishment
+                              userModel.person?.establishment?.name == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        TextFormField(
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            prefixIcon: const ImageIcon(
+                                              Svg("assets/icons/location_icon.svg"),
+                                            ),
+                                            hintText: userModel
+                                                .person?.establishment?.name,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              //grade
+                              userModel.person?.grade?.name == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        TextFormField(
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            prefixIcon: const ImageIcon(
+                                              Svg("assets/icons/location_icon.svg"),
+                                            ),
+                                            hintText:
+                                                userModel.person?.grade?.name,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              //filiere
+                              userModel.person?.filiere?.name == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        TextFormField(
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            prefixIcon: const ImageIcon(
+                                              Svg("assets/icons/location_icon.svg"),
+                                            ),
+                                            hintText:
+                                                userModel.person?.filiere?.name,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              //birthday
+                              userModel.person?.birthday == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        TextFormField(
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            prefixIcon: const ImageIcon(
+                                              Svg("assets/icons/location_icon.svg"),
+                                            ),
+                                            hintText:
+                                                userModel.person?.birthday,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              //birthplace
+                              userModel.person?.birthPlace == null
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        const SizedBox(height: 15),
+                                        TextFormField(
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            prefixIcon: const ImageIcon(
+                                              Svg("assets/icons/calendar_icon.svg"),
+                                            ),
+                                            hintText:
+                                                userModel.person?.birthPlace,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            if (profilePageController.formKey.currentState!
+                                .validate()) {
+                              profilePageController.formKey.currentState!
+                                  .save();
+                              profilePageController.confirm();
+                            }
+                          },
+                          child: Text(
+                            "confirm".tr,
                           ),
                         ),
                       ],
                     ),
-                    TitleMediumText(
-                        text: "${userModel.firstName} ${userModel.lastName}"),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    // Align(
-                    //   alignment: Alignment.centerLeft,
-                    //   child: UserNameText(text: "PersonalInformation".tr),
-                    // ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Form(
-                      key: profilePageController.formKey,
-                      child: Column(
-                        children: [
-                          //Username
-                          TextFormField(
-                            initialValue: userModel.username,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return null;
-                              }
-                              if (value.isNotEmpty && value.length < 3) {
-                                return "usernameValidator".tr;
-                              }
-
-                              return null;
-                            },
-                            onChanged: (inputUsername) {
-                              profilePageController
-                                  .inputnewUsername(inputUsername);
-                            },
-                            decoration: const InputDecoration(
-                              prefixIcon: ImageIcon(
-                                Svg("assets/icons/tag_user_icon.svg"),
-                              ),
-                              hintText: "@user_name",
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          //birthday
-                          TextFormField(
-                            enabled: false,
-                            decoration: InputDecoration(
-                              prefixIcon: const ImageIcon(
-                                Svg("assets/icons/calendar_icon.svg"),
-                              ),
-                              hintText: userModel.birthday,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          //birthplace
-                          TextFormField(
-                            enabled: false,
-                            decoration: InputDecoration(
-                              prefixIcon: const ImageIcon(
-                                Svg("assets/icons/location_icon.svg"),
-                              ),
-                              hintText: userModel.birthPlace,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          //email
-                          TextFormField(
-                            enabled: false,
-                            decoration: InputDecoration(
-                              prefixIcon: const EmailIcon(),
-                              hintText: userModel.email,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          //phone number
-                          TextFormField(
-                            keyboardType: TextInputType.phone,
-                            validator: (value) {
-                              if (value == "") {
-                                return null;
-                              }
-                              if (!RegExp(
-                                      r'(^[+][0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$)')
-                                  .hasMatch(value ?? '')) {
-                                return "enterValidPhoneNumber".tr;
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              prefixIcon: const ImageIcon(
-                                Svg("assets/icons/phonenumber_icon.svg"),
-                              ),
-                              hintText: userModel.phoneNumber,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: InkWell(
-                              child: Text(
-                                "sendSMSVerification".tr,
-                                style: const TextStyle(
-                                  color: bluePurpleColor,
-                                  fontSize: 15,
-                                ),
-                              ),
-                              onTap: () {
-                                profilePageController.sendSMSVerification();
+                  ),
+                  ListView(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      userModel.roles!.isNotEmpty
+                          ? ListView.separated(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: userModel.roles!.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  height: 70,
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .listTileTheme
+                                          .tileColor,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(userModel.roles![index].name
+                                            .toString()),
+                                      ),
+                                    ],
+                                  ),
+                                );
                               },
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: SmallBodyText(text: "enterSMS".tr)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            enabled: profilePageController.smsEnabled,
-                            onChanged: (inputUsername) {},
-                            decoration: const InputDecoration(
-                              prefixIcon: PasswordKeyIcon(),
-                              hintText: "SMS",
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        if (profilePageController.formKey.currentState!
-                            .validate()) {
-                          profilePageController.formKey.currentState!.save();
-                          profilePageController.confirm();
-                        }
-                      },
-                      child: Text(
-                        "confirm".tr,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          } else {
-            profilePageController.getBoolisInternetConnected();
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return const Divider(
+                                  thickness: 1,
+                                );
+                              },
+                            )
+                          : Center(child: Text("noRoles".tr)),
+                    ],
+                  ),
+                ],
+              );
+            } else {
+              profilePageController.getBoolisInternetConnected();
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
     );
   }
