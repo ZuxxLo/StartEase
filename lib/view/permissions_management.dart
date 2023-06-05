@@ -5,6 +5,7 @@ import 'package:startease/Themes/colors.dart';
 import 'package:startease/controller/permissions_management_controller.dart';
 import 'package:startease/model/permissions_model.dart';
 
+import '../main.dart';
 import 'widgets.dart';
 
 class PermissionsManagement extends StatelessWidget {
@@ -31,7 +32,7 @@ class PermissionsManagement extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Get.defaultDialog(
-                    title: "searchByFirstLastName".tr,
+                    title: "searchByName".tr,
                     content: Column(
                       children: [
                         TextFormField(
@@ -40,7 +41,7 @@ class PermissionsManagement extends StatelessWidget {
                           },
                           decoration: InputDecoration(
                               hintText: permissionsManagement.searchText == ""
-                                  ? "searchByFirstLastName".tr
+                                  ? "searchByName".tr
                                   : permissionsManagement.searchText),
                         ),
                         const SizedBox(height: 10),
@@ -63,12 +64,24 @@ class PermissionsManagement extends StatelessWidget {
                     ));
               },
               icon: const ImageIcon(Svg("assets/icons/search_icon.svg"))),
-          IconButton(
-              onPressed: () {
-                permissionsManagement.addNewPermission();
-              },
-              icon: const ImageIcon(
-                  size: 30, Svg("assets/icons/add_square_icon.svg")))
+          Builder(
+            builder: (context) {
+              bool exists = false;
+              for (var permission in userModel.permissions!) {
+                if (permission.id == 14) {
+                  exists = true;
+                }
+              }
+              return exists
+                  ? IconButton(
+                      onPressed: () {
+                        permissionsManagement.addNewPermission();
+                      },
+                      icon: const ImageIcon(
+                          size: 30, Svg("assets/icons/add_square_icon.svg")))
+                  : const SizedBox();
+            },
+          )
         ],
       ),
       body: GetBuilder<PermissionsManagementController>(builder: (context) {
@@ -95,41 +108,56 @@ class PermissionsManagement extends StatelessWidget {
                                   .allPermissionsListToAffich[index].name
                                   .toString()),
                         ),
-                        permissionsManagement
-                                    .allPermissionsListToAffich[index].type ==
-                                PermissionsType.defaultType
-                            ? const SizedBox()
-                            : IconButton(
-                                onPressed: () {
-                                  if (!Get.isDialogOpen!) {
-                                    Get.defaultDialog(
-                                        title: "areUSure".tr,
-                                        content: Column(
-                                          children: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  permissionsManagement
-                                                      .deletePermissionRequest(
+                        Builder(
+                          builder: (context) {
+                            bool exists = false;
+                            for (var permission in userModel.permissions!) {
+                              if (permission.id == 15) {
+                                exists = true;
+                              }
+                            }
+                            return exists
+                                ? permissionsManagement
+                                            .allPermissionsListToAffich[index]
+                                            .type ==
+                                        PermissionsType.defaultType
+                                    ? const SizedBox()
+                                    : IconButton(
+                                        onPressed: () {
+                                          if (!Get.isDialogOpen!) {
+                                            Get.defaultDialog(
+                                                title: "areUSure".tr,
+                                                content: Column(
+                                                  children: [
+                                                    TextButton(
+                                                        onPressed: () {
                                                           permissionsManagement
-                                                              .allPermissionsListToAffich[
-                                                                  index]
-                                                              .id);
-                                                  Get.back();
-                                                },
-                                                child: Text("confirm".tr)),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            TextButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                child: Text("cancel".tr)),
-                                          ],
-                                        ));
-                                  }
-                                },
-                                icon: const DeleteIcon())
+                                                              .deletePermissionRequest(
+                                                                  permissionsManagement
+                                                                      .allPermissionsListToAffich[
+                                                                          index]
+                                                                      .id);
+                                                          Get.back();
+                                                        },
+                                                        child:
+                                                            Text("confirm".tr)),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Get.back();
+                                                        },
+                                                        child:
+                                                            Text("cancel".tr)),
+                                                  ],
+                                                ));
+                                          }
+                                        },
+                                        icon: const DeleteIcon())
+                                : const SizedBox();
+                          },
+                        )
                       ],
                     ),
                   );

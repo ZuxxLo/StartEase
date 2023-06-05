@@ -7,6 +7,7 @@ import '../backend/crud.dart';
 import '../backend/link_api.dart';
 import '../Themes/themes.dart';
 import '../main.dart';
+import '../model/roles_model.dart';
 
 class HomeScreenController extends GetxController {
   int _currentBottomBarIndex = 0;
@@ -21,15 +22,12 @@ class HomeScreenController extends GetxController {
     }
     if (index == 1) {
       _currentBottomBarIndex = index;
-      Get.put(UsersManagementController());
     }
     if (index == 2) {
       _currentBottomBarIndex = index;
-      Get.put(ProjectManagementAdminController());
     }
 
-    if (index != 1) {}
-    if (index != 2) {}
+    print(index);
 
     update();
   }
@@ -37,6 +35,7 @@ class HomeScreenController extends GetxController {
   @override
   void onInit() {
     Get.put(RoleManagemenetController());
+
     super.onInit();
   }
 

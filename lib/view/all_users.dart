@@ -34,7 +34,7 @@ class AllUsers extends StatelessWidget {
                     onWillPop: () {
                       return Future.value(false);
                     },
-                    title: "searchByFirstLastName".tr,
+                    title: "searchByName".tr,
                     content: Column(
                       children: [
                         TextFormField(
@@ -45,7 +45,7 @@ class AllUsers extends StatelessWidget {
                           decoration: InputDecoration(
                               hintText:
                                   usersManagementController.searchText == ""
-                                      ? "searchByFirstLastName".tr
+                                      ? "searchByName".tr
                                       : usersManagementController.searchText),
                         ),
                         const SizedBox(height: 10),
@@ -97,50 +97,18 @@ class AllUsers extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                              height: 50,
-                              width: 50,
-                              child: !(usersManagementController
-                                          .allUsersListToAffich[index]
-                                          .photoUrl ==
-                                      "http://localhost:8000/images/users/default.png")
-                                  ? ClipOval(
-                                      child: Image.network(
-                                      linkServerName +
-                                          usersManagementController
-                                              .allUsersListToAffich[index]
-                                              .photoUrl!
-                                              .substring(21),
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return const CircularProgressIndicator();
-                                      },
-                                    ))
-                                  : ClipOval(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        color:
-                                            MainFunctions.generatePresizedColor(
-                                                usersManagementController
-                                                    .allUsersListToAffich[index]
-                                                    .username!
-                                                    .length),
-                                        child: Text(
-                                          usersManagementController
-                                              .allUsersListToAffich[index]
-                                              .username![0]
-                                              .toUpperCase(),
-                                          // style: const TextStyle(
-                                          //     fontSize: 27, color: purpleTextColor),
-                                        ),
-                                      ),
-                                    )),
+                            height: 50,
+                            width: 50,
+                            child: ProfilePictureForOtherUsers(
+                                userModel: usersManagementController
+                                    .allUsersListToAffich[index]),
+                          ),
                           const SizedBox(
                             width: 15,
                           ),
                           Expanded(
-                            child: SmallBodyText(
-                                text:
+                            child: Text(
+                                
                                     "${usersManagementController.allUsersListToAffich[index].username}"),
                           ),
                         ],

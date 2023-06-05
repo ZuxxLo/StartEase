@@ -29,3 +29,19 @@ const String usersLink = "$linkServerName/api/users";
 const String periodsLink = "$linkServerName/api/periods";
 
 ////////////periods
+
+////////////projects
+const String projectsLink = "$linkServerName/api/projects";
+
+////////////remarks and comments and tasks
+const String remarksLink = "$linkServerName/api/remarks";
+const String commentsLink = "$linkServerName/api/comments";
+const String tasksLink = "$linkServerName/api/tasks";
+
+///////////////
+const String establishmentsLink = "$linkServerName/api/establishments";
+const String filieresLink = "$linkServerName/api/filieres";
+const String gradesLink = "$linkServerName/api/grades";
+const String specialitiesLink = "$linkServerName/api/specialities";
+
+////////////

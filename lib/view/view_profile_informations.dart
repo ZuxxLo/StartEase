@@ -49,7 +49,10 @@ class ViewProfileInformations extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             // ignore: prefer_const_constructors
-                            ProfilePicture(),
+                            GetBuilder<ProfilePageController>(
+                                builder: (context) {
+                              return ProfilePicture();
+                            }),
                             Positioned(
                               right: 0,
                               bottom: 0,
@@ -93,6 +96,7 @@ class ViewProfileInformations extends StatelessWidget {
                             children: [
                               //Username
                               TextFormField(
+                                readOnly: true,
                                 initialValue: userModel.username,
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -134,10 +138,10 @@ class ViewProfileInformations extends StatelessWidget {
                               // ),
                               //email
                               TextFormField(
-                                enabled: false,
-                                decoration: InputDecoration(
-                                  prefixIcon: const EmailIcon(),
-                                  hintText: userModel.email,
+                                readOnly: true,
+                                initialValue: userModel.email,
+                                decoration: const InputDecoration(
+                                  prefixIcon: EmailIcon(),
                                 ),
                               ),
                               //firstName
@@ -147,13 +151,13 @@ class ViewProfileInformations extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 15),
                                         TextFormField(
-                                          enabled: false,
+                                          readOnly: true,
+                                          initialValue:
+                                              userModel.person?.firstName,
                                           decoration: InputDecoration(
                                             prefixIcon: const ImageIcon(
                                               Svg("assets/icons/profile.svg"),
                                             ),
-                                            hintText:
-                                                userModel.person?.firstName,
                                           ),
                                         ),
                                       ],
@@ -165,13 +169,13 @@ class ViewProfileInformations extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 15),
                                         TextFormField(
-                                          enabled: false,
-                                          decoration: InputDecoration(
-                                            prefixIcon: const ImageIcon(
+                                          readOnly: true,
+                                          initialValue:
+                                              userModel.person?.lastName,
+                                          decoration: const InputDecoration(
+                                            prefixIcon: ImageIcon(
                                               Svg("assets/icons/profile.svg"),
                                             ),
-                                            hintText:
-                                                userModel.person?.lastName,
                                           ),
                                         ),
                                       ],
@@ -183,12 +187,12 @@ class ViewProfileInformations extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 15),
                                         TextFormField(
-                                          enabled: false,
-                                          decoration: InputDecoration(
-                                            prefixIcon: const ImageIcon(
+                                          readOnly: true,
+                                          initialValue: userModel.personType,
+                                          decoration: const InputDecoration(
+                                            prefixIcon: ImageIcon(
                                               Svg("assets/icons/profile.svg"),
                                             ),
-                                            hintText: userModel.personType,
                                           ),
                                         ),
                                       ],
@@ -200,13 +204,13 @@ class ViewProfileInformations extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 15),
                                         TextFormField(
-                                          enabled: false,
-                                          decoration: InputDecoration(
-                                            prefixIcon: const ImageIcon(
+                                          readOnly: true,
+                                          initialValue: userModel
+                                              .person?.establishment?.name,
+                                          decoration: const InputDecoration(
+                                            prefixIcon: ImageIcon(
                                               Svg("assets/icons/location_icon.svg"),
                                             ),
-                                            hintText: userModel
-                                                .person?.establishment?.name,
                                           ),
                                         ),
                                       ],
@@ -218,13 +222,13 @@ class ViewProfileInformations extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 15),
                                         TextFormField(
-                                          enabled: false,
-                                          decoration: InputDecoration(
-                                            prefixIcon: const ImageIcon(
+                                          readOnly: true,
+                                          initialValue:
+                                              userModel.person?.grade?.name,
+                                          decoration: const InputDecoration(
+                                            prefixIcon: ImageIcon(
                                               Svg("assets/icons/location_icon.svg"),
                                             ),
-                                            hintText:
-                                                userModel.person?.grade?.name,
                                           ),
                                         ),
                                       ],
@@ -236,13 +240,13 @@ class ViewProfileInformations extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 15),
                                         TextFormField(
-                                          enabled: false,
-                                          decoration: InputDecoration(
-                                            prefixIcon: const ImageIcon(
+                                          readOnly: true,
+                                          initialValue:
+                                              userModel.person?.filiere?.name,
+                                          decoration: const InputDecoration(
+                                            prefixIcon: ImageIcon(
                                               Svg("assets/icons/location_icon.svg"),
                                             ),
-                                            hintText:
-                                                userModel.person?.filiere?.name,
                                           ),
                                         ),
                                       ],
@@ -254,13 +258,13 @@ class ViewProfileInformations extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 15),
                                         TextFormField(
-                                          enabled: false,
-                                          decoration: InputDecoration(
-                                            prefixIcon: const ImageIcon(
+                                          readOnly: true,
+                                          initialValue:
+                                              userModel.person?.birthday,
+                                          decoration: const InputDecoration(
+                                            prefixIcon: ImageIcon(
                                               Svg("assets/icons/location_icon.svg"),
                                             ),
-                                            hintText:
-                                                userModel.person?.birthday,
                                           ),
                                         ),
                                       ],
@@ -272,13 +276,13 @@ class ViewProfileInformations extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 15),
                                         TextFormField(
-                                          enabled: false,
-                                          decoration: InputDecoration(
-                                            prefixIcon: const ImageIcon(
+                                          readOnly: true,
+                                          initialValue:
+                                              userModel.person?.birthPlace,
+                                          decoration: const InputDecoration(
+                                            prefixIcon: ImageIcon(
                                               Svg("assets/icons/calendar_icon.svg"),
                                             ),
-                                            hintText:
-                                                userModel.person?.birthPlace,
                                           ),
                                         ),
                                       ],
@@ -286,22 +290,20 @@ class ViewProfileInformations extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            if (profilePageController.formKey.currentState!
-                                .validate()) {
-                              profilePageController.formKey.currentState!
-                                  .save();
-                              profilePageController.confirm();
-                            }
-                          },
-                          child: Text(
-                            "confirm".tr,
-                          ),
-                        ),
+                        const SizedBox(height: 25),
+                        // TextButton(
+                        //   onPressed: () {
+                        //     if (profilePageController.formKey.currentState!
+                        //         .validate()) {
+                        //       profilePageController.formKey.currentState!
+                        //           .save();
+                        //       profilePageController.confirm();
+                        //     }
+                        //   },
+                        //   child: Text(
+                        //     "confirm".tr,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

@@ -79,31 +79,34 @@ class UsersManagement extends StatelessWidget {
                         ]),
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        usersManagementController.goToCreateNewUser();
-                      },
-                      child: Container(
-                        width: 200,
-                        height: 170,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: greyColor)),
-                        child: Column(children: [
-                          const Expanded(
-                            child: ImageIcon(
-                              size: 80,
-                              Svg("assets/icons/add_user.svg"),
+                    Offstage(
+                      offstage: true,// matbanch hadi
+                      child: InkWell(
+                        onTap: () {
+                          usersManagementController.goToCreateNewUser();
+                        },
+                        child: Container(
+                          width: 200,
+                          height: 170,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: greyColor)),
+                          child: Column(children: [
+                            const Expanded(
+                              child: ImageIcon(
+                                size: 80,
+                                Svg("assets/icons/add_user.svg"),
+                              ),
                             ),
-                          ),
-                          Text(
-                            "createNewUser".tr,
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          )
-                        ]),
+                            Text(
+                              "createNewUser".tr,
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            )
+                          ]),
+                        ),
                       ),
                     ),
                   ]),

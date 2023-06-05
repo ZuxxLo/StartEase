@@ -31,7 +31,7 @@ class EditRole extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Get.defaultDialog(
-                    title: "searchByFirstLastName".tr,
+                    title: "searchByName".tr,
                     content: Column(
                       children: [
                         TextFormField(
@@ -42,7 +42,7 @@ class EditRole extends StatelessWidget {
                           decoration: InputDecoration(
                               hintText:
                                   allRolesController.searchTextPermission == ""
-                                      ? "searchByFirstLastName".tr
+                                      ? "searchByName".tr
                                       : allRolesController
                                           .searchTextPermission),
                         ),

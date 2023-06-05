@@ -26,35 +26,36 @@ class ProjectsTable extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Get.defaultDialog(
-                    title: "searchByFirstLastName".tr,
+                    title: "searchByName".tr,
                     content: Column(
                       children: [
                         TextFormField(
                           onChanged: (inputSearch) {
-                            // projectsTableController
-                            //     .searchTextInputProject(inputSearch);
+                            projectsTableController
+                                .searchTextInputProject(inputSearch);
                           },
                           decoration: InputDecoration(
-                              // hintText:
-                              //     projectsTableController.searchTextProject == ""
-                              //         ? "searchByFirstLastName".tr
-                              //         : projectsTableController
-                              //             .searchTextProject
-                              ),
+                              hintText: projectsTableController
+                                          .searchTextProject ==
+                                      ""
+                                  ? "searchByName".tr
+                                  : projectsTableController.searchTextProject),
                         ),
                         const SizedBox(height: 10),
                         TextButton(
                             onPressed: () {
-                              // projectsTableController.searchProject(
-                              //     projectsTableController.searchTextProject);
+                              projectsTableController.searchProjectByTradeMark(
+                                  projectsTableController.searchTextProject);
                               navigator!.pop();
                             },
                             child: Text("confirm".tr)),
                         const SizedBox(height: 10),
                         TextButton(
                             onPressed: () {
-                              // projectsTableController.searchTextInputProject("");
-                              // projectsTableController.searchProject("");
+                              projectsTableController
+                                  .searchTextInputProject("");
+                              projectsTableController
+                                  .searchProjectByTradeMark("");
                               navigator!.pop();
                             },
                             child: Text("clear".tr))
@@ -64,45 +65,83 @@ class ProjectsTable extends StatelessWidget {
               icon: const ImageIcon(Svg("assets/icons/search_icon.svg"))),
         ],
       ),
-      body: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-        shrinkWrap: true,
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(15),
-            onTap: () {
-              Get.toNamed("/ProjectManagement");
-            },
-            child: Container(
-              height: 70,
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).listTileTheme.tileColor,
-                  borderRadius: BorderRadius.circular(15)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Rockerts Space Ships"),
-                  Container(
-                      height: 35,
-                      width: 35,
-                      decoration: BoxDecoration(
-                          color: greenColor.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: ImageIcon(
-                          color: greenDeepColor,
-                          Svg("assets/icons/recourse_icon.svg")))
-                ],
-              ),
-            ),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const Divider();
-        },
-      ),
+      body: GetBuilder<ProjectsTableController>(builder: (context) {
+        return FutureBuilder(
+            future: projectsTableController.loadProjects(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (projectsTableController.projectsListToAffich.isEmpty) {
+                  return Center(
+                    child: Text("noResults".tr),
+                  );
+                } else {
+                  return ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    shrinkWrap: true,
+                    itemCount:
+                        projectsTableController.projectsListToAffich.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(15),
+                        onTap: () {
+                          Get.toNamed("/ProjectManagement",
+                              arguments: projectsTableController
+                                  .projectsListToAffich[index]);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).listTileTheme.tileColor,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  projectsTableController
+                                      .projectsListToAffich[index]
+                                      .trademarkName!,
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Container(
+                                  height: 35,
+                                  width: 35,
+                                  decoration: BoxDecoration(
+                                      color: projectsTableController
+                                          .getStatusColorOut(
+                                              projectsTableController
+                                                  .projectsListToAffich[index]
+                                                  .status!),
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: ImageIcon(
+                                      color: projectsTableController
+                                          .getStatusColorIn(
+                                              projectsTableController
+                                                  .projectsListToAffich[index]
+                                                  .status!),
+                                      Svg("assets/icons/${projectsTableController.getStatusIcon(projectsTableController.projectsListToAffich[index].status!)}.svg")))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Divider();
+                    },
+                  );
+                }
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return Center(
+                  child: Text("noResults".tr),
+                );
+              }
+            });
+      }),
     );
   }
 }

@@ -52,7 +52,7 @@ class BackIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-         navigator!.pop();
+        navigator!.pop();
       },
       icon: Container(
         height: 35,
@@ -178,7 +178,6 @@ class ProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  await CachedNetworkImage.evictFromCache(url);4
     return SizedBox(
         height: 120,
         width: 120,
@@ -189,8 +188,23 @@ class ProfilePicture extends StatelessWidget {
                     ? Image.network(
                         linkServerName + userModel.photoUrl!.substring(21),
                         fit: BoxFit.cover,
+                        headers: const {
+                          "Connection": "Keep-Alive",
+                          "Keep-Alive": "timeout=5, max=1000"
+                        },
                         errorBuilder: (context, error, stackTrace) {
-                          return const CircularProgressIndicator();
+                          return ClipOval(
+                            child: Container(
+                              alignment: Alignment.center,
+                              color: MainFunctions.generatePresizedColor(
+                                  userModel.username!.length),
+                              child: Text(
+                                userModel.username![0].toUpperCase(),
+                                // style: const TextStyle(
+                                //     fontSize: 27, color: purpleTextColor),
+                              ),
+                            ),
+                          );
                         },
                       )
                     : Image.file(
@@ -220,7 +234,9 @@ class ProfilePictureForOtherUsers extends StatelessWidget {
   final UserModel userModel;
   @override
   Widget build(BuildContext context) {
+    print(userModel.photoUrl);
     //  await CachedNetworkImage.evictFromCache(url);4
+    // ImageCache().clear();
     return SizedBox(
         height: 120,
         width: 120,
@@ -230,21 +246,49 @@ class ProfilePictureForOtherUsers extends StatelessWidget {
                 child: Image.network(
                 linkServerName + userModel.photoUrl!.substring(21),
                 fit: BoxFit.cover,
+                headers: const {
+                  "Connection": "Keep-Alive",
+                  "Keep-Alive": "timeout=5, max=1000"
+                },
                 errorBuilder: (context, error, stackTrace) {
-                  return const CircularProgressIndicator();
+                  return ClipOval(
+                    child: Container(
+                      alignment: Alignment.center,
+                      color: MainFunctions.generatePresizedColor(
+                          userModel.username!.length),
+                      child: Text(
+                        userModel.username![0].toUpperCase(),
+                        // style: const TextStyle(
+                        //     fontSize: 27, color: purpleTextColor),
+                      ),
+                    ),
+                  );
                 },
               ))
             : ClipOval(
                 child: Container(
-                  alignment: Alignment.center,
-                  color: MainFunctions.generatePresizedColor(
-                      userModel.username!.length),
-                  child: Text(
-                    userModel.username![0].toUpperCase(),
-                    // style: const TextStyle(
-                    //     fontSize: 27, color: purpleTextColor),
-                  ),
-                ),
+                    alignment: Alignment.center,
+                    color: MainFunctions.generatePresizedColor(
+                        userModel.username?.length ??
+                            userModel.person!.lastName!.length +
+                                userModel.person!.firstName!.length),
+                    child: Builder(
+                      builder: (context) {
+                        if (userModel.username == null) {
+                          return Text(
+                            userModel.person!.firstName![0].toUpperCase(),
+                            // style: const TextStyle(
+                            //     fontSize: 27, color: purpleTextColor),
+                          );
+                        } else {
+                          return Text(
+                            userModel.username![0].toUpperCase(),
+                            // style: const TextStyle(
+                            //     fontSize: 27, color: purpleTextColor),
+                          );
+                        }
+                      },
+                    )),
               ));
   }
 }
@@ -278,7 +322,7 @@ class SmallBodyText extends StatelessWidget {
       return Text(
         text,
         style: TextStyle(
-           fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
+          fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
         ),
       );
     } catch (e) {

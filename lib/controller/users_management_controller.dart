@@ -34,6 +34,7 @@ class UsersManagementController extends GetxController {
     print(response);
 
     if (response != null && response["success"] == true) {
+      print(response);
       for (var i = 0; i < response["data"]["users"].length; i++) {
         allUsersListNotAffich
             .add(UserModel.fromJsonS(response["data"]["users"][i]));
@@ -154,24 +155,25 @@ class UsersManagementController extends GetxController {
     rolesListToAffich = List.from(rolesListNotAffich!);
 
     rolesListToAffich?.removeWhere((element) {
-      return (!(element.name)!.contains(inputSearch));
+      return (!(element.name?.toLowerCase())!
+          .contains(inputSearch.toLowerCase()));
     });
 
-    if (rolesListToAffich!.isEmpty) {
-      rolesListToAffich = List.from(rolesListNotAffich!);
+    // if (rolesListToAffich!.isEmpty) {
+    //   rolesListToAffich = List.from(rolesListNotAffich!);
 
-      rolesListToAffich?.removeWhere((element) {
-        return (!(element.name)!.startsWith(inputSearch));
-      });
-    }
+    //   rolesListToAffich?.removeWhere((element) {
+    //     return (!(element.name)!.startsWith(inputSearch));
+    //   });
+    // }
 
-    if (rolesListToAffich!.isEmpty) {
-      rolesListToAffich = List.from(rolesListNotAffich!);
+    // if (rolesListToAffich!.isEmpty) {
+    //   rolesListToAffich = List.from(rolesListNotAffich!);
 
-      rolesListToAffich?.removeWhere((element) {
-        return (!(element.name)!.endsWith(inputSearch));
-      });
-    }
+    //   rolesListToAffich?.removeWhere((element) {
+    //     return (!(element.name)!.endsWith(inputSearch));
+    //   });
+    // }
 
     update();
   }
@@ -180,24 +182,25 @@ class UsersManagementController extends GetxController {
     allUsersListToAffich = List.from(allUsersListNotAffich);
 
     allUsersListToAffich.removeWhere((element) {
-      return (!("${element.username}").contains(inputSearch));
+      return (!(element.username!.toLowerCase())
+          .contains(inputSearch.toLowerCase()));
     });
 
-    if (allUsersListToAffich.isEmpty) {
-      allUsersListToAffich = List.from(allUsersListNotAffich);
+    // if (allUsersListToAffich.isEmpty) {
+    //   allUsersListToAffich = List.from(allUsersListNotAffich);
 
-      allUsersListToAffich.removeWhere((element) {
-        return (!("${element.username}}").startsWith(inputSearch));
-      });
-    }
+    //   allUsersListToAffich.removeWhere((element) {
+    //     return (!("${element.username}}").startsWith(inputSearch));
+    //   });
+    // }
 
-    if (allUsersListToAffich.isEmpty) {
-      allUsersListToAffich = List.from(allUsersListNotAffich);
+    // if (allUsersListToAffich.isEmpty) {
+    //   allUsersListToAffich = List.from(allUsersListNotAffich);
 
-      allUsersListToAffich.removeWhere((element) {
-        return (!("${element.username}").endsWith(inputSearch));
-      });
-    }
+    //   allUsersListToAffich.removeWhere((element) {
+    //     return (!("${element.username}").endsWith(inputSearch));
+    //   });
+    // }
 
     update();
   }

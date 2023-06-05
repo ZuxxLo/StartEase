@@ -72,36 +72,40 @@ class UpdatePhoneNumber extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: SmallBodyText(text: "enterSMS".tr)),
-                const SizedBox(
-                  height: 10,
-                ),
-                GetBuilder<ProfilePageController>(builder: (context) {
-                  return TextFormField(
-                    enabled: profilePageController.smsEnabled,
-                    maxLength: 6,
-                    onChanged: (inputSMS) {
-                      profilePageController.codeSMS = inputSMS;
-                    },
-                    validator: (value) {
-                      if (value!.length < 6) {
-                        return "enterSMS".tr;
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      prefixIcon: PasswordKeyIcon(),
-                      hintText: "SMS",
-                    ),
-                  );
-                }),
               ],
             ),
+          ),
+          Column(
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: SmallBodyText(text: "enterSMS".tr)),
+              const SizedBox(
+                height: 10,
+              ),
+              GetBuilder<ProfilePageController>(builder: (context) {
+                return TextFormField(
+                  enabled: profilePageController.smsEnabled,
+                  maxLength: 6,
+                  onChanged: (inputSMS) {
+                    profilePageController.codeSMS = inputSMS;
+                  },
+                  validator: (value) {
+                    if (value!.length < 6) {
+                      return "enterSMS".tr;
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    prefixIcon: PasswordKeyIcon(),
+                    hintText: "SMS",
+                  ),
+                );
+              }),
+            ],
           ),
 
           const SizedBox(height: 20),

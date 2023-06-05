@@ -27,7 +27,6 @@ class AuthService extends GetxService {
       }
 
       print(response);
-    
     }
 
     return this;

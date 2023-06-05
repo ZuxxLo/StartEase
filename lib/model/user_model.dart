@@ -1,16 +1,20 @@
 import 'package:startease/model/roles_model.dart';
 
+import 'permissions_model.dart';
+
 class UserModel {
-  late int? id;
+  int? id;
   String? username;
   String? email;
   String? phoneNumber;
   String? photoUrl;
   String? personType;
-  Person? person;
+  Person? person = Person();
 
   late int? isEnabled;
   late List<Roles>? roles;
+  late List<Permissions>? permissions;
+
   late String? token;
 
   UserModel(
@@ -22,6 +26,7 @@ class UserModel {
       required this.personType,
       required this.isEnabled,
       required this.roles,
+      required this.permissions,
       required this.person,
       required this.token});
 
@@ -29,11 +34,12 @@ class UserModel {
     id = json["data"]["user"]['id'];
     username = json["data"]["user"]['username'];
     email = json["data"]["user"]['email'];
-    person = json['person'] != null ? Person.fromJson(json['person']) : null;
+    person = json["data"]["user"]['person'] != null
+        ? Person.fromJson(json["data"]["user"]['person'])
+        : null;
     phoneNumber = json["data"]["user"]['phone_number'];
     photoUrl = (json["data"]["user"]['photo_url']); //substring(21)
     personType = json["data"]["user"]['person_type'];
-    person = json["data"]["user"]['person_type'];
     isEnabled = json["data"]["user"]['is_enabled'];
     if (json["data"]["user"]['roles'] != null) {
       roles = <Roles>[];
@@ -42,6 +48,14 @@ class UserModel {
       });
     } else {
       roles = [];
+    }
+    if (json["data"]["user"]['permissions'] != null) {
+      permissions = <Permissions>[];
+      json["data"]["user"]['permissions'].forEach((v) {
+        permissions!.add(Permissions.fromJson(v));
+      });
+    } else {
+      permissions = [];
     }
     token = json["data"]["token"];
   }
@@ -59,10 +73,26 @@ class UserModel {
       json['roles'].forEach((v) {
         roles!.add(Roles.fromJson(v));
       });
-    }else {
+    } else {
       roles = [];
     }
+    if (json['permissions'] != null) {
+      permissions = <Permissions>[];
+      json['permissions'].forEach((v) {
+        permissions!.add(Permissions.fromJson(v));
+      });
+    } else {
+      permissions = [];
+    }
     // token = json["data"]["token"];
+  }
+
+  UserModel.fromJsonComments(Map<String, dynamic> json) {
+    id = json['id'];
+
+    photoUrl = (json['photo_url']); //substring(21)
+
+    person = json['person'] != null ? Person.fromJson(json['person']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -103,7 +133,7 @@ class Person {
   int? id;
   String? firstName;
   String? lastName;
-  Establishment? establishment;
+  Establishment? establishment = Establishment();
   Grade? grade;
   Grade? speciality;
   String? matricule;

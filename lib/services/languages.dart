@@ -54,7 +54,8 @@ class Languages implements Translations {
           "lastName": "Last name",
           "birthday": "Birthday",
           "birthplace": "Birthplace",
-          "confirm": "Confirm", "cancel": "Cancel",
+          "confirm": "Confirm", "cancel": "Cancel", "validate": "Validate",
+          "refuse": "Refuse",
 
           "usernameValidator":
               "The username field must be at least 3 characters.",
@@ -134,6 +135,12 @@ class Languages implements Translations {
           "permissionNameTaken": "This name has already been taken",
 
           ///usersManagement ////////
+          "createAccount": "Create an account",
+          "studentOrTeacher":
+              "Please choose below what type of user you want to create",
+          "student": "Student",
+          "teacher": "Teacher",
+          "selectOne": "Please select a type",
           "usersManagement": "Users Management",
           "allUsers": "All users",
           "createNewUser": "Create new user",
@@ -142,11 +149,13 @@ class Languages implements Translations {
           "accountEnabled": "Account enabled successfully",
           "accountDisabled": "Account disabled successfully",
           "updatedSuccess": "Updated successfully",
-          "searchByFirstLastName": "Please enter a name",
+          "searchByName": "Please enter a name",
+          "searchByEmail": "Please enter a email",
+          "alreadyHaveThismember": "This person is already added",
           "searching": "Searching: ",
           "clear": "Clear",
           "noResults": "No results",
-          "noRoles":"No roles",
+          "noRoles": "No roles",
 
           ///usersManagement ////////
           ///
@@ -154,15 +163,22 @@ class Languages implements Translations {
 
           "projectManagement": "Project management",
           "status": "Status",
+          "updateStatus": "Update status",
+          "statusUpdatedSuccess": "Status updated successfully",
+
           "projectAdvanc": "Project Advancement",
           "update": "Update",
 
-          "viewMyProject": "View my project",
+          "viewMyProject": "View project",
 
-          "editMyProject": "Edit my project",
+          "editMyProject": "Edit project",
           "tasks": "Tasks",
           "comments": "Comments",
           "remarks": "Remarks",
+          "justNow": "Just now",
+          "remarkDeleted": "Remark deleted successfully",
+          "commentDeleted": "Comment deleted successfully",
+
           "projectObserv": "Project observations",
           "withdraw": "Withdraw",
           "periodsManagement": "Periods Management",
@@ -174,15 +190,33 @@ class Languages implements Translations {
           "periodConflics": "The new period conflicts with an existing period ",
           "enterADate": "Please enter a date",
           "startDateBeforeEndDate": "Start date must be before end date",
-          "validated": "Validated",
-          "pending": "Pending",
-          "refused": "Refused",
-          "recourse": "Recourse",
+          "validated": "accepted",
+          "pending": "pending",
+          "refused": "refused",
+          "recourse": "recourse",
           "recourse_validated": "Validated after recourse",
           "recourse_refused": "Refused after recourse",
           "viewRemarks": "View remarks",
+          "viewComments": "View comments",
+          "viewObservs": "View observations",
+          "viewTasks": "View tasks",
+
+          "viewReplies": "View replies",
+          "cantChangeStatus": "Can't change status",
+          "addAReply": "Add a reply",
           "daysAgo": "@daysAgo days ago",
           "enterARemark": "Please enter a remark",
+          "enterAComment": "Please enter a comment",
+          "enterAobservation": "Please enter an observation",
+          "enterATask": "Please enter a task",
+          "deadline": "Deadline",
+          "approvDate": "approvement date",
+          "fileDownloadedTO": "FILE DOWNLOADED TO PATH:",
+          "nothingToDownload": "There is nothing to download",
+
+          "viewSubmissions": "view submissions",
+          "requiredAttachs": "Required attachments",
+          "atLeast1": "There should be at least one left",
           "editYourProject": "Do you want to edit your project?",
           "seeBelowRemarks":
               "You can see down below all the remarks given to your project",
@@ -205,14 +239,35 @@ class Languages implements Translations {
           "projectTeam": "Project's team",
           "add": "Add",
           "managementTeam": "Management team",
+          "supervisor": "Supervisor",
+          "cosupervisor": "Co-Supervisor",
+          "visorIsntCovisor":
+              "A person can't be supervisor and co-supervisor at the same time",
 
           "attachments": "Attachments",
           "UCAddFiles":
               "You can add files to your project, allowed formats are: .pdf, .docx",
           "editCanceled": "Edit is canceled",
-
+          "projctAdded": "Project added successfully",
           "projectsManagement": "Projects management",
           "projectsTable": "Projects table",
+          "diplomaStartUp": "A diploma-a startup",
+          "diplomaPatent": "A diploma-a patent",
+
+          "title": "Title",
+          "description": "Description",
+          "fillFiled": "Please fill in this field",
+          "enterRessName": "Enter resource name",
+          "taskAdded": "Task added successfully",
+          "taskDeleted": "Task deleted successfully",
+          "taskValidated": "Task validated successfully",
+          "taskEdited": "Task edited successfully",
+          "noPermission": "You don't have permission",
+          "authorize": "Authorize",
+          "authorizeSucc": "Authorized successfully",
+
+          "projectDeleted": "Project deleted successfully",
+          "createProject": "Create new project",
 
           ///////////////
         },
@@ -264,7 +319,8 @@ class Languages implements Translations {
           "lastName": "Nom de famille",
           "birthday": "Date de naissance",
           "birthplace": "Lieu de naissance",
-          "confirm": "Confirmer", "cancel": "Annuler",
+          "confirm": "Confirmer", "cancel": "Annuler", "validate": "Valider",
+          "refuse": "Refuser",
 
           "usernameValidator":
               "Le champ du nom d'utilisateur doit contenir au moins 3 caractères.",
@@ -351,6 +407,13 @@ class Languages implements Translations {
           "permissionNameTaken": "Ce nom a déjà été pris",
 
           ///usersManagement ////////
+          "createAccount": "Créer un compte",
+          "studentOrTeacher":
+              "Veuillez choisir ci-dessous quel type d'utilisateur vous souhaitez créer",
+          "student": "Étudiant",
+          "teacher": "Professeur",
+          "selectOne": "Veuillez sélectionner un type",
+
           "usersManagement": "Gestion des utilisateurs",
           "allUsers": "Tous les utilisateurs",
           "createNewUser": "Créer un nouvel utilisateur",
@@ -359,11 +422,14 @@ class Languages implements Translations {
           "accountEnabled": "Compte activé avec succès",
           "accountDisabled": "Compte désactivé avec succès",
           "updatedSuccess": "Mis à jour avec succés",
-          "searchByFirstLastName": "Veuillez entrer un nom",
+          "searchByName": "Veuillez entrer un nom",
+          "searchByEmail": "Veuillez entrer un email",
+          "alreadyHaveThismember": "Cette personne est déjà ajoutée",
+
           "searching": "Recherche: ",
           "clear": "Effacer",
           "noResults": "Aucun résultat",
-          "noRoles":"Aucun rôle",
+          "noRoles": "Aucun rôle",
 
           ///usersManagement ////////
           ///
@@ -372,14 +438,21 @@ class Languages implements Translations {
 
           "projectManagement": "Gestion des projets",
           "status": "Statut",
+          "updateStatus": "Mettre à jour le statut",
+          "statusUpdatedSuccess": "Statut mis à jour avec succès",
+
           "projectAdvanc": "Avancement du projet",
           "update": "Mise à jour",
 
-          "viewMyProject": "Voir mon projet",
-          "editMyProject": "Modifier mon projet",
+          "viewMyProject": "Voir projet",
+          "editMyProject": "Modifier projet",
           "tasks": "Tâches",
           "comments": "Commentaires",
           "remarks": "Remarques",
+          "justNow": "Juste maintenant",
+          "remarkDeleted": "Remarque supprimée avec succès",
+          "commentDeleted": "Commentaire supprimée avec succès",
+
           "projectObserv": "Observations du projet",
 
           "withdraw": "Retirer",
@@ -396,16 +469,38 @@ class Languages implements Translations {
           "enterADate": "Veuillez entrer une date",
           "startDateBeforeEndDate":
               "La date de début doit être avant à la date de fin",
+
           "validated": "Validé",
           "pending": "En attente",
           "refused": "Refusé",
-          "recourse": "Recours",
+          "recourse": "Eecours",
           "recourse_validated": "Validé après recours",
           "recourse_refused": "Refusé après recours",
+
           "viewRemarks": "Voir les remarques",
+          "viewComments": "Voir les commentaires",
+          "viewObservs": "Voir les observations",
+          "viewTasks": "Voir les tâches",
+
+          "viewReplies": "Voir les réponses",
+          "cantChangeStatus": "Impossible de changer de statut",
+
+          "addAReply": "Ajouter une réponse",
+
           "daysAgo": "il y a @daysAgo jour(s)",
 
           "enterARemark": "Veuillez entrer une remarque",
+          "enterAComment": "Veuillez entrer un commentaire",
+          "enterAobservation": "Veuillez entrer une observation",
+          "enterATask": "Veuillez entrer une tâche",
+          "deadline": "Date limite",
+          "approvDate": "date d'approbation",
+          "fileDownloadedTO": "FICHIER TÉLÉCHARGÉ VERS CHEMIN:",
+          "nothingToDownload": "Il n'y a rien à télécharger",
+
+          "viewSubmissions": "voir les soumissions",
+          "requiredAttachs": "Pièces jointes requises",
+          "atLeast1": "Il devrait en rester au moins un",
 
           "editYourProject": "Vous souhaitez modifier votre projet ?",
           "seeBelowRemarks":
@@ -430,16 +525,36 @@ class Languages implements Translations {
           "projectTeam": "L'équipe du projet",
           "add": "Ajouter",
           "managementTeam": "Équipe de direction",
-
+          "supervisor": "Superviseur",
+          "cosupervisor": "Co-superviseur",
+          "visorIsntCovisor":
+              "Une personne ne peut pas être superviseur et co-superviseur en même temps",
           "attachments": "Pièces jointes",
           "UCAddFiles":
               "Vous pouvez ajouter des fichiers à votre projet, les formats autorisés sont : .pdf, .docx",
           "editCanceled": "La modification est annulée",
+          "projctAdded": "Projet ajouté avec succès",
 
           "projectsManagement": "Gestion de projets",
           "projectsTable": "Tableau des projets",
-
+          "diplomaStartUp": "Un diplôme-Une startup",
+          "diplomaPatent": "Un diplôme-Un Brevet",
           ///////////////
+          ///
+          "title": "Titre",
+          "description": "Description",
+          "fillFiled": "Veuillez remplir ce champ",
+          "enterRessName": "Entrez le nom de la ressource",
+          "taskAdded": "Tâche ajoutée avec succès",
+          "taskDeleted": "Tâche supprimée avec succès",
+          "taskValidated": "Tâche validée avec succès",
+          "taskEdited": "Tâche modifiée avec succès",
+          "noPermission": "Vous n'avez pas l'autorisation",
+          "authorize": "Autoriser",
+          "authorizeSucc": "Autorisé avec succès",
+
+          "projectDeleted": "Projet supprimé avec succès",
+          "createProject": "Créer un nouveau projet",
         }
       };
 

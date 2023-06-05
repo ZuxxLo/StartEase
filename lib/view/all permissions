@@ -1,0 +1,284 @@
+{
+  "success": true,
+  "message": "All permissionss are gotten successfully",
+  "data": {
+    "permissions": [
+      {
+        "id": 1,
+        "name": "validate-project",
+        "type": "default",
+        "roles_count": 2
+      },
+      {
+        "id": 2,
+        "name": "read-project-observation",
+        "type": "default",
+        "roles_count": 3
+      },
+      {
+        "id": 3,
+        "name": "update-progress-project",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 4,
+        "name": "authorize-project",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 5,
+        "name": "validate-task",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 6,
+        "name": "submit-task",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 7,
+        "name": "upload-files-defence",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 8,
+        "name": "read-deliberation",
+        "type": "default",
+        "roles_count": 8
+      },
+      {
+        "id": 9,
+        "name": "print-defence",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 10,
+        "name": "create-role",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 11,
+        "name": "delete-role",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 12,
+        "name": "read-role",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 13,
+        "name": "update-role",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 14,
+        "name": "create-permission",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 15,
+        "name": "delete-permission",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 16,
+        "name": "read-permission",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 17,
+        "name": "create-user",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 18,
+        "name": "delete-user",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 19,
+        "name": "read-user",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 20,
+        "name": "update-user",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 21,
+        "name": "read-project",
+        "type": "default",
+        "roles_count": 8
+      },
+      {
+        "id": 22,
+        "name": "read-announcement",
+        "type": "default",
+        "roles_count": 6
+      },
+      {
+        "id": 23,
+        "name": "read-period",
+        "type": "default",
+        "roles_count": 6
+      },
+      {
+        "id": 24,
+        "name": "read-defence",
+        "type": "default",
+        "roles_count": 8
+      },
+      {
+        "id": 25,
+        "name": "create-remark",
+        "type": "default",
+        "roles_count": 2
+      },
+      {
+        "id": 26,
+        "name": "delete-remark",
+        "type": "default",
+        "roles_count": 2
+      },
+      {
+        "id": 27,
+        "name": "read-remark",
+        "type": "default",
+        "roles_count": 5
+      },
+      {
+        "id": 28,
+        "name": "update-remark",
+        "type": "default",
+        "roles_count": 2
+      },
+      {
+        "id": 29,
+        "name": "update-period",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 30,
+        "name": "create-announcement",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 31,
+        "name": "update-announcement",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 32,
+        "name": "delete-announcement",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 33,
+        "name": "create-defence",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 34,
+        "name": "update-defence",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 35,
+        "name": "delete-defence",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 36,
+        "name": "withdraw-project",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 37,
+        "name": "update-project",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 38,
+        "name": "create-comment",
+        "type": "default",
+        "roles_count": 3
+      },
+      {
+        "id": 39,
+        "name": "delete-comment",
+        "type": "default",
+        "roles_count": 3
+      },
+      {
+        "id": 40,
+        "name": "read-comment",
+        "type": "default",
+        "roles_count": 3
+      },
+      {
+        "id": 41,
+        "name": "update-comment",
+        "type": "default",
+        "roles_count": 3
+      },
+      {
+        "id": 42,
+        "name": "read-task",
+        "type": "default",
+        "roles_count": 3
+      },
+      {
+        "id": 43,
+        "name": "create-task",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 44,
+        "name": "delete-task",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 45,
+        "name": "update-task",
+        "type": "default",
+        "roles_count": 1
+      },
+      {
+        "id": 46,
+        "name": "create-project",
+        "type": "default",
+        "roles_count": 2
+      }
+    ]
+  }
+}

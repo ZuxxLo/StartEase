@@ -57,7 +57,7 @@ class ProfilePageController extends GetxController {
   }
 
   sendSMSVerification() async {
-    newPhoneNumber = "+46731298920";
+    newPhoneNumber = "+31616193885";
     if (newPhoneNumber == userModel.phoneNumber) {
       MainFunctions.somethingWentWrongSnackBar("ownUsername".tr);
     } else {
@@ -69,6 +69,7 @@ class ProfilePageController extends GetxController {
         "phone_number": newPhoneNumber,
       });
       if (response != null && response["success"] == true) {
+        print(response);
         smsEnabled = true;
 
         // userModel.phoneNumber = newPhoneNumber!;
@@ -140,10 +141,15 @@ class ProfilePageController extends GetxController {
           var response = await Crud.postRequestWithFile(
               "$usersLink/update/photo", {}, MainFunctions.pickedImage!);
 
+          print(response);
           if (response != null && response["success"] == true) {
             // imageCache.clear();
             // PaintingBinding.instance.imageCache.clear();
             // imageCache.clearLiveImages();
+            userModel.photoUrl = response["data"]["user"]["photo_url"];
+            update();
+
+            Get.forceAppUpdate();
           } else {
             MainFunctions.somethingWentWrongSnackBar("${response["message"]}");
           }
@@ -154,6 +160,7 @@ class ProfilePageController extends GetxController {
         MainFunctions.somethingWentWrongSnackBar("$e");
       }
     }
+    Get.forceAppUpdate();
 
     update();
   }

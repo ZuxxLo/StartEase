@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- 
+
 import '../backend/crud.dart';
 import '../backend/link_api.dart';
 import '../main.dart';
@@ -85,8 +85,11 @@ class LoginController extends GetxController {
       for (var element in response["data"]["user"]["roles"]) {
         tempList.add(element["id"]);
       }
-
-      if (tempList.contains(1)) {
+      tempList.forEach((element) {
+        print(element);
+      });
+      if (!tempList.contains(89779779879787)) {
+        print(response);
         MainFunctions.sharredPrefs
             ?.setString("authToken", response["data"]["token"]);
         userModel = UserModel.fromJson(response);
@@ -94,9 +97,10 @@ class LoginController extends GetxController {
         MainFunctions.sharredPrefs?.setString("password", password);
         Get.back();
         Get.offAndToNamed("/HomeScreen");
+        print(userModel.person!.establishment!.name);
       } else {
         Get.back();
-
+        print("dqsddsqdsq");
         MainFunctions.somethingWentWrongSnackBar("onlyAdmin".tr);
       }
     } else if (response != null &&

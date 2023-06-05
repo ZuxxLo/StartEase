@@ -208,9 +208,11 @@ class CreateRole extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(createRoleController
-                                              .permissionsList[index].name
-                                              .toString()),
+                                          Expanded(
+                                            child: Text(createRoleController
+                                                .permissionsList[index].name
+                                                .toString()),
+                                          ),
                                           CupertinoSwitch(
                                             value: createRoleController
                                                 .permissionsList[index].value,

@@ -12,11 +12,7 @@ import '../backend/link_api.dart';
 import '../main.dart';
 
 class SignUpController extends GetxController {
-  List steps = [
-    1,
-    2,
-    3,
-  ];
+  List steps = [1, 2, 3, 4];
   int currentStepIndex = 0;
   bool smsEnabled = false;
   PageController pageController = PageController(keepPage: true);
@@ -29,6 +25,9 @@ class SignUpController extends GetxController {
   String? birthplace;
   String? phoneNumber;
   String? password;
+  String? personType;
+  bool isTeacher = false;
+  bool isStudent = false;
 
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
@@ -113,11 +112,42 @@ class SignUpController extends GetxController {
     update();
   }
 
+  sendSMSVerification() async {
+    phoneNumber = "+46731298920";
+
+    Get.defaultDialog(
+        barrierDismissible: false,
+        title: "pleaseWait".tr,
+        content: const CircularProgressIndicator());
+    var response = await Crud.postRequestAuth(updatePhoneNumberlink, {
+      "phone_number": phoneNumber,
+    });
+    print(response);
+    if (response != null && response["success"] == true) {
+      smsEnabled = true;
+
+      // userModel.phoneNumber = newPhoneNumber!;
+      Get.back();
+      MainFunctions.successSnackBar("enterSMS".tr);
+    } else if (response != null && response["success"] == false) {
+      Get.back();
+      MainFunctions.somethingWentWrongSnackBar();
+    } else {
+      Get.back();
+
+      MainFunctions.somethingWentWrongSnackBar();
+    }
+
+    update();
+  }
+
   signUp() async {
     Get.defaultDialog(
         title: "pleaseWait".tr, content: const CircularProgressIndicator());
 
     if (await MainFunctions.checkInternetConnection()) {
+      phoneNumber = "+46731298920";
+
       var response = await Crud.postRequest(usersLink, {
         "username": userName,
         "email": email,
@@ -193,5 +223,27 @@ class SignUpController extends GetxController {
     }
 
     update();
+  }
+
+  void chooseStudent() {
+    isTeacher = false;
+    isStudent = !isStudent;
+    update();
+  }
+
+  void chooseTeacher() {
+    isStudent = false;
+    isTeacher = !isTeacher;
+    update();
+  }
+
+  void chooseTeacherOrStudent() {
+    if (isStudent && !isTeacher) {
+      // create student
+    } else if (isTeacher && !isStudent) {
+      // create Teacher
+    } else {
+      MainFunctions.somethingWentWrongSnackBar("selectOne".tr);
+    }
   }
 }

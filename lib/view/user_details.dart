@@ -48,35 +48,9 @@ class UserDetails extends StatelessWidget {
                   SizedBox(
                       height: 120,
                       width: 120,
-                      child: !(usersManagementController
-                                  .userDetails!.photoUrl ==
-                              "http://localhost:8000/images/users/default.png")
-                          ? ClipOval(
-                              child: Image.network(
-                              linkServerName +
-                                  usersManagementController
-                                      .userDetails!.photoUrl!
-                                      .substring(21),
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const CircularProgressIndicator();
-                              },
-                            ))
-                          : ClipOval(
-                              child: Container(
-                                alignment: Alignment.center,
-                                color: MainFunctions.generatePresizedColor(
-                                    usersManagementController
-                                        .userDetails!.username!.length),
-                                child: Text(
-                                  usersManagementController
-                                      .userDetails!.username![0]
-                                      .toUpperCase(),
-                                  // style: const TextStyle(
-                                  //     fontSize: 27, color: purpleTextColor),
-                                ),
-                              ),
-                            )),
+                      child: ProfilePictureForOtherUsers(
+                        userModel: usersManagementController.userDetails!,
+                      )),
                   const SizedBox(
                     height: 10,
                   ),
@@ -247,10 +221,7 @@ class UserDetails extends StatelessWidget {
                                         Svg("assets/icons/profile.svg"),
                                       ),
                                       hintText: usersManagementController
-                                          .userDetails
-                                          ?.person
-                                          ?.filiere
-                                          ?.name),
+                                          .userDetails?.person?.filiere?.name),
                                 ),
                               ],
                             ),
@@ -370,7 +341,7 @@ class UserDetails extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           Get.defaultDialog(
-                              title: "searchByFirstLastName".tr,
+                              title: "searchByName".tr,
                               content: Column(
                                 children: [
                                   TextFormField(
@@ -382,7 +353,7 @@ class UserDetails extends StatelessWidget {
                                         hintText: usersManagementController
                                                     .searchTextRole ==
                                                 ""
-                                            ? "searchByFirstLastName".tr
+                                            ? "searchByName".tr
                                             : usersManagementController
                                                 .searchTextRole),
                                   ),

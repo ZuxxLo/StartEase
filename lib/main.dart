@@ -13,6 +13,8 @@ import 'package:startease/utils/permissions_management_binding.dart';
 import 'package:startease/utils/project_manag_admin_binding.dart';
 import 'package:startease/utils/projects_table_binding.dart';
 import 'package:startease/utils/role_management_binding.dart';
+import 'package:startease/utils/submit_project_binding.dart';
+import 'package:startease/view/add_task.dart';
 import 'package:startease/view/change_password.dart';
 import 'package:startease/view/create_role.dart';
 import 'package:startease/view/edit_role.dart';
@@ -33,6 +35,7 @@ import 'utils/forgot_password_binding.dart';
 import 'utils/login_binding.dart';
 import 'utils/periods_management_binding.dart';
 import 'utils/profile_page_binding.dart';
+import 'utils/project_deposit_binding.dart';
 import 'utils/project_management_binding.dart';
 import 'utils/sign_up_binding.dart';
 import 'utils/users_management_binding.dart';
@@ -42,13 +45,19 @@ import 'view/forgot_password.dart';
 import 'view/login.dart';
 import 'view/permissions_management.dart';
 import 'view/profile_page.dart';
+import 'view/project_deposit.dart';
 import 'view/project_management.dart';
 import 'view/role_management.dart';
 import 'view/sign_up.dart';
+import 'view/student_or_teacher.dart';
+import 'view/submit_project.dart';
 import 'view/update_phone_number.dart';
 import 'view/user_details.dart';
 import 'view/users_management.dart';
+import 'view/view_comments.dart';
+import 'view/view_observ.dart';
 import 'view/view_project.dart';
+import 'view/view_tasks.dart';
 
 UserModel userModel = UserModel(
     id: 7777777777,
@@ -59,6 +68,7 @@ UserModel userModel = UserModel(
     isEnabled: 1,
     token: "error",
     roles: [Roles(id: -1, name: "error")],
+    permissions: [],
     personType: 'error',
     person: null);
 void main() async {
@@ -66,6 +76,7 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   MainFunctions.sharredPrefs = await SharedPreferences.getInstance();
+
   MainFunctions.getBoolisInternetConnected();
   userModel.roles = [];
   await MainFunctions.initialFetchLoggedin();
@@ -95,6 +106,11 @@ class MainApp extends StatelessWidget {
           GetPage(
             name: "/SignUp",
             page: () => const SignUp(),
+            binding: SignUpBinding(),
+          ),
+          GetPage(
+            name: "/StudentOrTeacher",
+            page: () => const StudentOrTeacher(),
             binding: SignUpBinding(),
           ),
           GetPage(
@@ -173,13 +189,37 @@ class MainApp extends StatelessWidget {
             page: () => const ViewRemarks(),
           ),
           GetPage(
+            name: "/ViewComments",
+            page: () => const ViewComments(),
+          ),
+          GetPage(
+            name: "/ViewObserv",
+            page: () => const ViewObserv(),
+          ),
+          GetPage(
+            name: "/ViewTasks",
+            page: () => const ViewTasks(),
+          ),
+          GetPage(
+            name: "/AddTask",
+            page: () => const AddTask(),
+          ),
+          GetPage(
             name: "/ViewProject",
             page: () => const ViewProject(),
           ),
           GetPage(
+              name: "/SubmitProject",
+              page: () => const SubmitProject(),
+              binding: SubmitProjectBinding()),
+          GetPage(
               name: "/ProjectsTable",
               page: () => const ProjectsTable(),
               binding: ProjectsTableBinding()),
+          GetPage(
+              name: "/ProjectDeposit",
+              page: () => const ProjectDeposit(),
+              binding: ProjectDepositBinding()),
         ],
         initialRoute: "/Login");
   }

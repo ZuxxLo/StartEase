@@ -8,4 +8,8 @@ class ProjectManagementAdminController extends GetxController {
   goToProjectsTable() {
     Get.toNamed("/ProjectsTable");
   }
+
+  goToSubmitProject() {
+    Get.toNamed("/SubmitProject");
+  }
 }

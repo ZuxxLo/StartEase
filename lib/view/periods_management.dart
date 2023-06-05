@@ -6,6 +6,7 @@ import 'package:startease/model/period_model.dart';
 import 'package:startease/view/widgets.dart';
 
 import '../controller/periods_management_controller.dart';
+import '../main.dart';
 import '../services/languages.dart';
 
 class PeriodsManagement extends StatelessWidget {
@@ -92,6 +93,12 @@ class PeriodsManagement extends StatelessWidget {
                     ),
                     GetBuilder<PeriodsManagementController>(
                         builder: (contexxt) {
+                      bool exists = false;
+                      for (var permission in userModel.permissions!) {
+                        if (permission.id == 29) {
+                          exists = true;
+                        }
+                      }
                       return TextFormField(
                           readOnly: true,
                           validator: (value) {
@@ -112,29 +119,31 @@ class PeriodsManagement extends StatelessWidget {
                             }
                             return null;
                           },
-                          onTap: () {
-                            showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime.utc(2024),
-                                helpText: "",
-                                locale: Languages.initLang(),
-                                builder: (context, child) {
-                                  return Theme(
-                                    data: Theme.of(context).copyWith(
-                                      textButtonTheme:
-                                          const TextButtonThemeData(),
-                                    ),
-                                    child: child!,
-                                  );
-                                }).then((value) {
-                              if (value != null) {
-                                periodsManagementController
-                                    .inputStartDate(value);
-                              }
-                            });
-                          },
+                          onTap: exists == false
+                              ? null
+                              : () {
+                                  showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime.utc(2024),
+                                      helpText: "",
+                                      locale: Languages.initLang(),
+                                      builder: (context, child) {
+                                        return Theme(
+                                          data: Theme.of(context).copyWith(
+                                            textButtonTheme:
+                                                const TextButtonThemeData(),
+                                          ),
+                                          child: child!,
+                                        );
+                                      }).then((value) {
+                                    if (value != null) {
+                                      periodsManagementController
+                                          .inputStartDate(value);
+                                    }
+                                  });
+                                },
                           keyboardType: TextInputType.datetime,
                           decoration: InputDecoration(
                               prefixIcon: const ImageIcon(
@@ -155,6 +164,12 @@ class PeriodsManagement extends StatelessWidget {
                     ),
                     GetBuilder<PeriodsManagementController>(
                         builder: (contxext) {
+                      bool exists = false;
+                      for (var permission in userModel.permissions!) {
+                        if (permission.id == 29) {
+                          exists = true;
+                        }
+                      }
                       return TextFormField(
                           readOnly: true,
                           validator: (value) {
@@ -174,28 +189,31 @@ class PeriodsManagement extends StatelessWidget {
                             }
                             return null;
                           },
-                          onTap: () {
-                            showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime.utc(2024),
-                                helpText: "",
-                                locale: Languages.initLang(),
-                                builder: (context, child) {
-                                  return Theme(
-                                    data: Theme.of(context).copyWith(
-                                      textButtonTheme:
-                                          const TextButtonThemeData(),
-                                    ),
-                                    child: child!,
-                                  );
-                                }).then((value) {
-                              if (value != null) {
-                                periodsManagementController.inputEndDate(value);
-                              }
-                            });
-                          },
+                          onTap: exists == false
+                              ? null
+                              : () {
+                                  showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime.utc(2024),
+                                      helpText: "",
+                                      locale: Languages.initLang(),
+                                      builder: (context, child) {
+                                        return Theme(
+                                          data: Theme.of(context).copyWith(
+                                            textButtonTheme:
+                                                const TextButtonThemeData(),
+                                          ),
+                                          child: child!,
+                                        );
+                                      }).then((value) {
+                                    if (value != null) {
+                                      periodsManagementController
+                                          .inputEndDate(value);
+                                    }
+                                  });
+                                },
                           keyboardType: TextInputType.datetime,
                           decoration: InputDecoration(
                               prefixIcon: const ImageIcon(
@@ -206,21 +224,42 @@ class PeriodsManagement extends StatelessWidget {
                     }),
                   ],
                 )),
-            const SizedBox(
-              height: 35,
-            ),
-            TextButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  periodsManagementController.confirm();
-                  print(periodsManagementController.selectedPeriod!.endDate);
+
+            ///////////////////// UPDATE
+            Builder(
+              builder: (context) {
+                bool exists = false;
+                for (var permission in userModel.permissions!) {
+                  if (permission.id == 29) {
+                    exists = true;
+                  }
                 }
+
+                return exists
+                    ? Column(
+                        children: [
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
+                                periodsManagementController.confirm();
+                                print(periodsManagementController
+                                    .selectedPeriod!.endDate);
+                              }
+                            },
+                            child: Text(
+                              "update".tr,
+                            ),
+                          )
+                        ],
+                      )
+                    : const SizedBox();
               },
-              child: Text(
-                "update".tr,
-              ),
-            )
+            ),
+            ///////////////////// UPDATE
           ],
         ),
       ),

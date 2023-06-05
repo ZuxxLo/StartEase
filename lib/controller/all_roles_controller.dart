@@ -182,24 +182,24 @@ class AllRolesController extends GetxController {
     rolesListToAffich = List.from(rolesListNotAffich!);
 
     rolesListToAffich?.removeWhere((element) {
-      return (!(element.name)!.contains(inputSearch));
+      return (!(element.name!.toLowerCase()).contains(inputSearch.toLowerCase()));
     });
 
-    if (rolesListToAffich!.isEmpty) {
-      rolesListToAffich = List.from(rolesListNotAffich!);
+    // if (rolesListToAffich!.isEmpty) {
+    //   rolesListToAffich = List.from(rolesListNotAffich!);
 
-      rolesListToAffich?.removeWhere((element) {
-        return (!(element.name)!.startsWith(inputSearch));
-      });
-    }
+    //   rolesListToAffich?.removeWhere((element) {
+    //     return (!(element.name)!.startsWith(inputSearch));
+    //   });
+    // }
 
-    if (rolesListToAffich!.isEmpty) {
-      rolesListToAffich = List.from(rolesListNotAffich!);
+    // if (rolesListToAffich!.isEmpty) {
+    //   rolesListToAffich = List.from(rolesListNotAffich!);
 
-      rolesListToAffich?.removeWhere((element) {
-        return (!(element.name)!.endsWith(inputSearch));
-      });
-    }
+    //   rolesListToAffich?.removeWhere((element) {
+    //     return (!(element.name)!.endsWith(inputSearch));
+    //   });
+    // }
 
     update();
   }
@@ -208,24 +208,24 @@ class AllRolesController extends GetxController {
     allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
 
     allPermissionsListToAffich.removeWhere((element) {
-      return (!(element.name)!.contains(inputSearch));
+      return (!(element.name!.toLowerCase()).contains(inputSearch.toLowerCase()));
     });
 
-    if (allPermissionsListToAffich.isEmpty) {
-      allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+    // if (allPermissionsListToAffich.isEmpty) {
+    //   allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
 
-      allPermissionsListToAffich.removeWhere((element) {
-        return (!(element.name)!.startsWith(inputSearch));
-      });
-    }
+    //   allPermissionsListToAffich.removeWhere((element) {
+    //     return (!(element.name)!.startsWith(inputSearch));
+    //   });
+    // }
 
-    if (allPermissionsListToAffich.isEmpty) {
-      allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
+    // if (allPermissionsListToAffich.isEmpty) {
+    //   allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
 
-      allPermissionsListToAffich.removeWhere((element) {
-        return (!(element.name)!.endsWith(inputSearch));
-      });
-    }
+    //   allPermissionsListToAffich.removeWhere((element) {
+    //     return (!(element.name)!.endsWith(inputSearch));
+    //   });
+    // }
 
     update();
   }

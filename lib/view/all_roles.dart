@@ -7,6 +7,8 @@ import 'package:startease/controller/all_roles_controller.dart';
 import 'package:startease/model/roles_model.dart';
 import 'package:startease/view/widgets.dart';
 
+import '../main.dart';
+
 class AllRoles extends StatelessWidget {
   const AllRoles({super.key});
 
@@ -22,7 +24,7 @@ class AllRoles extends StatelessWidget {
             allRolesController.searchText == ""
                 ? ""
                 : "searching".tr + allRolesController.searchText,
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           );
         }),
         leading: const BackIconButton(),
@@ -30,7 +32,7 @@ class AllRoles extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Get.defaultDialog(
-                    title: "searchByFirstLastName".tr,
+                    title: "searchByName".tr,
                     content: Column(
                       children: [
                         TextFormField(
@@ -39,7 +41,7 @@ class AllRoles extends StatelessWidget {
                           },
                           decoration: InputDecoration(
                               hintText: allRolesController.searchText == ""
-                                  ? "searchByFirstLastName".tr
+                                  ? "searchByName".tr
                                   : allRolesController.searchText),
                         ),
                         const SizedBox(height: 10),
@@ -113,7 +115,7 @@ class AllRoles extends StatelessWidget {
                                                 .toString(),
                                           ),
                                         ),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         SmallBodyText(
                                             text: allRolesController
                                                 .rolesListToAffich![index]
@@ -129,62 +131,103 @@ class AllRoles extends StatelessWidget {
                                         RolesType.defaultType
                                     ? IconButton(
                                         onPressed: () {
-                                          allRolesController.editRole(index);
+                                          allRolesController
+                                                      .rolesListToAffich![index]
+                                                      .usersCount! >
+                                                  0
+                                              ? null
+                                              : allRolesController
+                                                  .editRole(index);
                                         },
-                                        icon: const ImageIcon(
-                                          color: bluePurpleColor,
-                                          size: 20,
-                                          Svg("assets/icons/edit_project_icon.svg"),
-                                        ),
-                                      )
-                                    : PopupMenuButton<int>(
-                                        icon: const Icon(
-                                          Icons.more_vert,
-                                          color: bluePurpleColor,
-                                        ),
-                                        itemBuilder: (context) => [
-                                          PopupMenuItem(
-                                            onTap: () {},
-                                            value: 1,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text("delete".tr),
-                                                const ImageIcon(
-                                                  size: 23,
-                                                  Svg("assets/icons/delete_icon.svg"),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          PopupMenuItem(
-                                            onTap: () {},
-                                            value: 2,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text("edit".tr),
-                                                const ImageIcon(
-                                                  size: 20,
-                                                  Svg("assets/icons/edit_project_icon.svg"),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                        onSelected: (value) {
-                                          if (value == 2) {
-                                            allRolesController.editRole(index);
-                                          } else if (value == 1) {
-                                            allRolesController.deleteRole(
-                                                allRolesController
+                                        icon: allRolesController
                                                     .rolesListToAffich![index]
-                                                    .id);
+                                                    .usersCount! >
+                                                0
+                                            ? const SizedBox()
+                                            : const ImageIcon(
+                                                color: bluePurpleColor,
+                                                size: 20,
+                                                Svg("assets/icons/edit_project_icon.svg"),
+                                              ),
+                                      )
+                                    : Builder(
+                                        builder: (context) {
+                                          bool editExists = false;
+                                          bool deleteExists = false;
+
+                                          for (var permission
+                                              in userModel.permissions!) {
+                                            if (permission.id == 14) {
+                                              editExists = true;
+                                            }
+                                            if (permission.id == 11) {
+                                              deleteExists = true;
+                                            }
                                           }
+                                          return PopupMenuButton<int>(
+                                            icon: const Icon(
+                                              Icons.more_vert,
+                                              color: bluePurpleColor,
+                                            ),
+                                            itemBuilder: (context) => [
+                                              PopupMenuItem(
+                                                onTap: () {},
+                                                value: 1,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text("delete".tr),
+                                                    const ImageIcon(
+                                                      size: 23,
+                                                      Svg("assets/icons/delete_icon.svg"),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              PopupMenuItem(
+                                                onTap: () {},
+                                                value: 2,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text("edit".tr),
+                                                    const ImageIcon(
+                                                      size: 20,
+                                                      Svg("assets/icons/edit_project_icon.svg"),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                            onSelected: (value) {
+                                              if (value == 2) {
+                                                if (editExists) {
+                                                  allRolesController
+                                                      .editRole(index);
+                                                } else {
+                                                  MainFunctions
+                                                      .somethingWentWrongSnackBar(
+                                                          "noPermission".tr);
+                                                }
+                                              } else if (value == 1) {
+                                                if (deleteExists) {
+                                                  allRolesController.deleteRole(
+                                                      allRolesController
+                                                          .rolesListToAffich![
+                                                              index]
+                                                          .id);
+                                                } else {
+                                                  MainFunctions
+                                                      .somethingWentWrongSnackBar(
+                                                          "noPermission".tr);
+                                                }
+                                              }
+                                            },
+                                          );
                                         },
                                       )
                               ],
