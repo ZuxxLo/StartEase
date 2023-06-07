@@ -108,22 +108,22 @@ class Login extends StatelessWidget {
                           "login".tr,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      Align(
-                        alignment: Alignment.center,
-                        child: InkWell(
-                          child: Text(
-                            "createAccount".tr,
-                            style: TextStyle(
-                              color: bluePurpleColor,
-                              fontSize: screenWidth * 0.04,
-                            ),
-                          ),
-                          onTap: () {
-                           Get.toNamed("/SignUp");
-                          },
-                        ),
-                      ),
+                      // const SizedBox(height: 20),
+                      // Align(
+                      //   alignment: Alignment.center,
+                      //   child: InkWell(
+                      //     child: Text(
+                      //       "createAccount".tr,
+                      //       style: TextStyle(
+                      //         color: bluePurpleColor,
+                      //         fontSize: screenWidth * 0.04,
+                      //       ),
+                      //     ),
+                      //     onTap: () {
+                      //      Get.toNamed("/SignUp");
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

@@ -23,7 +23,7 @@ class ViewRemarks extends StatelessWidget {
         leading: const BackIconButton(),
         title: Text("viewRemarks".tr),
         actions: [
-    Builder(
+          Builder(
             builder: (context) {
               bool exists = false;
               for (var permission in userModel.permissions!) {
@@ -32,46 +32,45 @@ class ViewRemarks extends StatelessWidget {
                 }
               }
               return exists
-                  ?    IconButton(
-              onPressed: () {
-                Get.defaultDialog(
-                    title: "enterARemark".tr,
-                    content: Column(
-                      children: [
-                        TextFormField(
-                          onChanged: (inputText) {
-                            projectManagementController
-                                .inputNewRemark(inputText);
-                          },
-                          decoration:
-                              InputDecoration(hintText: "enterARemark".tr),
-                        ),
-                        const SizedBox(height: 10),
-                        TextButton(
-                            onPressed: () {
-                              projectManagementController.addANewRemark();
-                            },
-                            child: Text("confirm".tr)),
-                        const SizedBox(height: 10),
-                        TextButton(
-                            onPressed: () {
-                              projectManagementController.inputNewRemark("");
+                  ? IconButton(
+                      onPressed: () {
+                        Get.defaultDialog(
+                            title: "enterARemark".tr,
+                            content: Column(
+                              children: [
+                                TextFormField(
+                                  onChanged: (inputText) {
+                                    projectManagementController
+                                        .inputNewRemark(inputText);
+                                  },
+                                  decoration: InputDecoration(
+                                      hintText: "enterARemark".tr),
+                                ),
+                                const SizedBox(height: 10),
+                                TextButton(
+                                    onPressed: () {
+                                      projectManagementController
+                                          .addANewRemark();
+                                    },
+                                    child: Text("confirm".tr)),
+                                const SizedBox(height: 10),
+                                TextButton(
+                                    onPressed: () {
+                                      projectManagementController
+                                          .inputNewRemark("");
 
-                              navigator!.pop();
-                            },
-                            child: Text("cancel".tr))
-                      ],
-                    ));
-                //  projectManagementController.addNewRemark();
-              },
-              icon: const ImageIcon(
-                  size: 30, Svg("assets/icons/add_square_icon.svg")))
+                                      navigator!.pop();
+                                    },
+                                    child: Text("cancel".tr))
+                              ],
+                            ));
+                        //  projectManagementController.addNewRemark();
+                      },
+                      icon: const ImageIcon(
+                          size: 30, Svg("assets/icons/add_square_icon.svg")))
                   : const SizedBox();
             },
           )
-
-
-       
         ],
         // actions: [
         //   IconButton(
@@ -141,17 +140,7 @@ class ViewRemarks extends StatelessWidget {
                                   const SizedBox(width: 10),
                                   Expanded(
                                     child: Text(
-                                      "${projectManagementController
-                                              .projectData
-                                              .remakrs![index]
-                                              .user!
-                                              .person!
-                                              .firstName!} ${projectManagementController
-                                              .projectData
-                                              .remakrs![index]
-                                              .user!
-                                              .person!
-                                              .lastName!}",
+                                      "${projectManagementController.projectData.remakrs![index].user!.person!.firstName!} ${projectManagementController.projectData.remakrs![index].user!.person!.lastName!}",
                                       style: const TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.bold),
@@ -180,8 +169,7 @@ class ViewRemarks extends StatelessWidget {
                                 // projectManagementController
                                 //     .affichageDaysAgo(DateTime.utc(2022,
                                 //         1, 30)), /////// hna dkl la date
-                                style:
-                                    TextStyle(fontSize: 13, color: greyColor),
+                                style:const TextStyle(fontSize: 13),
                               )
                             ],
                           )),

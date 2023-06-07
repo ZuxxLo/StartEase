@@ -24,74 +24,179 @@ class ProjectManagement extends StatelessWidget {
         title: Text("projectManagement".tr),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
-          projectManagementController.projectData.status == "accepted"
-              ? projectManagementController.projectData.isAuthorizedDefence ==
-                      false
-                  ? IconButton(
-                      onPressed: () {
-                        Get.defaultDialog(
-                            title: "areUSure".tr,
-                            content: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      projectManagementController
-                                          .importAuthorizeProject();
-                                    },
-                                    icon: const ImageIcon(
-                                      size: 30,
-                                      color: bluePurpleColor,
-                                      Svg("assets/icons/import_file_icon.svg"),
-                                    )),
-                                TextButton(
-                                    onPressed: () {
-                                      projectManagementController
-                                          .authorizeProject();
-                                    },
-                                    child: Text("authorize".tr)),
-                                const SizedBox(height: 5),
-                                TextButton(
-                                    onPressed: () {
-                                      navigator!.pop();
-                                    },
-                                    child: Text("cancel".tr)),
-                              ],
-                            ));
-                      },
-                      icon: const ImageIcon(
-                        Svg("assets/icons/shield_tick_icon.svg"),
-                        size: 30,
-                      ),
-                    )
-                  : IconButton(
-                      onPressed: () async {
-                        //var path = "/storage/emulated/0/Download/";
-
-                        MapEntry temp = MapEntry(
-                            projectManagementController.projectData
-                                    .files!["thesis defence authorization file"]
-                                ["name"],
-                            projectManagementController.projectData
-                                    .files!["thesis defence authorization file"]
-                                ["link"]);
-                        print(temp);
-                        if (projectManagementController.projectData
-                                    .files!["thesis defence authorization file"]
-                                ["link"] ==
-                            {}) {
-                        } else {
-                          // Downloader.download(temp.value, path);
-                          projectManagementController.downloadfile(temp);
-                        }
-                      },
-                      icon: const Icon(
-                        Icons.download,
-                        size: 30,
-                        color: bluePurpleColor,
-                      ))
-              : const SizedBox()
+          Builder(
+            builder: (context) {
+              bool canAuthorize = false;
+              bool canDownloadFile = false;
+              for (var permission in userModel.permissions!) {
+                if (permission.id == 4) {
+                  canAuthorize = true;
+                }
+              }
+              if (projectManagementController
+                  .projectData.isAuthorizedDefence!) {
+                canDownloadFile = true;
+                canAuthorize = false;
+              }
+              if (projectManagementController.projectData.files!.isEmpty) {
+                canDownloadFile = false;
+              }
+              if (projectManagementController.projectData.supervisor!.id!=userModel.id) {
+                canAuthorize = false;
+              }
+              if (projectManagementController.projectData.status !=
+                  "accepted") {
+                canAuthorize = false;
+              }
+              if (canAuthorize) {
+                return IconButton(
+                  onPressed: () {
+                    Get.defaultDialog(
+                        title: "areUSure".tr,
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  projectManagementController
+                                      .importAuthorizeProject();
+                                },
+                                icon: const ImageIcon(
+                                  size: 30,
+                                  color: bluePurpleColor,
+                                  Svg("assets/icons/import_file_icon.svg"),
+                                )),
+                            TextButton(
+                                onPressed: () {
+                                  projectManagementController
+                                      .authorizeProject();
+                                },
+                                child: Text("authorize".tr)),
+                            const SizedBox(height: 5),
+                            TextButton(
+                                onPressed: () {
+                                  navigator!.pop();
+                                },
+                                child: Text("cancel".tr)),
+                          ],
+                        ));
+                  },
+                  icon: const ImageIcon(
+                    Svg("assets/icons/shield_tick_icon.svg"),
+                    size: 30,
+                  ),
+                );
+              } else if (canDownloadFile) {
+                return IconButton(
+                    onPressed: () async {
+                      //var path = "/storage/emulated/0/Download/";
+                      print(projectManagementController
+                          .projectData.files!.length);
+                      MapEntry temp = MapEntry(
+                          projectManagementController.projectData
+                                  .files!["thesis defence authorization file"]
+                              ["name"],
+                          projectManagementController.projectData
+                                  .files!["thesis defence authorization file"]
+                              ["link"]);
+                      print(temp);
+                      if (projectManagementController.projectData
+                                  .files!["thesis defence authorization file"]
+                              ["link"] ==
+                          {}) {
+                      } else {
+                        // Downloader.download(temp.value, path);
+                        projectManagementController.downloadfile(temp);
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.download,
+                      size: 30,
+                      color: bluePurpleColor,
+                    ));
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+          // projectManagementController.projectData.isAuthorizedDefence!
+          //     ? const ImageIcon(
+          //         Svg("assets/icons/done_tick_icon.svg"),
+          //         size: 30,
+          //       )
+          //     : const SizedBox(),
+          // projectManagementController.projectData.status == "accepted"
+          //     ? projectManagementController.projectData.isAuthorizedDefence ==
+          //             false
+          //         ? IconButton(
+          //             onPressed: () {
+          //               Get.defaultDialog(
+          //                   title: "areUSure".tr,
+          //                   content: Column(
+          //                     mainAxisAlignment: MainAxisAlignment.end,
+          //                     crossAxisAlignment: CrossAxisAlignment.end,
+          //                     children: [
+          //                       IconButton(
+          //                           onPressed: () {
+          //                             projectManagementController
+          //                                 .importAuthorizeProject();
+          //                           },
+          //                           icon: const ImageIcon(
+          //                             size: 30,
+          //                             color: bluePurpleColor,
+          //                             Svg("assets/icons/import_file_icon.svg"),
+          //                           )),
+          //                       TextButton(
+          //                           onPressed: () {
+          //                             projectManagementController
+          //                                 .authorizeProject();
+          //                           },
+          //                           child: Text("authorize".tr)),
+          //                       const SizedBox(height: 5),
+          //                       TextButton(
+          //                           onPressed: () {
+          //                             navigator!.pop();
+          //                           },
+          //                           child: Text("cancel".tr)),
+          //                     ],
+          //                   ));
+          //             },
+          //             icon: const ImageIcon(
+          //               Svg("assets/icons/shield_tick_icon.svg"),
+          //               size: 30,
+          //             ),
+          //           )
+          //         : projectManagementController.projectData.files!.isNotEmpty
+          //             ? IconButton(
+          //                 onPressed: () async {
+          //                   //var path = "/storage/emulated/0/Download/";
+          //                   print(projectManagementController
+          //                       .projectData.files!.length);
+          //                   // MapEntry temp = MapEntry(
+          //                   //     projectManagementController.projectData
+          //                   //             .files!["thesis defence authorization file"]
+          //                   //         ["name"],
+          //                   //     projectManagementController.projectData
+          //                   //             .files!["thesis defence authorization file"]
+          //                   //         ["link"]);
+          //                   // print(temp);
+          //                   // if (projectManagementController.projectData
+          //                   //             .files!["thesis defence authorization file"]
+          //                   //         ["link"] ==
+          //                   //     {}) {
+          //                   // } else {
+          //                   //   // Downloader.download(temp.value, path);
+          //                   //   projectManagementController.downloadfile(temp);
+          //                   // }
+          //                 },
+          //                 icon: const Icon(
+          //                   Icons.download,
+          //                   size: 30,
+          //                   color: bluePurpleColor,
+          //                 ))
+          //             : const SizedBox()
+          //     : const SizedBox()
         ],
       ),
       body: ListView(
@@ -426,7 +531,7 @@ class ProjectManagement extends StatelessWidget {
                       children: [
                         ListTile(
                           onTap: () {
-                            projectManagementController.goToRemarks();
+                            projectManagementController.loadRemarks();
                           },
                           dense: true,
                           visualDensity: const VisualDensity(vertical: -4),
@@ -452,7 +557,7 @@ class ProjectManagement extends StatelessWidget {
             builder: (context) {
               bool exists = false;
               for (var permission in userModel.permissions!) {
-                if (permission.id == 27) {
+                if (permission.id == 2) {
                   exists = true;
                 }
               }
@@ -488,6 +593,48 @@ class ProjectManagement extends StatelessWidget {
             },
           ),
           ///////////////////// goToProjectObserv
+          ///
+          ///////////////////// createDefense
+          Builder(
+            builder: (context) {
+              bool exists = false;
+              for (var permission in userModel.permissions!) {
+                if (permission.id == 24) {
+                  exists = true;
+                }
+              }
+              if (projectManagementController.projectData.isAuthorizedDefence ==
+                  false) {
+                exists = false;
+              }
+              if (projectManagementController.projectData.defenceId != null) {
+                exists = false;
+              }
+
+              return exists
+                  ? Column(
+                      children: [
+                        const SizedBox(height: 5),
+                        ListTile(
+                          onTap: () {
+                            projectManagementController.goToCreateNewDefense();
+                          },
+                          dense: true,
+                          visualDensity: const VisualDensity(vertical: -4),
+                          leading: const Icon(
+                            Icons.filter_frames_outlined,
+                          ),
+                          title: Text(
+                            "createNewDefense".tr,
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        )
+                      ],
+                    )
+                  : const SizedBox();
+            },
+          ),
+          ///////////////////// createDefense
           ///////////////////// withdraw
           Builder(
             builder: (context) {
@@ -499,6 +646,10 @@ class ProjectManagement extends StatelessWidget {
                 }
               }
               if (projectManagementController.projectData.status != "pending") {
+                exists = false;
+              }
+              if (projectManagementController.projectData.projectHolder!.id !=
+                  userModel.id) {
                 exists = false;
               }
 

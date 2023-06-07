@@ -19,7 +19,7 @@ class PeriodsManagementController extends GetxController {
   inputStartDate(DateTime value) {
     startDate = dateFormat.format(value);
     selectedPeriod?.startDate = dateFormat.format(value);
-
+    print(selectedPeriod?.startDate);
     update();
   }
 

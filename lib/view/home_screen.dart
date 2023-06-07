@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:startease/controller/defence_management_controller.dart';
 import 'package:startease/main.dart';
 import 'package:startease/model/roles_model.dart';
 import 'package:startease/view/all_roles.dart';
+import 'package:startease/view/defences_management.dart';
 import 'package:startease/view/project_manag_admin.dart';
 import 'package:startease/view/project_management.dart';
 import 'package:startease/view/projects_table.dart';
@@ -16,6 +18,7 @@ import '../controller/project_manag_admin_controller.dart';
 import '../controller/role_management_controller.dart';
 import '../controller/users_management_controller.dart';
 import '../model/permissions_model.dart';
+import 'defenses_bottom_bar.dart';
 import 'widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,6 +31,7 @@ class HomeScreen extends StatelessWidget {
       bool firstIF = true;
       bool secondIF = true;
       bool thirdIF = true;
+      bool forthIF = true;
       List<Widget> tempsList = [];
       for (Permissions element in userModel.permissions!) {
         if (firstIF &&
@@ -43,8 +47,7 @@ class HomeScreen extends StatelessWidget {
           firstIF = false;
         }
 
-        if (secondIF &&
-            (element.id == 18 || element.id == 19 || element.id == 20)) {
+        if (secondIF && (element.id == 19)) {
           tempsList.add(const UsersManagement());
           Get.put(UsersManagementController());
           secondIF = false;
@@ -55,15 +58,32 @@ class HomeScreen extends StatelessWidget {
           Get.put(ProjectManagementAdminController());
           thirdIF = false;
         }
+        if (forthIF && (element.id == 24 || element.id == 33)) {
+          tempsList.add(const DefensesBottomBar());
+          Get.put(DefenceManagementController());
+          forthIF = false;
+        }
       }
 
       return tempsList;
     }
 
     List<BottomNavigationBarItem> affichBottomNavBarItems() {
+      bool firstIF = true;
+      bool secondIF = true;
+      bool thirdIF = true;
+      bool forthIF = true;
+
       List<BottomNavigationBarItem> tempsList = [];
-      for (Roles element in userModel.roles!) {
-        if (element.id == 1) {
+      for (Permissions element in userModel.permissions!) {
+        if (firstIF &&
+            (element.id == 10 ||
+                element.id == 11 ||
+                element.id == 12 ||
+                element.id == 13 ||
+                element.id == 14 ||
+                element.id == 15 ||
+                element.id == 16)) {
           tempsList.add(
             const BottomNavigationBarItem(
               label: "",
@@ -73,6 +93,10 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           );
+          firstIF = false;
+        }
+
+        if (secondIF && (element.id == 19)) {
           tempsList.add(
             const BottomNavigationBarItem(
               label: "",
@@ -84,23 +108,36 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           );
+          secondIF = false;
         }
-        if (element.id == 2) {
-          tempsList.add(
-            const BottomNavigationBarItem(
-              label: "",
-              icon: ImageIcon(
+
+        if (thirdIF && (element.id == 21 || element.id == 23)) {
+          tempsList.add(const BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(
+              Svg("assets/icons/view_project_icon.svg"),
+            ),
+            activeIcon: ActiveBottomBarIcon(
+              widgetIcon: ImageIcon(
                 Svg("assets/icons/view_project_icon.svg"),
               ),
-              activeIcon: ActiveBottomBarIcon(
-                widgetIcon: ImageIcon(
-                  Svg("assets/icons/view_project_icon.svg"),
-                ),
-              ),
             ),
-          );
+          ));
+
+          thirdIF = false;
+        }
+        if (forthIF && (element.id == 24 || element.id == 33)) {
+          tempsList.add(const BottomNavigationBarItem(
+            label: "",
+            icon: Icon(Icons.filter_frames_outlined),
+            activeIcon: ActiveBottomBarIcon(
+              widgetIcon: Icon(Icons.filter_frames_outlined),
+            ),
+          ));
+          forthIF = false;
         }
       }
+
       return tempsList;
     }
 

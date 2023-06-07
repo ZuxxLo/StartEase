@@ -26,6 +26,9 @@ class HomeScreenController extends GetxController {
     if (index == 2) {
       _currentBottomBarIndex = index;
     }
+    if (index == 3) {
+      _currentBottomBarIndex = index;
+    }
 
     print(index);
 

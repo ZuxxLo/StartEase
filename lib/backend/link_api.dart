@@ -33,6 +33,10 @@ const String periodsLink = "$linkServerName/api/periods";
 ////////////projects
 const String projectsLink = "$linkServerName/api/projects";
 
+////////////defences and deliberations
+const String defencesLink = "$linkServerName/api/defences";
+const String deliberationsLink = "$linkServerName/api/deliberations";
+
 ////////////remarks and comments and tasks
 const String remarksLink = "$linkServerName/api/remarks";
 const String commentsLink = "$linkServerName/api/comments";
@@ -43,5 +47,7 @@ const String establishmentsLink = "$linkServerName/api/establishments";
 const String filieresLink = "$linkServerName/api/filieres";
 const String gradesLink = "$linkServerName/api/grades";
 const String specialitiesLink = "$linkServerName/api/specialities";
+const String roomsLink = "$linkServerName/api/rooms";
+
 
 ////////////

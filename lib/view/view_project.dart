@@ -26,6 +26,17 @@ class ViewProject extends StatelessWidget {
               if (permission.id == 37) {
                 exists = true;
               }
+              if (projectManagementController.projectData.projectHolder!.id ==
+                  userModel.id) {
+                exists = false;
+              }
+              if (projectManagementController.projectData.projectHolder!.id !=
+                      userModel.id ||
+                  projectManagementController.projectData.status == "refused" ||
+                  projectManagementController.projectData.status ==
+                      "accepted") {
+                exists = false;
+              }
             }
             return exists
                 ? IconButton(

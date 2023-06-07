@@ -255,9 +255,9 @@ class ProfilePictureForOtherUsers extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       color: MainFunctions.generatePresizedColor(
-                          userModel.username!.length),
+                          userModel.email!.length),
                       child: Text(
-                        userModel.username![0].toUpperCase(),
+                        userModel.email![0].toUpperCase(),
                         // style: const TextStyle(
                         //     fontSize: 27, color: purpleTextColor),
                       ),
@@ -283,6 +283,70 @@ class ProfilePictureForOtherUsers extends StatelessWidget {
                         } else {
                           return Text(
                             userModel.username![0].toUpperCase(),
+                            // style: const TextStyle(
+                            //     fontSize: 27, color: purpleTextColor),
+                          );
+                        }
+                      },
+                    )),
+              ));
+  }
+}
+
+class ProfilePictureForOtherUserss extends StatelessWidget {
+  const ProfilePictureForOtherUserss({
+    super.key,
+    required this.photoUrl,
+    required this.email,
+  });
+  final String photoUrl;
+  final String email;
+
+  @override
+  Widget build(BuildContext context) {
+    //  await CachedNetworkImage.evictFromCache(url);4
+    // ImageCache().clear();
+    return SizedBox(
+        height: 40,
+        width: 40,
+        child: !(photoUrl == "http://localhost:8000/images/users/default.png")
+            ? ClipOval(
+                child: Image.network(
+                linkServerName + photoUrl.substring(21),
+                fit: BoxFit.cover,
+                headers: const {
+                  "Connection": "Keep-Alive",
+                  "Keep-Alive": "timeout=5, max=1000"
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return ClipOval(
+                    child: Container(
+                      alignment: Alignment.center,
+                      color: MainFunctions.generatePresizedColor(email.length),
+                      child: Text(
+                        email[0].toUpperCase(),
+                        // style: const TextStyle(
+                        //     fontSize: 27, color: purpleTextColor),
+                      ),
+                    ),
+                  );
+                },
+              ))
+            : ClipOval(
+                child: Container(
+                    alignment: Alignment.center,
+                    color: MainFunctions.generatePresizedColor(email.length),
+                    child: Builder(
+                      builder: (context) {
+                        if (email == null) {
+                          return Text(
+                            email[0].toUpperCase(),
+                            // style: const TextStyle(
+                            //     fontSize: 27, color: purpleTextColor),
+                          );
+                        } else {
+                          return Text(
+                            email[0].toUpperCase(),
                             // style: const TextStyle(
                             //     fontSize: 27, color: purpleTextColor),
                           );

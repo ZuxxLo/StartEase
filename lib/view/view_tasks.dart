@@ -31,6 +31,10 @@ class ViewTasks extends StatelessWidget {
                 if (permission.id == 43) {
                   exists = true;
                 }
+                if (projectManagementController.projectData.supervisor!.id !=
+                    userModel.id) {
+                  exists = false;
+                }
               }
               return exists
                   ? IconButton(
@@ -173,8 +177,7 @@ class ViewTasks extends StatelessWidget {
                                           "completed"
                                       ? Text(
                                           "${"approvDate".tr} : ${projectManagementController.projectData.tasks![index].completedDate!}",
-                                          style: TextStyle(
-                                              fontSize: 13, color: greyColor),
+                                          style: const TextStyle(fontSize: 13),
                                         )
                                       : Text(
                                           projectManagementController
@@ -189,13 +192,11 @@ class ViewTasks extends StatelessWidget {
                                           // projectManagementController
                                           //     .affichageDaysAgo(DateTime.utc(2022,
                                           //         1, 30)), /////// hna dkl la date
-                                          style: TextStyle(
-                                              fontSize: 13, color: greyColor),
+                                          style: const TextStyle(fontSize: 13),
                                         ),
                                   Text(
                                     "${"deadline".tr} : ${projectManagementController.projectData.tasks![index].deadline!}",
-                                    style: TextStyle(
-                                        fontSize: 13, color: greyColor),
+                                    style: const TextStyle(fontSize: 13),
                                   ),
                                   projectManagementController.projectData
                                               .tasks![index].status !=
@@ -232,6 +233,19 @@ class ViewTasks extends StatelessWidget {
                             }
                             if (permission.id == 6) {
                               submitExists = true;
+                            }
+                            if (projectManagementController
+                                    .projectData.tasks![index].status !=
+                                "pending") {
+                              validateExists = false;
+                            }
+
+                            if (projectManagementController
+                                    .projectData.supervisor!.id !=
+                                userModel.id) {
+                              editExists = false;
+                              deleteExists = false;
+                              validateExists = false;
                             }
                           }
                           return PopupMenuButton<int>(
@@ -276,9 +290,7 @@ class ViewTasks extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                              if (projectManagementController
-                                      .projectData.tasks![index].status ==
-                                  "pending")
+                              if (validateExists)
                                 PopupMenuItem(
                                   padding: const EdgeInsets.only(
                                       right: 10, left: 10),
@@ -296,27 +308,27 @@ class ViewTasks extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                              if (submitExists &&
-                                  projectManagementController
-                                          .projectData.tasks![index].status ==
-                                      "in progress")
-                                PopupMenuItem(
-                                  padding: const EdgeInsets.only(
-                                      right: 10, left: 10),
-                                  onTap: () {},
-                                  value: 4,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("submit".tr),
-                                      const ImageIcon(
-                                        size: 20,
-                                        Svg("assets/icons/import_file_icon.svg"),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              // if (submitExists &&
+                              //     projectManagementController
+                              //             .projectData.tasks![index].status ==
+                              //         "in progress")
+                              //   PopupMenuItem(
+                              //     padding: const EdgeInsets.only(
+                              //         right: 10, left: 10),
+                              //     onTap: () {},
+                              //     value: 4,
+                              //     child: Row(
+                              //       mainAxisAlignment:
+                              //           MainAxisAlignment.spaceBetween,
+                              //       children: [
+                              //         Text("submit".tr),
+                              //         const ImageIcon(
+                              //           size: 20,
+                              //           Svg("assets/icons/import_file_icon.svg"),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
                             ],
                             onSelected: (value) {
                               print(value);
@@ -754,8 +766,74 @@ class ViewTasks extends StatelessWidget {
                                           const SizedBox(height: 5),
                                           TextButton(
                                               onPressed: () {
-                                                projectManagementController
-                                                    .validateTask(index, false);
+                                                final formKey =
+                                                    GlobalKey<FormState>();
+                                                String? refusalDescription;
+
+                                                navigator!.pop();
+                                                Get.defaultDialog(
+                                                    title: "",
+                                                    content: Column(
+                                                      children: [
+                                                        Form(
+                                                            key: formKey,
+                                                            child:
+                                                                TextFormField(
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                      hintText:
+                                                                          "description"
+                                                                              .tr),
+                                                              onChanged:
+                                                                  (value) {
+                                                                refusalDescription =
+                                                                    value;
+                                                              },
+                                                              validator:
+                                                                  (value) {
+                                                                if (value ==
+                                                                    null) {
+                                                                  return "fillFiled"
+                                                                      .tr;
+                                                                }
+                                                                if (value
+                                                                    .isEmpty) {
+                                                                  return "fillFiled"
+                                                                      .tr;
+                                                                }
+                                                              },
+                                                            )),
+                                                        const SizedBox(
+                                                            height: 5),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              if (formKey
+                                                                  .currentState!
+                                                                  .validate()) {
+                                                                formKey
+                                                                    .currentState!
+                                                                    .save();
+                                                                projectManagementController
+                                                                    .validateTask(
+                                                                        index,
+                                                                        false,
+                                                                        refusalDescription);
+                                                                navigator!
+                                                                    .pop();
+                                                              }
+                                                            },
+                                                            child: Text(
+                                                                "refuse".tr)),
+                                                        const SizedBox(
+                                                            height: 5),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              navigator!.pop();
+                                                            },
+                                                            child: Text(
+                                                                "cancel".tr))
+                                                      ],
+                                                    ));
                                               },
                                               child: Text("refuse".tr)),
                                           const SizedBox(height: 5),

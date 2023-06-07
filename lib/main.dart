@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:startease/middleware/auth_middleware.dart';
 import 'package:startease/model/roles_model.dart';
 import 'package:startease/utils/create_role_binding.dart';
+import 'package:startease/utils/defence_management_binding.dart';
 import 'package:startease/utils/home_screen_binding.dart';
 import 'package:startease/utils/permissions_management_binding.dart';
 import 'package:startease/utils/project_manag_admin_binding.dart';
@@ -17,11 +18,13 @@ import 'package:startease/utils/submit_project_binding.dart';
 import 'package:startease/view/add_task.dart';
 import 'package:startease/view/change_password.dart';
 import 'package:startease/view/create_role.dart';
+import 'package:startease/view/defences_admin.dart';
 import 'package:startease/view/edit_role.dart';
 import 'package:startease/view/home_screen.dart';
 import 'package:startease/view/periods_management.dart';
 import 'package:startease/view/project_manag_admin.dart';
 import 'package:startease/view/projects_table.dart';
+import 'package:startease/view/view_delibration.dart';
 import 'package:startease/view/view_profile_informations.dart';
 import 'package:startease/view/view_remarks.dart';
 
@@ -41,6 +44,8 @@ import 'utils/sign_up_binding.dart';
 import 'utils/users_management_binding.dart';
 import 'view/all_roles.dart';
 import 'view/all_users.dart';
+import 'view/create_new_defense.dart';
+import 'view/defences_management.dart';
 import 'view/forgot_password.dart';
 import 'view/login.dart';
 import 'view/permissions_management.dart';
@@ -55,6 +60,7 @@ import 'view/update_phone_number.dart';
 import 'view/user_details.dart';
 import 'view/users_management.dart';
 import 'view/view_comments.dart';
+import 'view/view_defense.dart';
 import 'view/view_observ.dart';
 import 'view/view_project.dart';
 import 'view/view_tasks.dart';
@@ -220,6 +226,26 @@ class MainApp extends StatelessWidget {
               name: "/ProjectDeposit",
               page: () => const ProjectDeposit(),
               binding: ProjectDepositBinding()),
+          GetPage(
+              name: "/DefenceManagement",
+              page: () => const DefenceManagement(),
+              binding: DefenceManagementBinding()),
+          GetPage(
+            name: "/ViewDefense",
+            page: () => const ViewDefense(),
+          ),
+          GetPage(
+            name: "/ViewDelibration",
+            page: () => const ViewDelibration(),
+          ),
+          GetPage(
+            name: "/DefencesAdmin",
+            page: () => const DefencesAdmin(),
+          ),
+          GetPage(
+            name: "/CreateNewDefense",
+            page: () => const CreateNewDefense(),
+          ),
         ],
         initialRoute: "/Login");
   }

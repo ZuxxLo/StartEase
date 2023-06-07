@@ -80,7 +80,7 @@ class ProjectModel {
   List<Remark>? remakrs;
   List<Comments>? comments;
   List<Tasks>? tasks;
-
+  int? defenceId;
   Map<dynamic, dynamic>? files;
   Map? progress;
   bool? isAuthorizedDefence;
@@ -93,6 +93,7 @@ class ProjectModel {
       this.resume,
       this.status,
       this.establishment,
+      this.defenceId,
       this.projectHolder,
       this.supervisor,
       this.coSupervisor,
@@ -111,6 +112,7 @@ class ProjectModel {
     scientificName = json['scientific_name'];
     resume = json['resume'];
     status = json['status'];
+    defenceId = json["defence_id"];
     establishment = json['establishment'] != null
         ? Establishment.fromJson(json['establishment'])
         : null;
@@ -139,8 +141,7 @@ class ProjectModel {
       files = json['files'];
     }
     if (json['files'] != null) {
-      progress = json['progress'];
-    }
+     }
 
     isAuthorizedDefence = json['is_authorized_defence'];
   }
@@ -213,6 +214,20 @@ class ProjectModel {
     }
     print(newStatus);
     print(data['status']);
+    return data;
+  }
+
+  Map<String, dynamic> putProjectToJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
+    data['trademark_name'] = trademarkName;
+    data['scientific_name'] = scientificName;
+    data['resume'] = resume;
+    data['supervisor'] = supervisor;
+    data['co_supervisor'] = coSupervisor;
+    data['members'] = members;
+    data['files_types'] = [];
+
     return data;
   }
 }

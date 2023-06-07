@@ -9,12 +9,14 @@ import '../model/user_model.dart';
 
 class SubmitProjectController extends GetxController {
   PageController pageController = PageController(keepPage: true);
-  ProjectModel newProject = ProjectModel(members: []);
+  ProjectModel newProject = ProjectModel(
+    members: [],
+  );
   int currentPageViewIndex = 0;
 
   List<String> projectTypesList = <String>[
-    "Un diplôme-Une startup",
-    "Un diplôme-Un Brevet"
+    "diplomaStartUp".tr,
+    "diplomaPatent".tr
   ];
 
   next() {
@@ -153,5 +155,11 @@ class SubmitProjectController extends GetxController {
       MainFunctions.somethingWentWrongSnackBar();
     }
     update();
+  }
+
+  @override
+  void onInit() {
+    newProject.type = projectTypesList[0];
+    super.onInit();
   }
 }

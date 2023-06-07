@@ -113,7 +113,7 @@ class Themes extends GetxController {
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(color: redColor)),
         errorStyle: const TextStyle(color: redColor, fontSize: 15),
-        errorMaxLines:3,
+        errorMaxLines: 3,
         errorBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(color: redColor)),

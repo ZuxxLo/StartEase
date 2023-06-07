@@ -48,8 +48,8 @@ dependencies:
     sdk: flutter
   file_picker: ^5.2.11
   flutter_file_downloader: ^1.1.2
-  dio: ^5.1.2
-       
+  path_provider: ^2.0.15
+         
 dev_dependencies:
   flutter_test:
     sdk: flutter

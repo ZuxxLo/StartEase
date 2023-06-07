@@ -10,7 +10,7 @@ class UserModel {
   String? photoUrl;
   String? personType;
   Person? person = Person();
-
+  bool? isProjectMember;
   late int? isEnabled;
   late List<Roles>? roles;
   late List<Permissions>? permissions;
@@ -57,6 +57,7 @@ class UserModel {
     } else {
       permissions = [];
     }
+    isProjectMember = json["data"]["user"]["is_project_member"];
     token = json["data"]["token"];
   }
   UserModel.fromJsonS(Map<String, dynamic> json) {

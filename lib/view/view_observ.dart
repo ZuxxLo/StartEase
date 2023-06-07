@@ -31,6 +31,10 @@ class ViewObserv extends StatelessWidget {
                   exists = true;
                 }
               }
+              if (projectManagementController.projectData.supervisor!.id !=
+                  userModel.id) {
+                exists = false;
+              }
               return exists
                   ? TextButton(
                       style: ButtonStyle(
@@ -145,83 +149,91 @@ class ViewObserv extends StatelessWidget {
         child: Column(
           children: [
             GetBuilder<ProjectManagementController>(builder: (context) {
-              return ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                reverse: true,
-                itemCount:
-                    projectManagementController.projectData.progress!.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                      padding: const EdgeInsets.fromLTRB(10, 7, 15, 7),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Theme.of(context).listTileTheme.tileColor),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text(
-                          //   "projectAdvanc".tr,
-                          //   style: const TextStyle(fontSize: 18),
-                          // ),
-                          const SizedBox(height: 5),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Stack(
-                              alignment: Alignment.center,
+              return projectManagementController.projectData.progress!.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 250),
+                      child: Center(child: Text("noResults".tr)))
+                  : ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      reverse: true,
+                      itemCount: projectManagementController
+                          .projectData.progress!.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                            padding: const EdgeInsets.fromLTRB(10, 7, 15, 7),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color:
+                                    Theme.of(context).listTileTheme.tileColor),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: LinearProgressIndicator(
-                                    minHeight: 25,
-                                    value: double.parse(
-                                            projectManagementController
-                                                .projectData.progress!.keys
-                                                .toList()[index]) /
-                                        100,
-                                    valueColor:
-                                        const AlwaysStoppedAnimation<Color>(
-                                            bluePurpleColor),
-                                    backgroundColor: const Color(0xffD6D6D6),
+                                // Text(
+                                //   "projectAdvanc".tr,
+                                //   style: const TextStyle(fontSize: 18),
+                                // ),
+                                const SizedBox(height: 5),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: LinearProgressIndicator(
+                                          minHeight: 25,
+                                          value: double.parse(
+                                                  projectManagementController
+                                                      .projectData
+                                                      .progress!
+                                                      .keys
+                                                      .toList()[index]) /
+                                              100,
+                                          valueColor:
+                                              const AlwaysStoppedAnimation<
+                                                  Color>(bluePurpleColor),
+                                          backgroundColor:
+                                              const Color(0xffD6D6D6),
+                                        ),
+                                      ),
+                                      Text(
+                                        "${projectManagementController.projectData.progress!.keys.toList()[index]}%",
+                                        style: const TextStyle(
+                                            color: whiteColor, fontSize: 15),
+                                      )
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  "${projectManagementController.projectData.progress!.keys.toList()[index]}%",
-                                  style: const TextStyle(
-                                      color: whiteColor, fontSize: 15),
-                                )
-                              ],
-                            ),
-                          ),
-                          projectManagementController
-                                      .projectData.progress!.values
-                                      .toList()[index] !=
-                                  ""
-                              ? Column(
-                                  children: [
-                                    const SizedBox(height: 5),
-                                    Text(
-                                        projectManagementController
+                                projectManagementController
                                             .projectData.progress!.values
-                                            .toList()[index],
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            fontSize: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium!
-                                                .fontSize)),
-                                  ],
-                                )
-                              : const SizedBox(height: 0),
-                        ],
-                      ));
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 10,
-                  );
-                },
-              );
+                                            .toList()[index] !=
+                                        ""
+                                    ? Column(
+                                        children: [
+                                          const SizedBox(height: 5),
+                                          Text(
+                                              projectManagementController
+                                                  .projectData.progress!.values
+                                                  .toList()[index],
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  fontSize: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium!
+                                                      .fontSize)),
+                                        ],
+                                      )
+                                    : const SizedBox(height: 0),
+                              ],
+                            ));
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: 10,
+                        );
+                      },
+                    );
             })
           ],
         ),

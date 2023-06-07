@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'package:startease/Themes/colors.dart';
+import 'package:startease/controller/defence_management_controller.dart';
 import 'package:startease/main.dart';
 import 'package:startease/model/remark_model.dart';
 import 'package:startease/model/tasks_model.dart';
@@ -188,22 +191,31 @@ class ProjectManagementController extends GetxController {
   void goToEditMyProject() {}
 
   loadRemarks() async {
-    projectData.remakrs = [];
-    var response =
-        await Crud.getRequest("$remarksLink/project/${projectData.id}");
-    print(response);
-    if (response != null && response["success"] == true) {
-      print("*/*/*/*/*");
-
-      print(response["data"]["remarks"]);
-      print("*/*/*/*/*");
-
-      for (var i = 0; i < response["data"]["remarks"].length; i++) {
-        projectData.remakrs!
-            .add(Remark.fromJson(response["data"]["remarks"][i]));
+    bool exists = false;
+    for (var permission in userModel.permissions!) {
+      if (permission.id == 27) {
+        exists = true;
       }
     }
-    print(projectData.remakrs?.length);
+    if (exists) {
+      projectData.remakrs = [];
+      var response =
+          await Crud.getRequest("$remarksLink/project/${projectData.id}");
+      print(response);
+      if (response != null && response["success"] == true) {
+        print("*/*/*/*/*");
+
+        print(response["data"]["remarks"]);
+        print("*/*/*/*/*");
+
+        for (var i = 0; i < response["data"]["remarks"].length; i++) {
+          projectData.remakrs!
+              .add(Remark.fromJson(response["data"]["remarks"][i]));
+        }
+      }
+      print(projectData.remakrs?.length);
+      goToRemarks();
+    }
   }
 
   goToRemarks() async {
@@ -286,8 +298,21 @@ class ProjectManagementController extends GetxController {
 
     update();
   }
-  submitEditProject(){
-    
+
+  submitEditProject() async {
+    if (await MainFunctions.checkInternetConnection()) {
+      print(projectData.id);
+      var response = await Crud.putRequest(
+          "$projectsLink/${projectData.id}", projectData.putProjectToJson());
+      print(response);
+
+      if (response != null && response["success"] == true) {
+        navigator!.pop();
+      } else {
+        //  MainFunctions.somethingWentWrongSnackBar(response["message"]);
+      }
+    }
+    update();
   }
 
   void goBackPageView() {
@@ -695,12 +720,18 @@ class ProjectManagementController extends GetxController {
     projectData.progress = {};
     var response =
         await Crud.getRequest("$projectsLink/${projectData.id}/progress");
-    print(response);
+    print(response["data"]["progress"]);
     if (response != null && response["success"] == true) {
-      print("*/*/*/*/*");
+      if (response["data"]["progress"].isEmpty) {
+        print("****************");
+        projectData.progress = {};
+        progress = 0;
+      } else {
+        print("*/*/*/*/*");
 
-      projectData.progress = response["data"]["progress"];
-      progress = int.parse(projectData.progress!.keys.toList().last) + 1;
+        projectData.progress = response["data"]["progress"];
+        progress = int.parse(projectData.progress!.keys.toList().last) + 1;
+      }
     }
 
     update();
@@ -726,7 +757,13 @@ class ProjectManagementController extends GetxController {
   }
 
   loadTasks() async {
-    projectData.tasks = [];
+    bool exists = false;
+    for (var permission in userModel.permissions!) {
+      if (permission.id == 42) {
+        exists = true;
+      }
+    }
+    if (exists) projectData.tasks = [];
     var response =
         await Crud.getRequest("$tasksLink/project/${projectData.id}");
     if (response != null && response["success"] == true) {
@@ -743,34 +780,33 @@ class ProjectManagementController extends GetxController {
   @override
   void onInit() {
     initializeNotEditedData();
-    loadRemarks();
 
     super.onInit();
   }
 
-  void downloadfile(MapEntry x) {
+  Future<void> downloadfile(MapEntry x) async {
+    // final url = Uri.parse(x.value);
+    // if (await canLaunchUrl(url)) {
+    //   launchUrl(url);
+    // }
+
+    //  _downloadFile(x.value, x.key);
+
     if (x.value != null) {
       print(x.value);
-      FileDownloader.setLogEnabled(true);
       FileDownloader.downloadFile(
         url: x.value,
         name: x.key,
         onDownloadError: (String error) {
           MainFunctions.somethingWentWrongSnackBar(error);
         },
-        onProgress: (fileName, progress) {
-          MainFunctions.successSnackBar(progress.toString());
-        },
         onDownloadCompleted: (String path) async {
           MainFunctions.successSnackBar("fileDownloadedTO".tr + path);
-
-          update();
         },
       );
     } else {
       MainFunctions.somethingWentWrongSnackBar("nothingToDownload".tr);
     }
-    update();
   }
 
   void goToAddTask() {
@@ -871,9 +907,10 @@ class ProjectManagementController extends GetxController {
     update();
   }
 
-  Future<void> validateTask(int index, bool bool) async {
+  Future<void> validateTask(int index, bool bool,
+      [String? refusalDescription]) async {
     int? id = projectData.tasks![index].id;
-    if (await MainFunctions.checkInternetConnection()) {
+    if (bool) {
       var response =
           await Crud.putRequest("$tasksLink/$id/validate", {"validated": bool});
       if (response != null && response["success"] == true) {
@@ -883,7 +920,16 @@ class ProjectManagementController extends GetxController {
       } else {
         MainFunctions.somethingWentWrongSnackBar(response["message"]);
       }
-      progress = int.parse(projectData.progress!.keys.toList().last) + 1;
+    } else {
+      var response = await Crud.putRequest("$tasksLink/$id/validate",
+          {"validated": bool, "refusal_motif": refusalDescription});
+      if (response != null && response["success"] == true) {
+        MainFunctions.successSnackBar("taskValidated".tr);
+        loadTasks();
+        navigator!.pop();
+      } else {
+        MainFunctions.somethingWentWrongSnackBar(response["message"]);
+      }
     }
     update();
   }
@@ -912,8 +958,9 @@ class ProjectManagementController extends GetxController {
             {"_method": "put"},
             authorizeFile!);
         print(response);
-        MainFunctions.successSnackBar("authorizeSucc".tr);
         if (response != null && response["success"] == true) {
+          MainFunctions.successSnackBar("authorizeSucc".tr);
+
           print(response);
           navigator!.pop();
         } else {
@@ -1032,5 +1079,31 @@ class ProjectManagementController extends GetxController {
     //   MainFunctions.somethingWentWrongSnackBar(response["message"]);
     // }
     // update();
+  }
+
+  Future<File> _downloadFile(String url, String filename) async {
+    var httpClient = new HttpClient();
+    HttpOverrides.global = MyHttpOverrides();
+
+    try {
+      var request = await httpClient.getUrl(Uri.parse(url));
+      var response = await request.close();
+      var bytes = await consolidateHttpClientResponseBytes(response);
+      final dir =
+          await getApplicationDocumentsDirectory(); //(await getApplicationDocumentsDirectory()).path;
+      File file = File('${dir.path}/$filename');
+      await file.writeAsBytes(bytes);
+      return file;
+    } catch (error) {
+      print('pdf downloading error = $error');
+      return File('');
+    }
+  }
+
+  Future<void> goToCreateNewDefense() async {
+    Get.put(DefenceManagementController());
+    DefenceManagementController defenceManagementController = Get.find();
+    await defenceManagementController.loadRooms();
+    Get.toNamed("/CreateNewDefense", arguments: projectData);
   }
 }

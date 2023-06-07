@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
 import 'package:startease/controller/project_manag_admin_controller.dart';
@@ -50,11 +51,10 @@ class ProjectManagementAdmin extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: greyColor)),
                                 child: Column(children: [
-                                  Expanded(
-                                    child: Image.asset(
-                                      "assets/images/roles.png",
-                                    ),
-                                  ),
+                                  const Expanded(
+                                      child: ImageIcon(
+                                          Svg("assets/icons/view_project_icon.svg"),
+                                          size: 80)),
                                   Text(
                                     "projectsTable".tr,
                                     textAlign: TextAlign.center,
@@ -84,6 +84,9 @@ class ProjectManagementAdmin extends StatelessWidget {
                       exists = true;
                     }
                   }
+                  if (userModel.isProjectMember!) {
+                    exists = false;
+                  }
 
                   return exists
                       ? Column(
@@ -100,11 +103,11 @@ class ProjectManagementAdmin extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: greyColor)),
                                 child: Column(children: [
-                                  Expanded(
-                                    child: Image.asset(
-                                      "assets/images/roles.png",
-                                    ),
-                                  ),
+                                  const Expanded(
+                                      child: Icon(
+                                    Icons.create_new_folder_outlined,
+                                    size: 80,
+                                  )),
                                   Text(
                                     "createProject".tr,
                                     textAlign: TextAlign.center,
@@ -147,11 +150,11 @@ class ProjectManagementAdmin extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(color: greyColor)),
                             child: Column(children: [
-                              Expanded(
-                                child: Image.asset(
-                                  "assets/images/roles.png",
-                                ),
-                              ),
+                              const Expanded(
+                                  child: Icon(
+                                Icons.access_time_outlined,
+                                size: 80,
+                              )),
                               Text(
                                 "periodsManagement".tr,
                                 textAlign: TextAlign.center,

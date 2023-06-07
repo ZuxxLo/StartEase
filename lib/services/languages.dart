@@ -268,6 +268,27 @@ class Languages implements Translations {
 
           "projectDeleted": "Project deleted successfully",
           "createProject": "Create new project",
+          "defensesTable": "Defenses Table",
+          "createNewDefense": "Create New Defense",
+          "createNewDefenseSucc": "Defense created successfully",
+
+          "defensesManag": "Defenses Management",
+          "date": "Date",
+          "time": "Time",
+          "room": "Room",
+          "otherPlace": "Other place",
+          "mode": "Mode",
+          "nature": "Nature",
+          "president": "President",
+          "examiners": "Examiners",
+          "guest": "Guest",
+          "viewDefence": "View Defense",
+          "viewDelibration": "View Deliberation",
+          "reserves": "Reserves",
+          "mark": "Mark",
+          "mention": "Mention",
+          "appreciation": "Appreciation",
+          "examinersLength": "There must be 2 or 3 examiners",
 
           ///////////////
         },
@@ -555,6 +576,27 @@ class Languages implements Translations {
 
           "projectDeleted": "Projet supprimé avec succès",
           "createProject": "Créer un nouveau projet",
+          "defensesTable": "Table des soutenances",
+          "createNewDefense": "Créer une nouvelle soutenance",
+          "createNewDefenseSucc": "Défense créée avec succès",
+
+          "defensesManag": "Gestion des soutenances",
+          "date": "Date",
+          "time": "Heure",
+          "room": "Salle",
+          "otherPlace": "Autre endroit",
+          "mode": "Mode",
+          "nature": "Nature",
+          "president": "Président",
+          "examiners": "Examinateurs",
+          "guest": "Invité",
+          "viewDefence": "Voir la soutenance",
+          "viewDelibration": "Voir la délibération",
+          "reserves": "Réserves",
+          "mark": "Marque",
+          "mention": "Mention",
+          "appreciation": "Appréciation",
+          "examinersLength": "Il doit y avoir 2 ou 3 examinateurs",
         }
       };
 

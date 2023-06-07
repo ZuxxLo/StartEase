@@ -196,15 +196,11 @@ class SubmitProject extends StatelessWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: SmallBodyText(text: "enterSummary".tr)),
-                          const SizedBox(height: 5),
                           GetBuilder<SubmitProjectController>(
                               builder: (context) {
                             return TextFormField(
-                              initialValue: projectManagementController
-                                  .newProject.resume,
+                              initialValue:
+                                  projectManagementController.newProject.resume,
                               textInputAction: TextInputAction.done,
                               maxLength: 250,
                               maxLines: 4,
@@ -219,7 +215,7 @@ class SubmitProject extends StatelessWidget {
                                     input;
                               },
                               decoration: InputDecoration(
-                                hintText: "summary".tr,
+                                hintText: "enterSummary".tr,
                                 hintStyle: const TextStyle(fontSize: 17),
                               ),
                             );
