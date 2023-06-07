@@ -19,7 +19,7 @@ const String updatePhoneNumberlink =
     "$linkServerName/api/users/update/phonenumber";
 
 const String updatePhoneNumberOTPLink =
-    "$linkServerName/api/users/update/phonenumber/otp";
+    "$linkServerName/api/users/update/phonenumber/otp"; 
 
 const String permissionsLink = "$linkServerName/api/permissions";
 const String roleLink = "$linkServerName/api/roles";
