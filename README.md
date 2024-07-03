@@ -26,4 +26,4 @@ codebase. The app is integrated with GetX, a popular state management library, a
 - ✅ A single dynamic application based on user permissions and roles
  &nbsp;
 
-![Startease](https://github.com/ZuxxLo/Smart-Steps/blob/main/Startease.jpg)
+![Startease](https://github.com/ZuxxLo/StartEase/blob/main/Startease.jpg)
