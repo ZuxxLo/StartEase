@@ -22,4 +22,4 @@ The mobile application is built using the Flutter framework, which is a Google-d
 mobile app SDK for building high-performance, high-fidelity, apps for iOS and Android, from a single
 codebase. The app is integrated with GetX, a popular state management library, an extra-light and powerful solution for Flutter. It combines high-performance state management, intelligent dependency injection, and route management quickly and practically.
 - [x] Multi-Language: English, French.
-- [ ] Light and Dark theme
+- [x] Light and Dark theme
