@@ -153,7 +153,7 @@ class ViewTasks extends StatelessWidget {
                                             const SizedBox(width: 10),
                                             Expanded(
                                               child: Text(
-                                                "${projectManagementController.projectData.tasks![index].resources!.keys.toList()[indexx]}",
+                                                projectManagementController.projectData.tasks![index].resources!.keys.toList()[indexx],
                                                 style: TextStyle(
                                                     fontSize: Theme.of(context)
                                                         .textTheme
@@ -801,6 +801,7 @@ class ViewTasks extends StatelessWidget {
                                                                   return "fillFiled"
                                                                       .tr;
                                                                 }
+                                                                return null;
                                                               },
                                                             )),
                                                         const SizedBox(
@@ -872,6 +873,7 @@ class ViewTasks extends StatelessWidget {
                                                   if (value!.isEmpty) {
                                                     return "";
                                                   }
+                                                  return null;
                                                 },
                                                 onChanged: (value) {
                                                   projectManagementController

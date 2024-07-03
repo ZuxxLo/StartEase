@@ -21,9 +21,9 @@ class PermissionsManagementController extends GetxController {
           (PermissionsModel.fromJson(response).data?.permissions)!;
     }
     allPermissionsListToAffich = List.from(allPermissionsListNotAffich);
-    allPermissionsListNotAffich.forEach((element) {
+    for (var element in allPermissionsListNotAffich) {
       print(element.type);
-    });
+    }
 
     update();
     return response;

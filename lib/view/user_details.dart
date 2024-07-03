@@ -5,9 +5,7 @@ import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
 import 'package:startease/view/widgets.dart';
 
-import '../backend/link_api.dart';
 import '../controller/users_management_controller.dart';
-import '../main.dart';
 import '../model/roles_model.dart';
 
 class UserDetails extends StatelessWidget {
@@ -335,7 +333,7 @@ class UserDetails extends StatelessWidget {
                             ? ""
                             : "searching".tr +
                                 usersManagementController.searchTextRole,
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       );
                     }),
                     IconButton(

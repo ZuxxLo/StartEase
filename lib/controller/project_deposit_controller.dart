@@ -90,7 +90,7 @@ class ProjectDepositController extends GetxController {
             allowedExtensions: ["pdf", "docx"]);
         if (files == null) return;
 
-        files.files.forEach((element) {
+        for (var element in files.files) {
           fileList.add(element);
           print(element.name);
           print(element.size);
@@ -98,7 +98,7 @@ class ProjectDepositController extends GetxController {
           print(File(element.path!));
 
           // projectData.files?.addAll({"file ": "element"});
-        });
+        }
       } catch (e) {
         print(e);
       }

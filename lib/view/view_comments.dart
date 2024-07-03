@@ -163,7 +163,7 @@ class ViewComments extends StatelessWidget {
                                     // projectManagementController
                                     //     .affichageDaysAgo(DateTime.utc(2022,
                                     //         1, 30)), /////// hna dkl la date
-                                    style: TextStyle(fontSize: 15),
+                                    style: const TextStyle(fontSize: 15),
                                   ),
                                   ////////////////////////////replies
                                   const SizedBox(width: 20),

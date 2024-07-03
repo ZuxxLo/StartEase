@@ -8,13 +8,13 @@ class TasksModel {
   TasksModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -31,15 +31,15 @@ class Data {
     if (json['tasks'] != null) {
       tasks = <Tasks>[];
       json['tasks'].forEach((v) {
-        tasks!.add(new Tasks.fromJson(v));
+        tasks!.add(Tasks.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.tasks != null) {
-      data['tasks'] = this.tasks!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (tasks != null) {
+      data['tasks'] = tasks!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -89,21 +89,21 @@ class Tasks {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['deadline'] = this.deadline;
-    data['status'] = this.status;
-    data['submission_date'] = this.submissionDate;
-    data['submission_description'] = this.submissionDescription;
-    data['completed_date'] = this.completedDate;
-    if (this.resources != null) {
-      data['resources'] = this.resources;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    data['deadline'] = deadline;
+    data['status'] = status;
+    data['submission_date'] = submissionDate;
+    data['submission_description'] = submissionDescription;
+    data['completed_date'] = completedDate;
+    if (resources != null) {
+      data['resources'] = resources;
     }
-    data['project_id'] = this.projectId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    data['project_id'] = projectId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 

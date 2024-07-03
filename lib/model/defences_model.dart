@@ -10,11 +10,11 @@ class DefencesModel {
   DefencesModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     data['message'] = message;
     if (this.data != null) {
@@ -33,13 +33,13 @@ class Data {
     if (json['defences'] != null) {
       defences = <Defences>[];
       json['defences'].forEach((v) {
-        defences!.add(new Defences.fromJson(v));
+        defences!.add(Defences.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (defences != null) {
       data['defences'] = defences!.map((v) => v.toJson()).toList();
     }
@@ -88,9 +88,9 @@ class Defences {
     date = json['date'];
     time = json['time'];
     establishment = json['establishment'] != null
-        ? new Establishment.fromJson(json['establishment'])
+        ? Establishment.fromJson(json['establishment'])
         : null;
-    room = json['room'] != null ? new Rooms.fromJson(json['room']) : null;
+    room = json['room'] != null ? Rooms.fromJson(json['room']) : null;
     otherPlace = json['other_place'];
     mode = json['mode'];
     nature = json['nature'];
@@ -99,11 +99,11 @@ class Defences {
       files = json['files'];
     }
     hasDeliberation = json['has_deliberation'];
-    jurys = json['jurys'] != null ? new Jurys.fromJson(json['jurys']) : null;
+    jurys = json['jurys'] != null ? Jurys.fromJson(json['jurys']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
 
     data['date'] = date;
     data['time'] = time;
@@ -138,13 +138,13 @@ class Establishment {
     if (json['rooms'] != null) {
       rooms = <Rooms>[];
       json['rooms'].forEach((v) {
-        rooms!.add(new Rooms.fromJson(v));
+        rooms!.add(Rooms.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     if (rooms != null) {
@@ -177,7 +177,7 @@ class Rooms {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['establishment_id'] = establishmentId;
@@ -205,23 +205,23 @@ class Jurys {
     if (json['examiners'] != null) {
       examiners = <Examiners>[];
       json['examiners'].forEach((v) {
-        examiners!.add(new Examiners.fromJson(v));
+        examiners!.add(Examiners.fromJson(v));
       });
     }
     supervisor = json['supervisor'] != null
-        ? new Examiners.fromJson(json['supervisor'])
+        ? Examiners.fromJson(json['supervisor'])
         : null;
     coSupervisor = json['co_supervisor'] != null
-        ? new Examiners.fromJson(json['co_supervisor'])
+        ? Examiners.fromJson(json['co_supervisor'])
         : null;
     president = json['president'] != null
-        ? new Examiners.fromJson(json['president'])
+        ? Examiners.fromJson(json['president'])
         : null;
     guest = json['guest'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (examiners != null) {
       data['examiners'] = examiners!.map((v) => v.toJson()).toList();
     }
@@ -253,7 +253,7 @@ class Examiners {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['email'] = email;
     data['photo_url'] = photoUrl;
     data['id'] = id;
@@ -271,11 +271,11 @@ class RoomsNewDefense {
   RoomsNewDefense.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Dataa.fromJson(json['data']) : null;
+    data = json['data'] != null ? Dataa.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     data['message'] = message;
     if (this.data != null) {
@@ -294,13 +294,13 @@ class Dataa {
     if (json['rooms'] != null) {
       rooms = <Roomss>[];
       json['rooms'].forEach((v) {
-        rooms!.add(new Roomss.fromJson(v));
+        rooms!.add(Roomss.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (rooms != null) {
       data['rooms'] = rooms!.map((v) => v.toJson()).toList();
     }
@@ -331,7 +331,7 @@ class Roomss {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['establishment_id'] = establishmentId;

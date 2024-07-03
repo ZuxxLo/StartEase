@@ -24,7 +24,7 @@ class SubmitProject extends StatelessWidget {
       appBar: AppBar(
         leading: const BackIconButton(),
         //////////////////   title:   Text("Project Name"), //////////////////
-        actions: [],
+        actions: const [],
       ),
       body: Container(
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
@@ -434,7 +434,7 @@ class SubmitProject extends StatelessWidget {
                                         child: Text("add".tr))),
                               ],
                             ))
-                        : SizedBox();
+                        : const SizedBox();
                   }),
                   const SizedBox(height: 20),
                   TextButton(
@@ -443,6 +443,7 @@ class SubmitProject extends StatelessWidget {
                         // formKey.currentState!.validate()
                         //formKey.currentState!.save();
                         projectManagementController.next();
+                        projectManagementController.kk();
                       }
                     },
                     child: Text(
@@ -633,16 +634,18 @@ class SubmitProject extends StatelessWidget {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                SizedBox(
-                                    height: 45,
-                                    width: 45,
-                                    child: IconButton(
-                                      icon: const DeleteIcon(),
-                                      onPressed: () {
-                                        projectManagementController
-                                            .deleteAProjectSupervisor();
-                                      },
-                                    )),
+                                const SizedBox(
+                                  height: 45,
+                                  width: 45,
+                                  // child:
+                                  // IconButton(
+                                  //   icon: const DeleteIcon(),
+                                  //   onPressed: () {
+                                  //     projectManagementController
+                                  //         .deleteAProjectSupervisor();
+                                  //   },
+                                  // )
+                                ),
                               ],
                             ));
                       }
@@ -864,7 +867,7 @@ class SubmitProject extends StatelessWidget {
             //                 Text("attachments".tr),
             //                 GetBuilder<SubmitProjectController>(
             //                     builder: (context) {
-            //                   return AnimatedVisibility(
+            //                   return edVisibility(
             //                     projectManagementController:
             //                         projectManagementController,
             //                     child: IconButton(

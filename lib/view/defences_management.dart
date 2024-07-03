@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 
 import '../controller/defence_management_controller.dart';
@@ -47,7 +46,7 @@ class DefenceManagement extends StatelessWidget {
                           child: Text(
                             defenceManagementController
                                 .defencesList[index].project!.trademarkName!,
-                            style: TextStyle(fontSize: 18),
+                            style: const TextStyle(fontSize: 18),
                           ),
                         ),
                       );

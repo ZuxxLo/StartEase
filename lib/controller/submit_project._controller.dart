@@ -29,6 +29,26 @@ class SubmitProjectController extends GetxController {
     update();
   }
 
+  kk() {
+    if (userModel.personType == "teacher") {
+      newProject.supervisor = UserModel(
+          id: 77,
+          username: userModel.email,
+          email: userModel.email,
+          phoneNumber: "",
+          photoUrl: "$linkServerName/images/users/default.png",
+          personType: "",
+          isEnabled: 1,
+          roles: [],
+          permissions: [],
+          person: null,
+          token: null);
+     
+
+      update();
+    }
+  }
+
   void goBackPageView() {
     currentPageViewIndex--;
 

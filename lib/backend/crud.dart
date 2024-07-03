@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +20,6 @@ class Crud {
         var responseBody = jsonDecode(response.body);
         return responseBody;
       } else {
-        print("response error ${response.body}");
         MainFunctions.somethingWentWrongSnackBar(
             "response error ${response.statusCode}");
 
@@ -45,7 +42,6 @@ class Crud {
         "Authorization": "Bearer ${userModel.token}"
       });
       var responseBody = jsonDecode(response.body);
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return responseBody;
       } else {
@@ -57,7 +53,6 @@ class Crud {
       MainFunctions.somethingWentWrongSnackBar("$e");
       e.printError();
 
-      print("api errrror");
 
       return null;
     }
@@ -90,9 +85,7 @@ class Crud {
       Get.back();
 
       MainFunctions.somethingWentWrongSnackBar("$e");
-      print(e.toString());
 
-      print("api errrror");
 
       return null;
     }
@@ -129,7 +122,6 @@ class Crud {
 
       MainFunctions.somethingWentWrongSnackBar("$e");
       e.printError();
-      print("api errrror");
 
       return null;
     }
@@ -155,9 +147,7 @@ class Crud {
       Get.back();
 
       MainFunctions.somethingWentWrongSnackBar("$e");
-      print(e.toString());
 
-      print("api errrror");
 
       return null;
     }
@@ -171,7 +161,6 @@ class Crud {
         "Accept": "*/*",
         "Authorization": "Bearer ${userModel.token}"
       });
-      print(response.body);
       var responseBody = jsonDecode(response.body);
       if (response.statusCode == 200) {
         return responseBody;
@@ -180,7 +169,6 @@ class Crud {
       }
     } catch (e) {
       MainFunctions.somethingWentWrongSnackBar("$e");
-      print("errrror");
 
       return null;
     }
@@ -201,9 +189,7 @@ class Crud {
         return responseBody;
       }
     } catch (e) {
-      print(e);
       MainFunctions.somethingWentWrongSnackBar("$e");
-      print("errrror");
 
       return null;
     }

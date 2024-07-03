@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 import 'package:startease/Themes/colors.dart';
 import 'package:startease/view/widgets.dart';
 
-import '../backend/link_api.dart';
 import '../controller/users_management_controller.dart';
-import '../main.dart';
 
 class AllUsers extends StatelessWidget {
   const AllUsers({super.key});
@@ -14,7 +12,6 @@ class AllUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UsersManagementController usersManagementController = Get.find();
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         leading: const BackIconButton(),

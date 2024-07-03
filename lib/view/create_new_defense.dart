@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:startease/controller/defence_management_controller.dart';
-import 'package:startease/main.dart';
-import 'package:startease/view/view_project.dart';
 
 import '../Themes/colors.dart';
-import '../controller/project_management_controller.dart';
 import '../model/defences_model.dart';
 import '../services/languages.dart';
 import 'widgets.dart';
@@ -19,16 +16,13 @@ class CreateNewDefense extends StatelessWidget {
     final DefenceManagementController defenceManagementController = Get.find();
 
     final formKey1 = GlobalKey<FormState>();
-    final formKey2 = GlobalKey<FormState>();
-    final formKey3 = GlobalKey<FormState>();
-    final formKey4 = GlobalKey<FormState>();
-    final formEmail = GlobalKey<FormState>();
-
+     final formKey4 = GlobalKey<FormState>();
+ 
     return Scaffold(
       appBar: AppBar(
         leading: const BackIconButton(),
         title: Text("createNewDefense".tr), //////////////////
-        actions: [
+        actions: const [
           //   GetBuilder<DefenceManagementController>(builder: (context) {
           //     bool exists = false;
           //     for (var permission in userModel.permissions!) {
@@ -213,7 +207,7 @@ class CreateNewDefense extends StatelessWidget {
                                 readOnly: true,
                                 keyboardType: TextInputType.datetime,
                                 decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.access_time),
+                                  prefixIcon: const Icon(Icons.access_time),
                                   hintText: defenceManagementController
                                           .newDefense!.time ??
                                       "h:m",

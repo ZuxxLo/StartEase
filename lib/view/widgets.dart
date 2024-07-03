@@ -178,15 +178,16 @@ class ProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     
     return SizedBox(
         height: 120,
         width: 120,
         child: !(userModel.photoUrl ==
-                "http://localhost:8000/images/users/default.png")
+                "$linkServerName/images/users/default.png")
             ? ClipOval(
                 child: MainFunctions.pickedImage == null
                     ? Image.network(
-                        linkServerName + userModel.photoUrl!.substring(21),
+                        linkServerName + userModel.photoUrl!.substring(27),
                         fit: BoxFit.cover,
                         headers: const {
                           "Connection": "Keep-Alive",
@@ -241,7 +242,7 @@ class ProfilePictureForOtherUsers extends StatelessWidget {
         height: 120,
         width: 120,
         child: !(userModel.photoUrl ==
-                "http://localhost:8000/images/users/default.png")
+                "$linkServerName/images/users/default.png")
             ? ClipOval(
                 child: Image.network(
                 linkServerName + userModel.photoUrl!.substring(21),
@@ -309,7 +310,7 @@ class ProfilePictureForOtherUserss extends StatelessWidget {
     return SizedBox(
         height: 40,
         width: 40,
-        child: !(photoUrl == "http://localhost:8000/images/users/default.png")
+        child: !(photoUrl == "$linkServerName/images/users/default.png")
             ? ClipOval(
                 child: Image.network(
                 linkServerName + photoUrl.substring(21),

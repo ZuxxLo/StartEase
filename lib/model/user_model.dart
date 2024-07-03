@@ -122,10 +122,10 @@ class Grade {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['type'] = this.type;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['type'] = type;
     return data;
   }
 }
@@ -161,41 +161,41 @@ class Person {
     firstName = json['first_name'];
     lastName = json['last_name'];
     establishment = json['establishment'] != null
-        ? new Establishment.fromJson(json['establishment'])
+        ? Establishment.fromJson(json['establishment'])
         : null;
-    grade = json['grade'] != null ? new Grade.fromJson(json['grade']) : null;
+    grade = json['grade'] != null ? Grade.fromJson(json['grade']) : null;
     speciality = json['speciality'] != null
-        ? new Grade.fromJson(json['speciality'])
+        ? Grade.fromJson(json['speciality'])
         : null;
     matricule = json['matricule'];
     birthday = json['birthday'];
     birthPlace = json['birth_place'];
     numInscription = json['num_inscription'];
     filiere = json['filiere'] != null
-        ? new Establishment.fromJson(json['filiere'])
+        ? Establishment.fromJson(json['filiere'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    if (this.establishment != null) {
-      data['establishment'] = this.establishment!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    if (establishment != null) {
+      data['establishment'] = establishment!.toJson();
     }
-    if (this.grade != null) {
-      data['grade'] = this.grade!.toJson();
+    if (grade != null) {
+      data['grade'] = grade!.toJson();
     }
-    if (this.speciality != null) {
-      data['speciality'] = this.speciality!.toJson();
+    if (speciality != null) {
+      data['speciality'] = speciality!.toJson();
     }
-    data['matricule'] = this.matricule;
-    data['birthday'] = this.birthday;
-    data['birth_place'] = this.birthPlace;
-    data['num_inscription'] = this.numInscription;
-    if (this.filiere != null) {
-      data['filiere'] = this.filiere!.toJson();
+    data['matricule'] = matricule;
+    data['birthday'] = birthday;
+    data['birth_place'] = birthPlace;
+    data['num_inscription'] = numInscription;
+    if (filiere != null) {
+      data['filiere'] = filiere!.toJson();
     }
     return data;
   }
@@ -213,9 +213,9 @@ class Establishment {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
     return data;
   }
 }

@@ -15,13 +15,13 @@ class ProjectsModel {
   ProjectsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -30,7 +30,7 @@ class ProjectsModel {
 }
 
 class Data {
-  Null? project;
+  ProjectModel? project;
   List<ProjectModel>? projects;
 
   Data({this.project, this.projects});
@@ -54,10 +54,10 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['project'] = this.project;
-    if (this.projects != null) {
-      data['projects'] = this.projects!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['project'] = project;
+    if (projects != null) {
+      data['projects'] = projects!.map((v) => v.toJson()).toList();
     }
     return data;
   }

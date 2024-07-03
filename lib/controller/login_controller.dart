@@ -85,9 +85,9 @@ class LoginController extends GetxController {
       for (var element in response["data"]["user"]["roles"]) {
         tempList.add(element["id"]);
       }
-      tempList.forEach((element) {
+      for (var element in tempList) {
         print(element);
-      });
+      }
       if (!tempList.contains(89779779879787)) {
         print(response);
         MainFunctions.sharredPrefs
