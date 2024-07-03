@@ -41,9 +41,9 @@ class PeriodsManagementController extends GetxController {
       periodsList = PeriodsModel.fromJson(response).data!.periods!;
     }
 
-    periodsList.forEach((element) {
+    for (var element in periodsList) {
       print("${element.name} + ${element.id}");
-    });
+    }
 
     update();
   }

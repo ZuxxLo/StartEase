@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import 'package:startease/Themes/colors.dart';
-import 'package:startease/controller/download.dart';
 import 'package:startease/main.dart';
 import 'package:startease/view/widgets.dart';
 
 import '../controller/project_management_controller.dart';
-import '../model/roles_model.dart';
 
 class ProjectManagement extends StatelessWidget {
   const ProjectManagement({super.key});

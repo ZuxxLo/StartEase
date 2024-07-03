@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:get/get.dart';
-import 'package:startease/controller/project_manag_admin_controller.dart';
 import 'package:startease/controller/project_management_controller.dart';
 import 'package:startease/model/defences_model.dart';
 // ignore: depend_on_referenced_packages
@@ -14,7 +13,7 @@ import '../model/delibration_model.dart';
 
 class DefenceManagementController extends GetxController {
   List<Defences> defencesList = [];
-  Defences? defenceData = Defences(project: Get.arguments);
+  Defences? defenceData = Defences(project: Get.arguments,room: Rooms());
 
   Defences? newDefense = Defences(
       room: Rooms(),
@@ -53,7 +52,7 @@ class DefenceManagementController extends GetxController {
     if (response != null && response["success"] == true) {
       defencesList = (DefencesModel.fromJson(response).data?.defences)!;
     }
-    print(response);
+    print(defencesList[0].otherPlace);
   }
 
   loadProjectData() async {
@@ -75,6 +74,7 @@ class DefenceManagementController extends GetxController {
   loadOneDefenceData(int index) {
     defenceData = defencesList[index];
     print("*//*/*/*/*/*//*/*F");
+    print(defenceData!.room);
     print(defencesList[index].projectId);
   }
 
@@ -146,8 +146,8 @@ class DefenceManagementController extends GetxController {
   }
 
   void goToviewDefense() {
-    currentPageViewIndex = 0;
-
+     currentPageViewIndex = 0;
+print(defenceData!.room);
     Get.toNamed("/ViewDefense");
   }
 

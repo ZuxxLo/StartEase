@@ -8,11 +8,11 @@ class PeriodsModel {
   PeriodsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     data['message'] = message;
     if (this.data != null) {
@@ -31,13 +31,13 @@ class Data {
     if (json['periods'] != null) {
       periods = <Period>[];
       json['periods'].forEach((v) {
-        periods!.add(new Period.fromJson(v));
+        periods!.add(Period.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (periods != null) {
       data['periods'] = periods!.map((v) => v.toJson()).toList();
     }
@@ -61,7 +61,7 @@ class Period {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['start_date'] = startDate;

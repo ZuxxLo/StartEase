@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:startease/controller/defence_management_controller.dart';
-import 'package:startease/main.dart';
-import 'package:startease/view/view_project.dart';
 
 import '../Themes/colors.dart';
-import '../controller/project_management_controller.dart';
-import '../model/defences_model.dart';
 import 'widgets.dart';
 
 class ViewDefense extends StatelessWidget {
@@ -25,7 +21,7 @@ class ViewDefense extends StatelessWidget {
       appBar: AppBar(
         leading: const BackIconButton(),
         //////////////////   title:   Text("Project Name"), //////////////////
-        actions: [
+        actions: const [
           //   GetBuilder<DefenceManagementController>(builder: (context) {
           //     bool exists = false;
           //     for (var permission in userModel.permissions!) {
@@ -144,26 +140,44 @@ class ViewDefense extends StatelessWidget {
                           ),
                           ///////////////////room
 
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "room".tr,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                          TextFormField(
-                              readOnly: true,
-                              initialValue: defenceManagementController
-                                  .defenceData!.room!.name,
-                              onTap: null,
-                              keyboardType: TextInputType.datetime,
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.roofing),
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          Builder(builder: (context) {
+                            bool exists = false;
+                            if (defenceManagementController
+                                    .defenceData!.room?.name !=
+                                null) {
+                              exists = true;
+                            }
+                            if (exists) {
+                              return Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "room".tr,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  TextFormField(
+                                      readOnly: true,
+                                      initialValue: defenceManagementController
+                                              .defenceData!.room?.name ??
+                                          defenceManagementController
+                                              .defenceData!.otherPlace,
+                                      onTap: null,
+                                      keyboardType: TextInputType.datetime,
+                                      decoration: const InputDecoration(
+                                        prefixIcon: Icon(Icons.roofing),
+                                      )),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return const SizedBox();
+                            }
+                          }),
 
                           ///////////////////otherPlace
 

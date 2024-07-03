@@ -12,8 +12,7 @@ class EditRole extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    final AllRolesController allRolesController = Get.find();
+     final AllRolesController allRolesController = Get.find();
     return Scaffold(
       appBar: AppBar(
         title: GetBuilder<AllRolesController>(builder: (context) {

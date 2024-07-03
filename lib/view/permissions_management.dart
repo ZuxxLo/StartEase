@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
-import 'package:startease/Themes/colors.dart';
 import 'package:startease/controller/permissions_management_controller.dart';
 import 'package:startease/model/permissions_model.dart';
 

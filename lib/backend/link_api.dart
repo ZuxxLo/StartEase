@@ -1,4 +1,4 @@
-const String linkServerName = "http://10.0.2.2:8000";
+const String linkServerName = "http://192.168.255.171:8000";
 
 const String signUpLink = "$linkServerName/signup.php";
 const String loginLink = "$linkServerName/api/authenticate";

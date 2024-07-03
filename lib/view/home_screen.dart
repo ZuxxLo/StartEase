@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:startease/controller/defence_management_controller.dart';
 import 'package:startease/main.dart';
-import 'package:startease/model/roles_model.dart';
-import 'package:startease/view/all_roles.dart';
-import 'package:startease/view/defences_management.dart';
 import 'package:startease/view/project_manag_admin.dart';
-import 'package:startease/view/project_management.dart';
-import 'package:startease/view/projects_table.dart';
 import 'package:startease/view/role_management.dart';
 import 'package:startease/view/users_management.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
@@ -204,8 +199,8 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       SizedBox(height: 60, child: LogoStartEase()),
                       SizedBox(
                         width: 3,

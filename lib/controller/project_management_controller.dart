@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
@@ -592,7 +591,7 @@ class ProjectManagementController extends GetxController {
 
         MainFunctions.successSnackBar("statusUpdatedSuccess".tr);
       } else {
-        MainFunctions.somethingWentWrongSnackBar(response["message"]);
+      MainFunctions.somethingWentWrongSnackBar(response["message"]);
       }
     } else {
       MainFunctions.somethingWentWrongSnackBar("cantChangeStatus".tr);
@@ -1082,7 +1081,7 @@ class ProjectManagementController extends GetxController {
   }
 
   Future<File> _downloadFile(String url, String filename) async {
-    var httpClient = new HttpClient();
+    var httpClient = HttpClient();
     HttpOverrides.global = MyHttpOverrides();
 
     try {

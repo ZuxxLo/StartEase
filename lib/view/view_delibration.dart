@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:startease/controller/defence_management_controller.dart';
-import 'package:startease/main.dart';
 
 import '../Themes/colors.dart';
 import 'widgets.dart';

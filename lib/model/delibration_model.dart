@@ -8,13 +8,13 @@ class DelibrationsModel {
   DelibrationsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -29,14 +29,14 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     deliberation = json['deliberation'] != null
-        ? new Deliberation.fromJson(json['deliberation'])
+        ? Deliberation.fromJson(json['deliberation'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.deliberation != null) {
-      data['deliberation'] = this.deliberation!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (deliberation != null) {
+      data['deliberation'] = deliberation!.toJson();
     }
     return data;
   }
@@ -46,33 +46,33 @@ class Deliberation {
   int? id;
   Project? project;
   List<Members>? members;
-  Null? reserves;
+  String? reserves;
 
   Deliberation({this.id, this.project, this.members, this.reserves});
 
   Deliberation.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     project =
-        json['project'] != null ? new Project.fromJson(json['project']) : null;
+        json['project'] != null ? Project.fromJson(json['project']) : null;
     if (json['members'] != null) {
       members = <Members>[];
       json['members'].forEach((v) {
-        members!.add(new Members.fromJson(v));
+        members!.add(Members.fromJson(v));
       });
     }
     reserves = json['reserves'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.project != null) {
-      data['project'] = this.project!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (project != null) {
+      data['project'] = project!.toJson();
     }
-    if (this.members != null) {
-      data['members'] = this.members!.map((v) => v.toJson()).toList();
+    if (members != null) {
+      data['members'] = members!.map((v) => v.toJson()).toList();
     }
-    data['reserves'] = this.reserves;
+    data['reserves'] = reserves;
     return data;
   }
 }
@@ -89,9 +89,9 @@ class Project {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['trademark_name'] = this.trademarkName;
-    data['scientific_name'] = this.scientificName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['trademark_name'] = trademarkName;
+    data['scientific_name'] = scientificName;
     return data;
   }
 }
@@ -131,16 +131,16 @@ class Members {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['email'] = this.email;
-    data['photo_url'] = this.photoUrl;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['mark'] = this.mark;
-    data['mention'] = this.mention;
-    data['appreciation'] = this.appreciation;
-    data['diploma_url'] = this.diplomaUrl;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['email'] = email;
+    data['photo_url'] = photoUrl;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['mark'] = mark;
+    data['mention'] = mention;
+    data['appreciation'] = appreciation;
+    data['diploma_url'] = diplomaUrl;
     return data;
   }
 }

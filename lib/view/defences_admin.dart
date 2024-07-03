@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:startease/view/widgets.dart';
 
-import '../Themes/colors.dart';
 import '../controller/defence_management_controller.dart';
 import '../main.dart';
 
@@ -23,7 +20,7 @@ class DefencesAdmin extends StatelessWidget {
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Column(
             children: [
               ///////////////////// goToviewDefense
@@ -66,7 +63,7 @@ class DefencesAdmin extends StatelessWidget {
                   bool exists = false;
                   for (var permission in userModel.permissions!) {
                     if (true) {
-                      //permission.id == 8
+                      permission.id == 8;
                       exists = true;
                     }
                   }
@@ -134,6 +131,5 @@ class DefencesAdmin extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

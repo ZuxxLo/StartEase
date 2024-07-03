@@ -5,7 +5,6 @@ import 'package:startease/main.dart';
 
 import '../Themes/colors.dart';
 import '../controller/project_deposit_controller.dart';
-import 'view_project.dart';
 import 'widgets.dart';
 
 class ProjectDeposit extends StatelessWidget {

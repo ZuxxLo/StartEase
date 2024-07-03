@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
-import 'package:startease/Themes/colors.dart';
 
 import '../controller/projects_table_controller.dart';
 import 'widgets.dart';
@@ -102,7 +101,7 @@ class ProjectsTable extends StatelessWidget {
                                   projectsTableController
                                       .projectsListToAffich[index]
                                       .trademarkName!,
-                                  style: TextStyle(fontSize: 18),
+                                  style: const TextStyle(fontSize: 18),
                                 ),
                               ),
                               const SizedBox(width: 5),

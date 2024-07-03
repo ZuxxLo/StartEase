@@ -51,7 +51,7 @@ class ViewProfileInformations extends StatelessWidget {
                             // ignore: prefer_const_constructors
                             GetBuilder<ProfilePageController>(
                                 builder: (context) {
-                              return ProfilePicture();
+                              return const ProfilePicture();
                             }),
                             Positioned(
                               right: 0,
@@ -154,8 +154,8 @@ class ViewProfileInformations extends StatelessWidget {
                                           readOnly: true,
                                           initialValue:
                                               userModel.person?.firstName,
-                                          decoration: InputDecoration(
-                                            prefixIcon: const ImageIcon(
+                                          decoration: const InputDecoration(
+                                            prefixIcon: ImageIcon(
                                               Svg("assets/icons/profile.svg"),
                                             ),
                                           ),
