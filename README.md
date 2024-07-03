@@ -24,3 +24,6 @@ codebase. The app is integrated with GetX, a popular state management library, a
 - ✅ Multi-Language: English, French.
 - ✅ Light and Dark Themes
 - ✅ A single dynamic application based on user permissions and roles
+ &nbsp;
+
+![Startease](https://github.com/ZuxxLo/Smart-Steps/blob/main/Startease.jpg)
