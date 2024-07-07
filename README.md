@@ -1,3 +1,6 @@
+
+
+
 # Introduction
 Following the Ministry of Higher Education and Scientific Research directives regarding the implementation of Ministerial Resolution 1275, which includes a diploma-a start-up / a diploma-a patent with the
 aim to create a generation of entrepreneurial students who have the ability and desire to go towards innovative entrepreneurship and build startups that create wealth and job positions, and to find a technical,
@@ -5,6 +8,10 @@ technological and digital solution for existing problems.
 We at DEVCORE, a team of elite students from the Higher school of computer science engineering 8
 May 1945 ESI-SBA, are developing a web platform and a mobile application under the name StartEase
 with the goal of automating and simplifying the projects submission operation.
+
+ &nbsp;
+  &nbsp;
+ <img align="left" width="80" height="80" src="https://github.com/ZuxxLo/StartEase/blob/main/assets/images/start_ease_logo.png" alt="StartEase Logo">
 
 # StartEase
 
